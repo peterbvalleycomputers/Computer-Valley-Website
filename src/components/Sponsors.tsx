@@ -1,55 +1,50 @@
-import { Radar } from "lucide-react";
+import ubiquiti from "@/assets/logos/Ubicwity.png";
+import tenda from "@/assets/logos/tenda.png";
+import tplink from "@/assets/logos/TP-Link.png";
+import mikrotik from "@/assets/logos/mikroTik.png";
+import dell from "@/assets/logos/dell.png";
+import hp from "@/assets/logos/hp.png";
 
 interface SponsorProps {
-  icon: JSX.Element;
+  logo: string;
   name: string;
 }
 
 const sponsors: SponsorProps[] = [
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 1",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 2",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 3",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 4",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 5",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 6",
-  },
+  { logo: ubiquiti, name: "Ubiquiti" },
+  { logo: tenda, name: "Tenda" },
+  { logo: tplink, name: "TP-Link" },
+  { logo: mikrotik, name: "MikroTik" },
+  { logo: dell, name: "Dell" },
+  { logo: hp, name: "HP" },
 ];
 
 export const Sponsors = () => {
   return (
-    <section
-      id="sponsors"
-      className="container pt-24 sm:py-32"
-    >
-      <h2 className="text-center text-md lg:text-xl font-bold mb-8 text-primary">
-        Investors and founders
+    <section id="sponsors" className="container pt-24 sm:py-32">
+      <h2 className="text-center text-3xl sm:text-4xl lg:text-5xl font-bold mb-12 text-primary">
+        Our Trusted Partners
       </h2>
 
-      <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
-        {sponsors.map(({ icon, name }: SponsorProps) => (
+      <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+        {sponsors.map(({ logo, name }, i) => (
           <div
-            key={name}
-            className="flex items-center gap-1 text-muted-foreground/60"
+            key={i}
+            className="
+              flex items-center justify-center
+              bg-white/5 backdrop-blur
+              w-32 h-24
+              rounded-xl shadow-sm
+              hover:bg-white/10 transition
+            "
           >
-            <span>{icon}</span>
-            <h3 className="text-xl  font-bold">{name}</h3>
+            <img
+              src={logo}
+              alt={name}
+              className={`h-10 object-contain transition ${
+                name === "Tenda" ? "scale-100" : "scale-125"
+              }`}
+            />
           </div>
         ))}
       </div>

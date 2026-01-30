@@ -2,6 +2,7 @@ import { Button } from "./ui/button";
 import { buttonVariants } from "./ui/button";
 import { HeroCards } from "./HeroCards";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { FaWhatsapp } from "react-icons/fa";
 
 export const Hero = () => {
   return (
@@ -14,30 +15,31 @@ export const Hero = () => {
             </span>{" "}
             Your Local Tech & Internet Experts
           </h1>{" "}
-          {" "}
           <h2 className="inline">
-            <span className="inline bg-gradient-to-r from-[#61DAFB] via-[#1fc0f1] to-[#03a3d7] text-transparent bg-clip-text">
-            </span>{" "}
+            <span className="inline bg-gradient-to-r from-[#61DAFB] via-[#1fc0f1] to-[#03a3d7] text-transparent bg-clip-text"></span>{" "}
           </h2>
         </main>
 
         <p className="text-xl text-muted-foreground md:w-10/12 mx-auto lg:mx-0">
-          Computers, repairs, internet services and professional installations — keeping you connected.
+          Computers, repairs, internet services and professional installations —
+          keeping you connected.
         </p>
 
         <div className="space-y-4 md:space-y-0 md:space-x-4">
-          <Button className="w-full md:w-1/3">Get Started</Button>
+          {/* Call = outline */}
+          <Button asChild variant="outline" className="w-full md:w-1/3">
+            <a href="tel:+27799381260">Call Now</a>
+          </Button>
 
+          {/* WhatsApp = solid */}
           <a
-            rel="noreferrer noopener"
-            href="https://github.com/leoMirandaa/shadcn-landing-page.git"
+            href="https://wa.me/27799381260"
             target="_blank"
-            className={`w-full md:w-1/3 ${buttonVariants({
-              variant: "outline",
-            })}`}
+            rel="noreferrer noopener"
+            className={`w-full md:w-1/3 ${buttonVariants()}`}
           >
-            Github Repository
-            <GitHubLogoIcon className="ml-2 w-5 h-5" />
+            WhatsApp Us
+            <FaWhatsapp className="ml-2 w-5 h-5" />
           </a>
         </div>
       </div>
