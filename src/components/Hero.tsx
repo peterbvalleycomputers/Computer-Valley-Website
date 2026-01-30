@@ -11,9 +11,9 @@ export const Hero = () => {
         <main className="text-5xl md:text-6xl font-bold">
           <h1 className="inline">
             <span className="inline bg-gradient-to-r from-[#F596D3]  to-[#D247BF] text-transparent bg-clip-text">
-              Valley Computers
+              Valley Computers <br />
             </span>{" "}
-            Your Local Tech & Internet Experts
+            Computer Repairs, IT Support & Internet Solutions
           </h1>{" "}
           <h2 className="inline">
             <span className="inline bg-gradient-to-r from-[#61DAFB] via-[#1fc0f1] to-[#03a3d7] text-transparent bg-clip-text"></span>{" "}
@@ -21,15 +21,11 @@ export const Hero = () => {
         </main>
 
         <p className="text-xl text-muted-foreground md:w-10/12 mx-auto lg:mx-0">
-          Computers, repairs, internet services and professional installations —
-          keeping you connected.
+          Fast, affordable tech support for homes and small businesses in Riebeeck-Kasteel and surrounding areas.
         </p>
 
         <div className="space-y-4 md:space-y-0 md:space-x-4">
-          {/* Call = outline */}
-          <Button asChild variant="outline" className="w-full md:w-1/3">
-            <a href="tel:+27799381260">Call Now</a>
-          </Button>
+
 
           {/* WhatsApp = solid */}
           <a

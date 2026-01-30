@@ -15,8 +15,6 @@ export const About = () => {
         {/* gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/80 to-black/60" />
 
-
-
         {/* content */}
         <div className="relative flex flex-col items-center text-center text-white px-6 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold">
@@ -27,12 +25,13 @@ export const About = () => {
           </h2>
 
           <p className="text-xl text-white/95 mt-6">
-            Welcome to Riebeek Valley-Computers (Pty) Ltd — your trusted partner
-            for all things tech in the heart of beautiful Riebeeck-Kasteel,
-            Western Cape, South Africa. We are a proudly local electronics and
-            computer solutions provider, dedicated to serving individuals,
-            families, and businesses with reliable products and exceptional
-            service.
+            Welcome to Riebeek Valley Computers (Pty) Ltd, your trusted local
+            partner for computer repairs, IT support, and internet solutions in
+            the heart of Riebeeck-Kasteel. <br /> <br /> We specialise in helping individuals
+            and small businesses with reliable, honest tech support — from
+            laptop and desktop repairs to network setup, troubleshooting, and
+            ongoing IT assistance. <br /> <br /> Our goal is simple: make technology easy,
+            affordable, and stress-free.
           </p>
 
           <div className="mt-10 w-full">

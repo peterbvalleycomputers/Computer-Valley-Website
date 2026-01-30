@@ -38,27 +38,22 @@ const features: FeatureProps[] = [
 ];
 
 const featureList: string[] = [
-  "Internet Installations & Setup",
-  "Connectivity Troubleshooting",
-  "On-Site Technical Support",
-  "Upgrades & Optimisation",
-  "Custom Solutions",
-  "Local & Accessible",
-  "Personal, Friendly Service",
-  "Fast Turnaround",
-  "Trusted by the Community",
+  "Computer & Laptop Repairs",
+  "WiFi & Network Setup",
+  "Virus & Malware Removal",
+  "Software Installation",
+  "Data Backup & Recovery",
+  "On-site IT Support",
+  "Remote Support",
 ];
 
 export const Features = () => {
   return (
-    <section
-      id="features"
-      className="container py-24 sm:py-32 space-y-8"
-    >
+    <section id="features" className="container py-24 sm:py-32 space-y-8">
       <h2 className="text-3xl lg:text-4xl font-bold md:text-center">
         Core{" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Features
+          Services
         </span>
       </h2>
 
