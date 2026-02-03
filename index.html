@@ -1,78 +1,1178 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="./src/assets/icon.ico"
-    />
-    <!-- href="/vite.svg" -->
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
 
-    <!-- Primary Meta Tags -->
-    <title>Shadcn/React - Landing template</title>
-    <meta
-      name="title"
-      content="Shadcn/React - Landing template"
-    />
-    <meta
-      name="description"
-      content="Free Shadcn landing page for React developers"
-    />
-    <!-- Open Graph / Facebook -->
-    <meta
-      property="og:type"
-      content="website"
-    />
-    <meta
-      property="og:url"
-      content="https://github.com/leoMirandaa/shadcn-landing-page.git"
-    />
-    <meta
-      property="og:title"
-      content="Shadcn/React - Landing template"
-    />
-    <meta
-      property="og:description"
-      content="Free Shadcn landing page for React developers"
-    />
-    <meta
-      property="og:image"
-      content="https://res.cloudinary.com/dbzv9xfjp/image/upload/v1705560686/og-images/shadc-react_gketpd.jpg"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Riebeek Valley Computers - Professional IT services, high-speed Fibre & Wireless ISP, PC repairs, and network engineering in Riebeek Kasteel and Malmesbury. 99.9% uptime guaranteed." />
+  <title>Riebeek Valley Computers | Professional IT & ISP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <!-- Tilt.js for 3D hover effects -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
-    <!-- Twitter -->
-    <meta
-      name="twitter:card"
-      content="summary_large_image"
-    />
 
-    <meta
-      name="twitter:url"
-      content="https://github.com/leoMirandaa/shadcn-landing-page.git"
-    />
-    <meta
-      name="twitter:title"
-      content="Shadcn/React - Landing template"
-    />
-    <meta
-      name="twitter:description"
-      content="Free Shadcn landing page for React developers"
-    />
-    <meta
-      name="twitter:image"
-      content="https://res.cloudinary.com/dbzv9xfjp/image/upload/v1705560686/og-images/shadc-react_gketpd.jpg"
-    />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script
-      type="module"
-      src="/src/main.tsx"
-    ></script>
-  </body>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap");
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Outfit", sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Nav Scrolled State */
+    .nav-scrolled {
+      background: rgba(255, 255, 255, 0.98) !important;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-scrolled .top-bar {
+      display: none;
+    }
+
+    /* Nav Initial State - fully transparent */
+    #mainNav {
+      background: transparent;
+    }
+
+    /* Logo colors */
+    .logo-rv {
+      color: #ea580c;
+    }
+
+    #mainNav.nav-scrolled .logo-text {
+      color: #0f172a !important;
+    }
+
+    #mainNav:not(.nav-scrolled) .logo-text {
+      color: white;
+    }
+
+    /* Nav links colors */
+    #mainNav:not(.nav-scrolled) #navLinks a:not(.bg-orange-600) {
+      color: white;
+    }
+
+    #mainNav.nav-scrolled #navLinks a:not(.bg-orange-600) {
+      color: #334155;
+    }
+
+    /* Mobile menu icon */
+    #mainNav:not(.nav-scrolled) #menuIcon {
+      color: white;
+    }
+
+    #mainNav.nav-scrolled #menuIcon {
+      color: #0f172a;
+    }
+
+    /* Logo Loop Animation */
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(calc(-250px * 5));
+      }
+    }
+
+    .logo-slider {
+      display: flex;
+      width: calc(250px * 10);
+      animation: scroll 40s linear infinite;
+    }
+
+    .logo-item {
+      width: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: grayscale(1);
+      opacity: 0.6;
+      transition: 0.3s;
+    }
+
+    .logo-item:hover {
+      filter: grayscale(0);
+      opacity: 1;
+    }
+
+    .testimonial-card {
+      transition: all 0.4s ease;
+      border-radius: 20px;
+      transform-style: preserve-3d;
+    }
+
+    /* Removed basic hover transform to let Tilt.js handle it, kept shadow */
+    .testimonial-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.4);
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 100;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translateY(0);
+      }
+
+      40% {
+        transform: translateY(-10px);
+      }
+
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+
+    /* Mobile Menu Transition */
+    #mobileMenu {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .menu-open {
+      overflow: hidden;
+    }
+
+    /* Floating Particles Animation */
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) translateX(0);
+      }
+
+      25% {
+        transform: translateY(-20px) translateX(10px);
+      }
+
+      50% {
+        transform: translateY(-40px) translateX(-10px);
+      }
+
+      75% {
+        transform: translateY(-20px) translateX(5px);
+      }
+    }
+
+    /* Hero Text Animations */
+    @keyframes textGlow {
+
+      0%,
+      100% {
+        text-shadow:
+          0 0 20px rgba(255, 255, 255, 0.3),
+          0 0 40px rgba(255, 255, 255, 0.2);
+      }
+
+      50% {
+        text-shadow:
+          0 0 30px rgba(255, 255, 255, 0.5),
+          0 0 60px rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    #hero h1 {
+      animation: textGlow 3s ease-in-out infinite;
+    }
+
+    /* Button Pulse Effect */
+    @keyframes pulse-glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      }
+
+      50% {
+        box-shadow:
+          0 0 40px rgba(255, 255, 255, 0.6),
+          0 0 60px rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    .cursor-link {
+      width: 48px !important;
+      height: 48px !important;
+      background: rgba(234, 88, 12, 0.15);
+      border-color: #ea580c;
+    }
+
+    .cursor-text {
+      width: 6px !important;
+      height: 24px !important;
+      border-radius: 4px;
+    }
+
+    .cursor-button {
+      width: 60px !important;
+      height: 60px !important;
+      background: rgba(234, 88, 12, 0.25);
+      border-width: 3px;
+    }
+
+    #cursor {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #ea580c;
+      font-weight: bold;
+    }
+
+    /* ===================== */
+    /* CUSTOM MODERN CURSOR */
+    /* ===================== */
+
+    /* Hide system cursor */
+    * {
+      cursor: none;
+    }
+
+    /* Center dot */
+    #cursor-dot {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+    }
+
+    /* Spinning ring */
+    #cursor-ring {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      border: 2px solid white;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      animation: spin 1.4s linear infinite;
+      transition:
+        width 0.2s ease,
+        height 0.2s ease,
+        border-color 0.15s ease,
+        background 0.15s ease;
+    }
+
+    @keyframes spin {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    /* Hover invert + grow */
+    .cursor-hover #cursor-dot {
+      transform: translate(-50%, -50%) scale(1.8);
+      background: #0f172a;
+    }
+
+    .cursor-hover #cursor-ring {
+      background: white;
+      border-color: #0f172a;
+    }
+
+    /* Only desktop */
+    @media (max-width: 768px) {
+      * {
+        cursor: auto;
+      }
+
+      #cursor-dot,
+      #cursor-ring {
+        display: none;
+      }
+    }
+
+    /* Brand hover (for light sections) */
+    .cursor-brand #cursor-dot {
+      transform: translate(-50%, -50%) scale(1.8);
+      background: #ea580c;
+    }
+
+    .cursor-brand #cursor-ring {
+      background: rgba(234, 88, 12, 0.15);
+      border-color: #ea580c;
+    }
+  </style>
+</head>
+<div id="cursor"
+  class="fixed w-5 h-5 border-2 border-orange-600 rounded-full pointer-events-none z-[9999] transition-transform duration-150">
+</div>
+
+<!-- Custom Cursor -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<script>
+  const dot = document.getElementById("cursor-dot");
+  const ring = document.getElementById("cursor-ring");
+
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+
+  document.addEventListener("mousemove", e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    dot.style.left = mouseX + "px";
+    dot.style.top = mouseY + "px";
+  });
+
+  function animate() {
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
+
+    ring.style.left = ringX + "px";
+    ring.style.top = ringY + "px";
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  /* Hover targets */
+  const hoverSelectors = "a, button, input, textarea, select, .cursor-hover-target";
+
+  document.querySelectorAll(hoverSelectors).forEach(el => {
+    el.addEventListener("mouseenter", () => {
+      document.body.classList.add("cursor-hover");
+    });
+    el.addEventListener("mouseleave", () => {
+      document.body.classList.remove("cursor-hover");
+    });
+  });
+</script>
+
+
+
+<body class="bg-white">
+  <a href="https://wa.me/yournumber"
+    class="whatsapp-float bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:bg-green-600 transition hover:scale-110">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 transition-all duration-300" id="mainNav">
+    <!-- Top Utility Bar -->
+    <div
+      class="top-bar bg-orange-600 text-orange-100 text-xs border-b border-orange-500/20 relative z-20 transition-all duration-300">
+      <div class="max-w-7xl mx-auto px-6 h-10 flex justify-between items-center">
+        <div class="hidden md:flex items-center space-x-6">
+          <span class="flex items-center"><i class="fa-solid fa-location-dot text-white mr-2"></i> Riebeek
+            Kasteel, Western Cape</span>
+          <span class="flex items-center"><i class="fa-regular fa-envelope text-white mr-2"></i>
+            support@rvcomputers.co.za</span>
+        </div>
+        <div class="flex items-center justify-between w-full md:w-auto space-x-0 md:space-x-6">
+          <a href="tel:+27000000000" class="flex items-center hover:text-white transition font-semibold">
+            <i class="fa-solid fa-phone mr-2 text-white"></i>
+            <span class="hidden sm:inline">Call Us: </span> +27 (0) 21 000
+            0000
+          </a>
+          <div class="w-px h-3 bg-orange-500 mx-3 md:hidden"></div>
+          <a href="https://wa.me/yournumber" class="flex items-center hover:text-white transition font-semibold">
+            <i class="fa-brands fa-whatsapp mr-2 text-lg"></i> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Menu -->
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center py-6 transition-all duration-300"
+      id="innerNav">
+      <div class="text-3xl font-extrabold tracking-tighter cursor-pointer z-50 relative logo-container"
+        onclick="window.scrollTo(0, 0)">
+        <span class="logo-rv text-orange-600">VALLEY</span><span class="logo-text text-slate-900">COMPUTERS</span>
+      </div>
+
+      <div class="hidden lg:flex space-x-10 items-center font-semibold text-slate-700" id="navLinks">
+        <a href="#services" class="hover:text-orange-600 transition">Services</a>
+        <a href="isp.html" class="hover:text-orange-600 transition">ISP</a>
+        <a href="#testimonials" class="hover:text-orange-600 transition">Success Stories</a>
+        <a href="#contact"
+          class="bg-orange-600 text-white px-8 py-3 rounded-full hover:bg-orange-700 transition shadow-lg shadow-orange-600/20 hover:shadow-orange-600/40 transform hover:-translate-y-1">Partner
+          With Us</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button onclick="toggleMobileMenu()" aria-label="Toggle mobile menu"
+        class="lg:hidden text-2xl z-50 relative focus:outline-none">
+        <i id="menuIcon" class="fa-solid fa-bars transition-all duration-300"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Full Screen Mobile Menu Overlay -->
+  <div id="mobileMenu"
+    class="fixed inset-0 bg-slate-950/98 backdrop-blur-xl z-40 translate-x-full flex flex-col items-center justify-center space-y-8 text-2xl font-bold text-white lg:hidden">
+    <a href="#services" onclick="toggleMobileMenu()"
+      class="hover:text-orange-500 transition transform hover:scale-110">Services</a>
+    <a href="#isp" onclick="toggleMobileMenu()"
+      class="hover:text-orange-500 transition transform hover:scale-110">ISP</a>
+    <a href="#testimonials" onclick="toggleMobileMenu()"
+      class="hover:text-orange-500 transition transform hover:scale-110">Success Stories</a>
+    <a href="#contact" onclick="toggleMobileMenu()"
+      class="text-orange-500 hover:text-orange-400 transition transform hover:scale-110">Partner With Us</a>
+  </div>
+
+  <section id="hero"
+    class="relative min-h-screen flex items-center bg-gradient-to-br from-orange-500 to-orange-600 px-6 overflow-hidden pt-32 md:pt-40 pb-12 md:pb-16">
+    <!-- Animated Background Blobs -->
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+      <div id="blob1"
+        class="absolute top-0 -left-1/4 w-1/2 h-full bg-white rounded-full blur-[150px] transition-transform duration-100 ease-out">
+      </div>
+      <div id="blob2"
+        class="absolute bottom-0 -right-1/4 w-1/2 h-full bg-orange-700 rounded-full blur-[150px] transition-transform duration-100 ease-out">
+      </div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <div class="particle absolute w-2 h-2 bg-white/30 rounded-full"
+        style="top: 20%; left: 10%; animation: float 6s infinite ease-in-out"></div>
+      <div class="particle absolute w-3 h-3 bg-white/20 rounded-full" style="
+            top: 60%;
+            left: 80%;
+            animation: float 8s infinite ease-in-out 1s;
+          "></div>
+      <div class="particle absolute w-2 h-2 bg-white/40 rounded-full" style="
+            top: 40%;
+            left: 70%;
+            animation: float 7s infinite ease-in-out 2s;
+          "></div>
+      <div class="particle absolute w-4 h-4 bg-white/15 rounded-full" style="
+            top: 80%;
+            left: 20%;
+            animation: float 9s infinite ease-in-out 1.5s;
+          "></div>
+      <div class="particle absolute w-2 h-2 bg-white/25 rounded-full" style="
+            top: 30%;
+            left: 50%;
+            animation: float 10s infinite ease-in-out 3s;
+          "></div>
+      <div class="particle absolute w-3 h-3 bg-white/30 rounded-full" style="
+            top: 70%;
+            left: 60%;
+            animation: float 8s infinite ease-in-out 2.5s;
+          "></div>
+    </div>
+
+    <!-- Animated Grid Pattern -->
+    <div class="absolute inset-0 opacity-5 pointer-events-none" style="
+          background-image:
+            linear-gradient(white 1px, transparent 1px),
+            linear-gradient(90deg, white 1px, transparent 1px);
+          background-size: 50px 50px;
+        "></div>
+
+    <div class="max-w-7xl mx-auto w-full relative z-10">
+      <div class="text-center max-w-5xl mx-auto" data-aos="fade-up">
+        <!-- Main Headline -->
+        <h1 class="text-7xl md:text-8xl lg:text-9xl font-extrabold text-white leading-[1.1] mb-6">
+          Your Digital<br />
+          <span class="text-white drop-shadow-2xl">Partner</span>
+        </h1>
+
+        <!-- Sub Headline -->
+        <p class="text-2xl md:text-3xl text-white/90 font-light mb-12 max-w-3xl mx-auto">
+          Fast Internet. Expert IT. Local Service.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-16 cursor-hover-target">
+          <a href="isp.html"
+            class="group bg-white text-orange-600 px-12 py-6 rounded-2xl font-bold text-xl hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-white/30 active:scale-95 text-center relative overflow-hidden w-full sm:w-auto">
+            <span class="relative z-10">Get Connected</span>
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-500 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+            </div>
+            <span
+              class="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">Get
+              Connected</span>
+          </a>
+          <a href="#services"
+            class="group bg-white/10 text-white px-12 py-6 rounded-2xl font-bold text-xl backdrop-blur-md hover:bg-white/20 transition-all duration-300 active:scale-95 border-2 border-white/30 hover:border-white/50 text-center w-full sm:w-auto">
+            View Services
+            <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+          </a>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="flex flex-wrap justify-center items-center gap-8 text-white/80 text-sm font-semibold"
+          data-aos="fade-up" data-aos-delay="200">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-2xl text-white"></i>
+            <span>99.9% Uptime</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-clock text-2xl text-white"></i>
+            <span>24/7 Support</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-map-marker-alt text-2xl text-white"></i>
+            <span>Local to You</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="bg-gradient-to-b from-white to-orange-50 py-12 border-b border-orange-100 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 mb-8 text-center">
+      <p class="text-xs font-bold uppercase tracking-widest text-slate-400">
+        Trusted by Leading Technology Brands
+      </p>
+    </div>
+    <div class="logo-slider">
+      <div class="logo-item text-3xl font-bold text-slate-400">
+        <i class="fa-brands fa-microsoft mr-2"></i>Microsoft
+      </div>
+      <div class="logo-item text-3xl font-bold text-slate-400">
+        <i class="fa-solid fa-shield mr-2"></i>ESET
+      </div>
+      <div class="logo-item text-3xl font-bold text-slate-400">
+        <i class="fa-solid fa-server mr-2"></i>Ubiquiti
+      </div>
+      <div class="logo-item text-3xl font-bold text-slate-400">
+        <i class="fa-solid fa-laptop mr-2"></i>Dell
+      </div>
+      <div class="logo-item text-3xl font-bold text-slate-400">
+        <i class="fa-brands fa-apple mr-2"></i>Apple
+      </div>
+      <div class="logo-item text-3xl font-bold text-slate-400">
+        <i class="fa-brands fa-microsoft mr-2"></i>Microsoft
+      </div>
+      <div class="logo-item text-3xl font-bold text-slate-400">
+        <i class="fa-solid fa-shield mr-2"></i>ESET
+      </div>
+      <div class="logo-item text-3xl font-bold text-slate-400">
+        <i class="fa-solid fa-server mr-2"></i>Ubiquiti
+      </div>
+    </div>
+  </div>
+
+  <section id="services" class="py-24 bg-gradient-to-b from-white to-orange-50 cursor-light">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-5xl font-extrabold text-slate-900 mb-4">
+          Our Services
+        </h2>
+        <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+          Comprehensive IT solutions and high-speed internet for homes and
+          businesses across the Riebeek Valley.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 mb-20">
+        <div
+          class="bg-gradient-to-br from-orange-50 to-white p-8 rounded-3xl border border-orange-100 hover:shadow-2xl hover:shadow-orange-500/10 transition duration-500 group"
+          data-aos="fade-up">
+          <div
+            class="w-16 h-16 bg-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+            <i class="fa-solid fa-wifi text-3xl text-white"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900 mb-4">
+            Fibre & Wireless ISP
+          </h3>
+          <p class="text-slate-600 mb-6">
+            Lightning-fast fibre to the home and reliable wireless solutions
+            for farms and remote businesses. Uncapped, unshaped internet that
+            just works.
+          </p>
+          <a href="isp.html"
+            class="text-orange-600 font-semibold hover:text-orange-700 transition inline-flex items-center">
+            Learn More <i class="fa-solid fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+
+        <div
+          class="bg-gradient-to-br from-orange-50 to-white p-8 rounded-3xl border border-orange-100 hover:shadow-2xl hover:shadow-orange-500/10 transition duration-500 group"
+          data-aos="fade-up" data-aos-delay="100">
+          <div
+            class="w-16 h-16 bg-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+            <i class="fa-solid fa-laptop-medical text-3xl text-white"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900 mb-4">
+            PC & Mac Repairs
+          </h3>
+          <p class="text-slate-600 mb-6">
+            Expert diagnostics, repairs, and upgrades. Data recovery, virus
+            removal, hardware replacement, and performance optimization with
+            same-day service available.
+          </p>
+          <a href="#contact"
+            class="text-orange-600 font-semibold hover:text-orange-700 transition inline-flex items-center">
+            Get Support <i class="fa-solid fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+
+        <div
+          class="bg-gradient-to-br from-orange-50 to-white p-8 rounded-3xl border border-orange-100 hover:shadow-2xl hover:shadow-orange-500/10 transition duration-500 group"
+          data-aos="fade-up" data-aos-delay="200">
+          <div
+            class="w-16 h-16 bg-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+            <i class="fa-solid fa-network-wired text-3xl text-white"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900 mb-4">
+            Network Engineering
+          </h3>
+          <p class="text-slate-600 mb-6">
+            Custom network design and installation for businesses. Ubiquiti
+            solutions, managed switches, access points, and enterprise-grade
+            security systems.
+          </p>
+          <a href="#contact"
+            class="text-orange-600 font-semibold hover:text-orange-700 transition inline-flex items-center">
+            Contact Us <i class="fa-solid fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-12">
+        <div class="text-center group hover:-translate-y-2 transition duration-300" data-aos="fade-up">
+          <div class="text-5xl font-black text-orange-600 mb-2 flex justify-center items-baseline">
+            <span class="counter" data-target="99.9">0</span>%
+          </div>
+          <div
+            class="text-slate-500 font-bold uppercase text-xs tracking-widest group-hover:text-orange-600 transition">
+            ISP Uptime
+          </div>
+        </div>
+        <div class="text-center group hover:-translate-y-2 transition duration-300" data-aos="fade-up"
+          data-aos-delay="100">
+          <div class="text-5xl font-black text-orange-600 mb-2 flex justify-center items-baseline">
+            <span class="counter" data-target="15">0</span>k+
+          </div>
+          <div
+            class="text-slate-500 font-bold uppercase text-xs tracking-widest group-hover:text-orange-600 transition">
+            Repairs Done
+          </div>
+        </div>
+        <div class="text-center group hover:-translate-y-2 transition duration-300" data-aos="fade-up"
+          data-aos-delay="200">
+          <div class="text-5xl font-black text-orange-600 mb-2 flex justify-center items-baseline">
+            <span class="counter" data-target="24">0</span>/7
+          </div>
+          <div
+            class="text-slate-500 font-bold uppercase text-xs tracking-widest group-hover:text-orange-600 transition">
+            Network Monitoring
+          </div>
+        </div>
+        <div class="text-center group hover:-translate-y-2 transition duration-300" data-aos="fade-up"
+          data-aos-delay="300">
+          <div class="text-5xl font-black text-orange-600 mb-2 flex justify-center items-baseline">
+            0<span class="counter" data-target="8">0</span>min
+          </div>
+          <div
+            class="text-slate-500 font-bold uppercase text-xs tracking-widest group-hover:text-orange-600 transition">
+            Avg Response
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="py-32 bg-gradient-to-br from-orange-600 to-orange-500">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-20">
+        <div data-aos="fade-right">
+          <h2 class="text-5xl font-extrabold text-white mb-4">
+            Real Stories.
+          </h2>
+          <p class="text-xl text-orange-100">
+            What the Riebeek Valley community says about us.
+          </p>
+        </div>
+        <div class="flex space-x-4 mt-8 md:mt-0" data-aos="fade-left">
+          <button onclick="scrollTestimonials('left')" aria-label="Previous testimonials"
+            class="w-14 h-14 rounded-full border-2 border-white/30 text-white flex items-center justify-center hover:bg-white hover:text-orange-600 hover:border-white transition active:scale-90">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+          <button onclick="scrollTestimonials('right')" aria-label="Next testimonials"
+            class="w-14 h-14 rounded-full border-2 border-white/30 text-white flex items-center justify-center hover:bg-white hover:text-orange-600 hover:border-white transition active:scale-90">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 md:overflow-visible overflow-x-auto snap-x snap-mandatory pb-4 md:pb-0"
+        style="scroll-padding: 0 24px">
+        <!-- Added data-tilt for 3D effect -->
+        <div class="testimonial-card bg-white p-10 border-2 border-white/20 cursor-default min-w-[300px] snap-center"
+          data-aos="fade-up" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
+          data-tilt-max-glare="0.2">
+          <div class="flex text-orange-500 mb-6">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+              class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-slate-600 italic mb-8">
+            "Riebeek Valley Computers transformed our business WiFi. We
+            finally have stable internet in our remote packhouse. Professional
+            and local!"
+          </p>
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
+              SJ
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900">Sarah J.</h4>
+              <p class="text-xs text-slate-500">Farm Owner</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card bg-white p-10 border-2 border-white/20 cursor-default min-w-[300px] snap-center"
+          data-aos="fade-up" data-aos-delay="100" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
+          data-tilt-max-glare="0.2">
+          <div class="flex text-orange-500 mb-6">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+              class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-slate-600 italic mb-8">
+            "My laptop was dead with all my business files. They fixed it in
+            24 hours and recovered everything. Absolute lifesavers!"
+          </p>
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
+              DM
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900">David M.</h4>
+              <p class="text-xs text-slate-500">Architect</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card bg-white p-10 border-2 border-white/20 cursor-default min-w-[300px] snap-center"
+          data-aos="fade-up" data-aos-delay="200" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
+          data-tilt-max-glare="0.2">
+          <div class="flex text-orange-500 mb-6">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+              class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="text-slate-600 italic mb-8">
+            "Fastest Fibre in the valley. No more buffering during Netflix.
+            The setup was painless and the support is instant."
+          </p>
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
+              LV
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900">Lize V.</h4>
+              <p class="text-xs text-slate-500">Resident</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="isp" class="py-24 bg-gradient-to-b from-white to-orange-50 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div data-aos="fade-right">
+          <h2 class="text-4xl font-extrabold text-slate-900 mb-6">
+            Our Local Footprint
+          </h2>
+          <p class="text-lg text-slate-600 mb-8">
+            We are deeply rooted in the Western Cape. Our network
+            infrastructure is purpose-built to provide reliable, high-speed
+            internet to the heart of the valley and its surrounding hubs.
+          </p>
+
+          <div class="space-y-6">
+            <div
+              class="p-6 bg-orange-50 rounded-2xl border border-orange-100 flex items-start space-x-4 hover:shadow-lg transition cursor-default">
+              <div
+                class="bg-orange-600 text-white w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fa-solid fa-tower-cell"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">Riebeek Kasteel HQ</h4>
+                <p class="text-sm text-slate-500">
+                  Our main operations center providing expert support and
+                  managing the valley's fibre backbone.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="p-6 bg-orange-50 rounded-2xl border border-orange-100 flex items-start space-x-4 hover:shadow-lg transition cursor-default">
+              <div
+                class="bg-orange-700 text-white w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fa-solid fa-network-wired"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">Malmesbury Coverage</h4>
+                <p class="text-sm text-slate-500">
+                  Full ISP and technical support services extended to the
+                  growing business and residential hubs of Malmesbury.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl shadow-orange-600/10 border border-orange-200"
+          data-aos="fade-left">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105945.97!2d18.85!3d-33.37!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dccf0b3e3c8e8e5%3A0x2b2b2b2b2b2b2b2b!2sRiebeek%20Kasteel%2C%20South%20Africa!5e0!3m2!1sen!2sza!4v1700000000000!5m2!1sen!2sza"
+            width="100%" height="100%" style="border: 0" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+
+          <div
+            class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-xl border border-orange-500/20 shadow-lg flex justify-between items-center">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Coverage: Riebeek Kasteel &
+              Malmesbury</span>
+            <div class="flex space-x-2">
+              <span class="w-3 h-3 bg-orange-500 rounded-full animate-pulse"></span>
+              <span class="w-3 h-3 bg-orange-600 rounded-full animate-pulse" style="animation-delay: 0.2s"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer id="contact" class="bg-black text-white pt-20 pb-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div class="space-y-6">
+          <div class="text-3xl font-extrabold text-orange-500 tracking-tighter">
+            RV<span class="text-white">COMPUTERS</span>
+          </div>
+          <p class="text-slate-400 leading-relaxed text-sm">
+            Powering the Riebeek Valley with high-speed connectivity and
+            precision IT engineering. Your local partner for a digital future.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#"
+              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-orange-600 transition text-lg"><i
+                class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"
+              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-orange-600 transition text-lg"><i
+                class="fa-brands fa-instagram"></i></a>
+            <a href="#"
+              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-orange-600 transition text-lg"><i
+                class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-bold mb-6 border-b border-orange-500/30 pb-2 inline-block">
+            Services
+          </h4>
+          <ul class="space-y-4 text-slate-400 text-sm">
+            <li>
+              <a href="#isp" class="hover:text-orange-400 transition">Fibre to the Home</a>
+            </li>
+            <li>
+              <a href="#isp" class="hover:text-orange-400 transition">Wireless Business Internet</a>
+            </li>
+            <li>
+              <a href="#repairs" class="hover:text-orange-400 transition">PC & Mac Repairs</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-orange-400 transition">Network Security</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-orange-400 transition">Managed IT Support</a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-bold mb-6 border-b border-orange-500/30 pb-2 inline-block">
+            Support Hub
+          </h4>
+          <ul class="space-y-4 text-slate-400 text-sm">
+            <li>
+              <a href="#" class="hover:text-orange-400 transition">Remote Support Tool</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-orange-400 transition">Speed Test</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-orange-400 transition">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-orange-400 transition">Terms & Conditions</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-orange-400 transition">AUP Policy</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="space-y-6">
+          <h4 class="text-lg font-bold mb-6 border-b border-orange-500/30 pb-2 inline-block">
+            Stay Connected
+          </h4>
+          <p class="text-xs text-slate-400 uppercase tracking-widest font-bold">
+            Join our mailing list
+          </p>
+          <div class="flex">
+            <input type="email" placeholder="Email Address"
+              class="bg-slate-900 border border-slate-800 px-4 py-3 rounded-l-lg focus:outline-none focus:border-orange-500 w-full text-sm" />
+            <button class="bg-orange-600 px-4 py-3 rounded-r-lg hover:bg-orange-700 transition">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+          <div class="pt-4 space-y-2">
+            <div class="flex items-center space-x-3 text-slate-400 text-sm">
+              <i class="fa-solid fa-location-dot text-orange-500"></i>
+              <span>Riebeek Kasteel, 7307, RSA</span>
+            </div>
+            <div class="flex items-center space-x-3 text-slate-400 text-sm">
+              <i class="fa-solid fa-phone text-orange-500"></i>
+              <span>+27 (0) 21 000 0000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-medium">
+        <div class="flex items-center space-x-4">
+          <span>© 2026 Riebeek Valley Computers (Pty) Ltd.</span>
+          <span class="hidden md:inline">|</span>
+          <span class="flex items-center"><span class="w-2 h-2 bg-orange-500 rounded-full mr-2 animate-pulse"></span>
+            Network Status: Online</span>
+        </div>
+        <div class="flex space-x-6">
+          <p>Reg No: 20XX/XXXXXX/07</p>
+          <p>ICASA Licensed Provider</p>
+        </div>
+      </div>
+    </div>
+
+    <button id="backToTop" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Back to top"
+      class="fixed bottom-32 right-8 bg-slate-900/50 hover:bg-orange-600 text-white w-10 h-10 rounded-full border border-slate-700 transition duration-300 backdrop-blur-sm z-40 opacity-0 invisible translate-y-10">
+      <i class="fa-solid fa-chevron-up"></i>
+    </button>
+  </footer>
+
+  <script>
+    AOS.init({ duration: 1000, once: true });
+
+    // Tilt Effect Init
+    VanillaTilt.init(document.querySelectorAll(".testimonial-card"), {
+      max: 5,
+      speed: 400,
+    });
+
+    // Testimonial Carousel Scroll
+    function scrollTestimonials(direction) {
+      const container = document.querySelector("#testimonials .grid");
+      const scrollAmount = 400;
+      if (direction === "left") {
+        container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      } else {
+        container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      }
+    }
+
+    // Toggle Mobile Menu
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobileMenu");
+      const icon = document.getElementById("menuIcon");
+      const body = document.body;
+
+      if (menu.classList.contains("translate-x-full")) {
+        menu.classList.remove("translate-x-full");
+        icon.classList.remove("fa-bars");
+        icon.classList.add("fa-times");
+        icon.classList.add("text-white");
+        body.classList.add("menu-open"); // Prevent scrolling
+      } else {
+        menu.classList.add("translate-x-full");
+        icon.classList.remove("fa-times");
+        icon.classList.remove("text-white");
+        icon.classList.add("fa-bars");
+        body.classList.remove("menu-open");
+      }
+    }
+
+    // Hero Parallax Effect
+    const heroSection = document.getElementById("hero");
+    const blob1 = document.getElementById("blob1");
+    const blob2 = document.getElementById("blob2");
+
+    heroSection.addEventListener("mousemove", (e) => {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+
+      blob1.style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+      blob2.style.transform = `translate(${-x * 30}px, ${-y * 30}px)`;
+    });
+
+    // Number Counter Animation
+    const counters = document.querySelectorAll(".counter");
+    const speed = 200; // The lower the slower
+
+    const animateCounters = () => {
+      counters.forEach((counter) => {
+        const updateCount = () => {
+          const target = +counter.getAttribute("data-target");
+          const count = +counter.innerText;
+
+          // Lower inc to slow and higher to slow
+          const inc = target / speed;
+
+          if (count < target) {
+            // Check if it's an integer or float
+            if (Number.isInteger(target)) {
+              counter.innerText = Math.ceil(count + inc);
+            } else {
+              counter.innerText = (count + inc).toFixed(1);
+            }
+            setTimeout(updateCount, 20);
+          } else {
+            counter.innerText = target;
+          }
+        };
+        updateCount();
+      });
+    };
+
+    // Intersection Observer for Counters
+    let counterObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounters();
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+
+    // Observe the section containing counters
+    const servicesSection = document.getElementById("services");
+    if (servicesSection) {
+      counterObserver.observe(servicesSection);
+    }
+
+    // Nav Scroll & Back to Top Logic
+    window.addEventListener("scroll", function () {
+      const nav = document.getElementById("mainNav");
+      const innerNav = document.getElementById("innerNav");
+      const backToTopBtn = document.getElementById("backToTop");
+
+      // Nav styles
+      if (window.scrollY > 50) {
+        nav.classList.add("nav-scrolled");
+        innerNav.classList.remove("py-6");
+        innerNav.classList.add("py-3");
+      } else {
+        nav.classList.remove("nav-scrolled");
+        innerNav.classList.remove("py-3");
+        innerNav.classList.add("py-6");
+      }
+
+      // Back to Top Button
+      if (window.scrollY > 500) {
+        backToTopBtn.classList.remove(
+          "opacity-0",
+          "invisible",
+          "translate-y-10",
+        );
+      } else {
+        backToTopBtn.classList.add(
+          "opacity-0",
+          "invisible",
+          "translate-y-10",
+        );
+      }
+    });
+    //Cursors
+
+    const cursor = document.getElementById("cursor");
+
+    document.addEventListener("mousemove", (e) => {
+      cursor.style.transform = `translate(${e.clientX - cursor.offsetWidth / 2}px, 
+                                        ${e.clientY - cursor.offsetHeight / 2}px)`;
+    });
+
+    // Links
+    document.querySelectorAll("a").forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        cursor.classList.add("cursor-link");
+      });
+      el.addEventListener("mouseleave", () => {
+        cursor.classList.remove("cursor-link");
+      });
+    });
+
+    // Buttons
+    document.querySelectorAll("button").forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        cursor.classList.add("cursor-button");
+      });
+      el.addEventListener("mouseleave", () => {
+        cursor.classList.remove("cursor-button");
+      });
+    });
+
+    // Text inputs
+    document.querySelectorAll("input, textarea").forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        cursor.classList.add("cursor-text");
+      });
+      el.addEventListener("mouseleave", () => {
+        cursor.classList.remove("cursor-text");
+      });
+    });
+
+    // Disable on mobile
+    if (window.innerWidth < 768) {
+      cursor.remove();
+      document.body.classList.remove("cursor-none");
+    }
+    el.addEventListener("mouseenter", () => {
+      cursor.innerHTML = "→";
+    });
+    el.addEventListener("mouseleave", () => {
+      cursor.innerHTML = "";
+    });
+  </script>
+</body>
+
 </html>
