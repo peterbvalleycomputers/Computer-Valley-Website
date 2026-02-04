@@ -20,7 +20,7 @@
     * {
       cursor: none;
     }
-
+ 
     #cursor-dot {
       position: fixed;
       width: 8px;
@@ -45,11 +45,24 @@
       transition: border-color 0.15s ease, background 0.15s ease;
     }
 
+    /* White cursor on orange sections */
+    .cursor-on-orange #cursor-dot {
+      background: white;
+    }
+
+    .cursor-on-orange #cursor-ring {
+      border-color: white;
+    }
+
     .cursor-hover #cursor-dot {
       transform: translate(-50%, -50%) scale(1.6);
     }
 
     .cursor-hover #cursor-ring {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .cursor-on-orange.cursor-hover #cursor-ring {
       background: rgba(234, 88, 12, 0.15);
     }
 
@@ -95,10 +108,36 @@
     /* Nav links colors */
     #mainNav:not(.nav-scrolled) #navLinks a:not(.bg-orange-600) {
       color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    #mainNav:not(.nav-scrolled) #navLinks a:not(.bg-orange-600):hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
     }
 
     #mainNav.nav-scrolled #navLinks a:not(.bg-orange-600) {
       color: #334155;
+      padding: 12px 20px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    #mainNav.nav-scrolled #navLinks a:not(.bg-orange-600):hover {
+      background: #f1f5f9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     /* Mobile menu icon */
@@ -117,14 +156,14 @@
       }
 
       100% {
-        transform: translateX(calc(-250px * 5));
+        transform: translateX(-50%);
       }
     }
 
     .logo-slider {
       display: flex;
-      width: calc(250px * 10);
-      animation: scroll 40s linear infinite;
+      width: fit-content;
+      animation: scroll 30s linear infinite;
     }
 
     .logo-item {
@@ -135,6 +174,7 @@
       filter: grayscale(1);
       opacity: 0.6;
       transition: 0.3s;
+      flex-shrink: 0;
     }
 
     .logo-item:hover {
@@ -243,13 +283,13 @@
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
 
-  <a href="https://wa.me/yournumber"
+  <a href="https://wa.me/27824662244"
     class="whatsapp-float bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:bg-green-600 transition hover:scale-110">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
   <!-- Navigation -->
-  <nav class="fixed w-full z-50 transition-all duration-300" id="mainNav">
+  <nav class="orange-section fixed w-full z-50 transition-all duration-300" id="mainNav">
     <!-- Top Utility Bar -->
     <div
       class="top-bar bg-orange-600 text-orange-100 text-xs border-b border-orange-500/20 relative z-20 transition-all duration-300">
@@ -258,20 +298,19 @@
           <span class="flex items-center"><i class="fa-solid fa-location-dot text-white mr-2"></i> Riebeek
             Kasteel, Western Cape</span>
           <span class="flex items-center"><i class="fa-regular fa-envelope text-white mr-2"></i>
-            <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cab9bfbabaa5b8be8ab8bca9a5a7babfbeafb8b9e4a9a5e4b0ab">[email&#160;protected]</a></span>
+            <a href="mailto:info@riebeekvalleycomputers.co.za" class="hover:text-white transition">info@riebeekvalleycomputers.co.za</a></span>
         </div>
         <div class="flex items-center justify-between w-full md:w-auto space-x-0 md:space-x-6">
-          <a href="tel:+27000000000" class="flex items-center hover:text-white transition font-semibold">
+          <a href="tel:+27224662244" class="flex items-center hover:text-white transition font-semibold">
             <i class="fa-solid fa-phone mr-2 text-white"></i>
-            <span class="hidden sm:inline">Call Us: </span> +27 (0) 21 000
-            0000
+            <span class="hidden sm:inline">Call Us: </span> +27 (0) 22 466
+            2244
           </a>
           <div class="w-px h-3 bg-orange-500 mx-3 md:hidden"></div>
-          <a href="https://wa.me/yournumber" class="flex items-center hover:text-white transition font-semibold">
+          <a href="https://wa.me/27824662244" class="flex items-center hover:text-white transition font-semibold">
             <i class="fa-brands fa-whatsapp mr-2 text-lg"></i> WhatsApp
           </a>
         </div>
-      </div>
     </div>
 
     <!-- Main Menu -->
@@ -292,7 +331,7 @@
       </div>
 
       <!-- Mobile Menu Button -->
-      <button onclick="toggleMobileMenu()" aria-label="Toggle mobile menu"
+      <button id="menuToggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu"
         class="lg:hidden text-2xl z-50 relative focus:outline-none">
         <i id="menuIcon" class="fa-solid fa-bars transition-all duration-300"></i>
       </button>
@@ -313,7 +352,7 @@
   </div>
 
   <section id="hero"
-    class="relative min-h-screen flex items-center bg-gradient-to-br from-orange-500 to-orange-600 px-6 overflow-hidden pt-32 md:pt-40 pb-12 md:pb-16">
+    class="orange-section relative min-h-screen flex items-center bg-gradient-to-br from-orange-500 to-orange-600 px-6 overflow-hidden pt-32 md:pt-40 pb-12 md:pb-16">
     <!-- Animated Background Blobs -->
     <div class="absolute inset-0 opacity-10 pointer-events-none">
       <div id="blob1"
@@ -365,50 +404,63 @@
 
     <div class="max-w-7xl mx-auto w-full relative z-10">
       <div class="text-center max-w-5xl mx-auto" data-aos="fade-up">
+        <!-- WiFi Signal Animation -->
+        <div class="mb-10">
+          <div class="relative inline-flex items-center justify-center">
+            <!-- Animated WiFi Signal Waves -->
+            <div class="absolute w-40 h-40 border-4 border-white/20 rounded-full animate-ping" style="animation-duration: 2s;"></div>
+            <div class="absolute w-32 h-32 border-4 border-white/30 rounded-full animate-ping" style="animation-delay: 0.5s; animation-duration: 2s;"></div>
+            <div class="absolute w-24 h-24 border-4 border-white/40 rounded-full animate-ping" style="animation-delay: 1s; animation-duration: 2s;"></div>
+
+            <!-- Central WiFi Icon -->
+            <i class="fa-solid fa-wifi text-6xl text-white animate-pulse relative z-10" style="animation-duration: 2s;"></i>
+          </div>
+        </div>
+
         <!-- Main Headline -->
         <h1 class="text-7xl md:text-8xl lg:text-9xl font-extrabold text-white leading-[1.1] mb-6">
-          Your Digital<br />
-          <span class="text-white drop-shadow-2xl">Partner</span>
+          <span class="block mb-2">Lightning</span>
+          <span class="text-white drop-shadow-2xl">Fast Tech Solutions</span>
         </h1>
 
         <!-- Sub Headline -->
         <p class="text-2xl md:text-3xl text-white/90 font-light mb-12 max-w-3xl mx-auto">
-          Fast Internet. Expert IT. Local Service.
+          High-Speed WiFi & Expert PC Repairs for Riebeek Valley
         </p>
 
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-16 cursor-hover-target">
           <a href="isp.html"
             class="group bg-white text-orange-600 px-12 py-6 rounded-2xl font-bold text-xl hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-white/30 active:scale-95 text-center relative overflow-hidden w-full sm:w-auto">
-            <span class="relative z-10">Get Connected</span>
+            <div class="flex items-center justify-center">
+              <i class="fa-solid fa-wifi mr-3 text-2xl"></i>
+              <span class="relative z-10">Get Connected</span>
+            </div>
             <div
               class="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-500 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
             </div>
             <span
-              class="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">Get
-              Connected</span>
+              class="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+              <i class="fa-solid fa-wifi mr-3"></i>Get Connected
+            </span>
           </a>
           <a href="#services"
             class="group bg-white/10 text-white px-12 py-6 rounded-2xl font-bold text-xl backdrop-blur-md hover:bg-white/20 transition-all duration-300 active:scale-95 border-2 border-white/30 hover:border-white/50 text-center w-full sm:w-auto">
-            View Services
-            <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+            <div class="flex items-center justify-center">
+              <i class="fa-solid fa-laptop mr-3 text-xl"></i>
+              PC Repairs
+              <i class="fa-solid fa-arrow-right ml-3 transform group-hover:translate-x-2 transition-transform"></i>
+            </div>
           </a>
         </div>
 
-        <!-- Trust Indicators -->
-        <div class="flex flex-wrap justify-center items-center gap-8 text-white/80 text-sm font-semibold"
-          data-aos="fade-up" data-aos-delay="200">
-          <div class="flex items-center gap-2">
-            <i class="fa-solid fa-shield-halved text-2xl text-white"></i>
-            <span>99.9% Uptime</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <i class="fa-solid fa-clock text-2xl text-white"></i>
-            <span>24/7 Support</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <i class="fa-solid fa-map-marker-alt text-2xl text-white"></i>
-            <span>Local to You</span>
+        <!-- Coverage Areas -->
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 inline-block">
+          <p class="text-white font-semibold mb-3">Available in:</p>
+          <div class="flex flex-wrap justify-center gap-3">
+            <span class="bg-white/20 px-4 py-2 rounded-full text-white text-sm">Riebeek Kasteel</span>
+            <span class="bg-white/20 px-4 py-2 rounded-full text-white text-sm">Malmesbury</span>
+            <span class="bg-white/20 px-4 py-2 rounded-full text-white text-sm">Swartland</span>
           </div>
         </div>
       </div>
@@ -437,6 +489,7 @@
       <div class="logo-item text-3xl font-bold text-slate-400">
         <i class="fa-brands fa-apple mr-2"></i>Apple
       </div>
+      <!-- Duplicate logos for seamless loop -->
       <div class="logo-item text-3xl font-bold text-slate-400">
         <i class="fa-brands fa-microsoft mr-2"></i>Microsoft
       </div>
@@ -445,6 +498,12 @@
       </div>
       <div class="logo-item text-3xl font-bold text-slate-400">
         <i class="fa-solid fa-server mr-2"></i>Ubiquiti
+      </div>
+      <div class="logo-item text-3xl font-bold text-slate-400">
+        <i class="fa-solid fa-laptop mr-2"></i>Dell
+      </div>
+      <div class="logo-item text-3xl font-bold text-slate-400">
+        <i class="fa-brands fa-apple mr-2"></i>Apple
       </div>
     </div>
   </div>
@@ -570,7 +629,7 @@
     </div>
   </section>
 
-  <section id="testimonials" class="py-32 bg-gradient-to-br from-orange-600 to-orange-500">
+  <section id="testimonials" class="orange-section py-32 bg-gradient-to-br from-orange-600 to-orange-500">
     <div class="max-w-7xl mx-auto px-6">
       <div class="flex flex-col md:flex-row justify-between items-end mb-20">
         <div data-aos="fade-right">
@@ -662,6 +721,50 @@
               <h4 class="font-bold text-slate-900">Lize V.</h4>
               <p class="text-xs text-slate-500">Resident</p>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Valley Computers Section -->
+  <section class="py-20 bg-gradient-to-b from-orange-50 to-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h3 class="text-4xl font-extrabold text-slate-900 mb-4">Why Choose Valley Computers</h3>
+        <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+          We're committed to providing exceptional service and reliability to our community
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="200">
+        <div class="bg-gradient-to-br from-orange-50 to-white p-8 rounded-3xl border border-orange-100 hover:shadow-2xl hover:shadow-orange-500/10 transition duration-500 text-center">
+          <div class="w-20 h-20 bg-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <i class="fa-solid fa-shield-halved text-3xl text-white"></i>
+          </div>
+          <div class="text-4xl font-black text-orange-600 mb-2">99.9%</div>
+          <div class="text-slate-900 font-bold text-lg mb-2">Network Uptime</div>
+          <div class="text-slate-600">
+            Industry-leading reliability ensures your business stays connected when it matters most
+          </div>
+        </div>
+        <div class="bg-gradient-to-br from-orange-50 to-white p-8 rounded-3xl border border-orange-100 hover:shadow-2xl hover:shadow-orange-500/10 transition duration-500 text-center">
+          <div class="w-20 h-20 bg-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <i class="fa-solid fa-clock text-3xl text-white"></i>
+          </div>
+          <div class="text-4xl font-black text-orange-600 mb-2">24/7</div>
+          <div class="text-slate-900 font-bold text-lg mb-2">Local Support</div>
+          <div class="text-slate-600">
+            Round-the-clock technical support from our local team in Riebeek Valley
+          </div>
+        </div>
+        <div class="bg-gradient-to-br from-orange-50 to-white p-8 rounded-3xl border border-orange-100 hover:shadow-2xl hover:shadow-orange-500/10 transition duration-500 text-center">
+          <div class="w-20 h-20 bg-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <i class="fa-solid fa-bolt text-3xl text-white"></i>
+          </div>
+          <div class="text-4xl font-black text-orange-600 mb-2">8min</div>
+          <div class="text-slate-900 font-bold text-lg mb-2">Avg Response</div>
+          <div class="text-slate-600">
+            Lightning-fast response times to get your issues resolved quickly
           </div>
         </div>
       </div>
@@ -908,26 +1011,77 @@
 
     animateRing();
 
+    // Cursor color change based on section
+    function updateCursorColor(e) {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      
+      // Check if cursor is over orange section
+      const elementBelow = document.elementFromPoint(mouseX, mouseY);
+      const orangeSection = elementBelow?.closest('.orange-section');
+      
+      // Special handling for navigation bar
+      const navBar = document.getElementById('mainNav');
+      const isOverNav = elementBelow?.closest('#mainNav') || navBar?.contains(elementBelow);
+      const isNavScrolled = navBar?.classList.contains('nav-scrolled');
+      
+      if (isOverNav && !isNavScrolled) {
+        // Navigation is orange (top bar visible)
+        document.body.classList.add('cursor-on-orange');
+      } else if (isOverNav && isNavScrolled) {
+        // Navigation is white (scrolled)
+        document.body.classList.remove('cursor-on-orange');
+      } else if (orangeSection) {
+        // Other orange sections
+        document.body.classList.add('cursor-on-orange');
+      } else {
+        // White sections
+        document.body.classList.remove('cursor-on-orange');
+      }
+    }
+
+    document.addEventListener("mousemove", updateCursorColor);
+
     // Hover effect
     document.querySelectorAll("a, button, .cursor-pointer").forEach(el => {
       el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
       el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
     });
 
+    // Mobile menu toggle function
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById("mobileMenu");
+      const menuIcon = document.getElementById("menuIcon");
+      
+      mobileMenu.classList.toggle("-translate-x-full");
+      document.body.classList.toggle("menu-open");
+      
+      // Toggle menu icon
+      if (mobileMenu.classList.contains("-translate-x-full")) {
+        menuIcon.classList.remove("fa-times");
+        menuIcon.classList.add("fa-bars");
+      } else {
+        menuIcon.classList.remove("fa-bars");
+        menuIcon.classList.add("fa-times");
+      }
+    }
+
     // Mobile menu toggle
     const menuToggle = document.getElementById("menuToggle");
     const mobileMenu = document.getElementById("mobileMenu");
 
-    menuToggle.addEventListener("click", () => {
-      const isOpen = mobileMenu.classList.toggle("-translate-x-full");
-      document.body.classList.toggle("menu-open", !isOpen);
-    });
+    if (menuToggle) {
+      menuToggle.addEventListener("click", toggleMobileMenu);
+    }
 
     // Close mobile menu when clicking a link
     document.querySelectorAll("#mobileMenu a").forEach(link => {
       link.addEventListener("click", () => {
         mobileMenu.classList.add("-translate-x-full");
         document.body.classList.remove("menu-open");
+        const menuIcon = document.getElementById("menuIcon");
+        menuIcon.classList.remove("fa-times");
+        menuIcon.classList.add("fa-bars");
       });
     });
 
@@ -941,23 +1095,64 @@
       }
     });
 
-    // Back to top button
-    const backToTop = document.getElementById("backToTop");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) {
-        backToTop.classList.remove("opacity-0", "invisible", "translate-y-10");
-      } else {
-        backToTop.classList.add("opacity-0", "invisible", "translate-y-10");
-      }
+    // Counter animation
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+
+    const animateCounter = (counter) => {
+      const target = +counter.getAttribute('data-target');
+      const increment = target / speed;
+      
+      const updateCount = () => {
+        const count = +counter.innerText;
+        
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(updateCount, 1);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      
+      updateCount();
+    };
+
+    // Intersection Observer for counters
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => {
+      counterObserver.observe(counter);
     });
 
+    // Testimonials scroll function
+    function scrollTestimonials(direction) {
+      const container = document.querySelector('.grid.md\\:grid-cols-3');
+      if (container) {
+        const scrollAmount = 320;
+        if (direction === 'left') {
+          container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+          container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+      }
+    }
+
     // Tilt.js init for service cards
-    VanillaTilt.init(document.querySelectorAll(".service-card"), {
-      max: 8,
-      speed: 400,
-      glare: true,
-      "max-glare": 0.2,
-    });
+    if (typeof VanillaTilt !== 'undefined') {
+      VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+        max: 8,
+        speed: 400,
+        glare: true,
+        "max-glare": 0.2,
+      });
+    }
   </script>
 
 </body>
