@@ -14,15 +14,51 @@
   <!-- Tilt.js for 3D hover effects -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
-
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap");
 
-    html {
-      scroll-behavior: smooth;
+    * {
+      cursor: none;
     }
 
+    #cursor-dot {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: #ea580c;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    #cursor-ring {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      border: 2px solid #ea580c;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .cursor-hover #cursor-dot {
+      transform: translate(-50%, -50%) scale(1.6);
+    }
+
+    .cursor-hover #cursor-ring {
+      background: rgba(234, 88, 12, 0.15);
+    }
+
+
+
+    html,
     body {
+      margin: 0;
+      padding: 0;
       font-family: "Outfit", sans-serif;
       overflow-x: hidden;
     }
@@ -112,7 +148,6 @@
       transform-style: preserve-3d;
     }
 
-    /* Removed basic hover transform to let Tilt.js handle it, kept shadow */
     .testimonial-card:hover {
       transform: translateY(-8px);
       box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.4);
@@ -145,7 +180,6 @@
       }
     }
 
-    /* Mobile Menu Transition */
     #mobileMenu {
       transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -154,7 +188,6 @@
       overflow: hidden;
     }
 
-    /* Floating Particles Animation */
     @keyframes float {
 
       0%,
@@ -175,20 +208,15 @@
       }
     }
 
-    /* Hero Text Animations */
     @keyframes textGlow {
 
       0%,
       100% {
-        text-shadow:
-          0 0 20px rgba(255, 255, 255, 0.3),
-          0 0 40px rgba(255, 255, 255, 0.2);
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.2);
       }
 
       50% {
-        text-shadow:
-          0 0 30px rgba(255, 255, 255, 0.5),
-          0 0 60px rgba(255, 255, 255, 0.3);
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 60px rgba(255, 255, 255, 0.3);
       }
     }
 
@@ -196,7 +224,6 @@
       animation: textGlow 3s ease-in-out infinite;
     }
 
-    /* Button Pulse Effect */
     @keyframes pulse-glow {
 
       0%,
@@ -205,178 +232,17 @@
       }
 
       50% {
-        box-shadow:
-          0 0 40px rgba(255, 255, 255, 0.6),
-          0 0 60px rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.3);
       }
-    }
-
-    .cursor-link {
-      width: 48px !important;
-      height: 48px !important;
-      background: rgba(234, 88, 12, 0.15);
-      border-color: #ea580c;
-    }
-
-    .cursor-text {
-      width: 6px !important;
-      height: 24px !important;
-      border-radius: 4px;
-    }
-
-    .cursor-button {
-      width: 60px !important;
-      height: 60px !important;
-      background: rgba(234, 88, 12, 0.25);
-      border-width: 3px;
-    }
-
-    #cursor {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: #ea580c;
-      font-weight: bold;
-    }
-
-    /* ===================== */
-    /* CUSTOM MODERN CURSOR */
-    /* ===================== */
-
-    /* Hide system cursor */
-    * {
-      cursor: none;
-    }
-
-    /* Center dot */
-    #cursor-dot {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      background: white;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition:
-        transform 0.15s ease,
-        background 0.15s ease;
-    }
-
-    /* Spinning ring */
-    #cursor-ring {
-      position: fixed;
-      width: 32px;
-      height: 32px;
-      border: 2px solid white;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      animation: spin 1.4s linear infinite;
-      transition:
-        width 0.2s ease,
-        height 0.2s ease,
-        border-color 0.15s ease,
-        background 0.15s ease;
-    }
-
-    @keyframes spin {
-      from {
-        transform: translate(-50%, -50%) rotate(0deg);
-      }
-
-      to {
-        transform: translate(-50%, -50%) rotate(360deg);
-      }
-    }
-
-    /* Hover invert + grow */
-    .cursor-hover #cursor-dot {
-      transform: translate(-50%, -50%) scale(1.8);
-      background: #0f172a;
-    }
-
-    .cursor-hover #cursor-ring {
-      background: white;
-      border-color: #0f172a;
-    }
-
-    /* Only desktop */
-    @media (max-width: 768px) {
-      * {
-        cursor: auto;
-      }
-
-      #cursor-dot,
-      #cursor-ring {
-        display: none;
-      }
-    }
-
-    /* Brand hover (for light sections) */
-    .cursor-brand #cursor-dot {
-      transform: translate(-50%, -50%) scale(1.8);
-      background: #ea580c;
-    }
-
-    .cursor-brand #cursor-ring {
-      background: rgba(234, 88, 12, 0.15);
-      border-color: #ea580c;
     }
   </style>
 </head>
-<div id="cursor"
-  class="fixed w-5 h-5 border-2 border-orange-600 rounded-full pointer-events-none z-[9999] transition-transform duration-150">
-</div>
-
-<!-- Custom Cursor -->
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
-
-<script>
-  const dot = document.getElementById("cursor-dot");
-  const ring = document.getElementById("cursor-ring");
-
-  let mouseX = 0, mouseY = 0;
-  let ringX = 0, ringY = 0;
-
-  document.addEventListener("mousemove", e => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-
-    dot.style.left = mouseX + "px";
-    dot.style.top = mouseY + "px";
-  });
-
-  function animate() {
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
-
-    ring.style.left = ringX + "px";
-    ring.style.top = ringY + "px";
-
-    requestAnimationFrame(animate);
-  }
-  animate();
-
-  /* Hover targets */
-  const hoverSelectors = "a, button, input, textarea, select, .cursor-hover-target";
-
-  document.querySelectorAll(hoverSelectors).forEach(el => {
-    el.addEventListener("mouseenter", () => {
-      document.body.classList.add("cursor-hover");
-    });
-    el.addEventListener("mouseleave", () => {
-      document.body.classList.remove("cursor-hover");
-    });
-  });
-</script>
-
-
 
 <body class="bg-white">
+  <!-- Custom Cursor -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
   <a href="https://wa.me/yournumber"
     class="whatsapp-float bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:bg-green-600 transition hover:scale-110">
     <i class="fa-brands fa-whatsapp"></i>
@@ -392,7 +258,7 @@
           <span class="flex items-center"><i class="fa-solid fa-location-dot text-white mr-2"></i> Riebeek
             Kasteel, Western Cape</span>
           <span class="flex items-center"><i class="fa-regular fa-envelope text-white mr-2"></i>
-            support@rvcomputers.co.za</span>
+            <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cab9bfbabaa5b8be8ab8bca9a5a7babfbeafb8b9e4a9a5e4b0ab">[email&#160;protected]</a></span>
         </div>
         <div class="flex items-center justify-between w-full md:w-auto space-x-0 md:space-x-6">
           <a href="tel:+27000000000" class="flex items-center hover:text-white transition font-semibold">
@@ -438,7 +304,7 @@
     class="fixed inset-0 bg-slate-950/98 backdrop-blur-xl z-40 translate-x-full flex flex-col items-center justify-center space-y-8 text-2xl font-bold text-white lg:hidden">
     <a href="#services" onclick="toggleMobileMenu()"
       class="hover:text-orange-500 transition transform hover:scale-110">Services</a>
-    <a href="#isp" onclick="toggleMobileMenu()"
+    <a href="isp.html" onclick="toggleMobileMenu()"
       class="hover:text-orange-500 transition transform hover:scale-110">ISP</a>
     <a href="#testimonials" onclick="toggleMobileMenu()"
       class="hover:text-orange-500 transition transform hover:scale-110">Success Stories</a>
@@ -583,7 +449,7 @@
     </div>
   </div>
 
-  <section id="services" class="py-24 bg-gradient-to-b from-white to-orange-50 cursor-light">
+  <section id="services" class="py-24 bg-gradient-to-b from-white to-orange-50">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16" data-aos="fade-up">
         <h2 class="text-5xl font-extrabold text-slate-900 mb-4">
@@ -729,7 +595,6 @@
 
       <div class="grid md:grid-cols-3 gap-8 md:overflow-visible overflow-x-auto snap-x snap-mandatory pb-4 md:pb-0"
         style="scroll-padding: 0 24px">
-        <!-- Added data-tilt for 3D effect -->
         <div class="testimonial-card bg-white p-10 border-2 border-white/20 cursor-default min-w-[300px] snap-center"
           data-aos="fade-up" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
           data-tilt-max-glare="0.2">
@@ -802,6 +667,7 @@
       </div>
     </div>
   </section>
+
   <section id="isp" class="py-24 bg-gradient-to-b from-white to-orange-50 overflow-hidden">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid lg:grid-cols-2 gap-16 items-center">
@@ -870,6 +736,7 @@
       </div>
     </div>
   </section>
+
   <footer id="contact" class="bg-black text-white pt-20 pb-10">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
@@ -906,7 +773,7 @@
               <a href="#isp" class="hover:text-orange-400 transition">Wireless Business Internet</a>
             </li>
             <li>
-              <a href="#repairs" class="hover:text-orange-400 transition">PC & Mac Repairs</a>
+              <a href="#services" class="hover:text-orange-400 transition">PC & Mac Repairs</a>
             </li>
             <li>
               <a href="#" class="hover:text-orange-400 transition">Network Security</a>
@@ -988,191 +855,111 @@
     </button>
   </footer>
 
+
   <script>
-    AOS.init({ duration: 1000, once: true });
 
-    // Tilt Effect Init
-    VanillaTilt.init(document.querySelectorAll(".testimonial-card"), {
-      max: 5,
-      speed: 400,
-    });
+    // NAVIGATION MENU
+    
+      // Wait until the DOM is ready
+  document.addEventListener("DOMContentLoaded", () => {
+    const nav = document.getElementById("mainNav");
 
-    // Testimonial Carousel Scroll
-    function scrollTestimonials(direction) {
-      const container = document.querySelector("#testimonials .grid");
-      const scrollAmount = 400;
-      if (direction === "left") {
-        container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
-      } else {
-        container.scrollBy({ left: scrollAmount, behavior: "smooth" });
-      }
-    }
-
-    // Toggle Mobile Menu
-    function toggleMobileMenu() {
-      const menu = document.getElementById("mobileMenu");
-      const icon = document.getElementById("menuIcon");
-      const body = document.body;
-
-      if (menu.classList.contains("translate-x-full")) {
-        menu.classList.remove("translate-x-full");
-        icon.classList.remove("fa-bars");
-        icon.classList.add("fa-times");
-        icon.classList.add("text-white");
-        body.classList.add("menu-open"); // Prevent scrolling
-      } else {
-        menu.classList.add("translate-x-full");
-        icon.classList.remove("fa-times");
-        icon.classList.remove("text-white");
-        icon.classList.add("fa-bars");
-        body.classList.remove("menu-open");
-      }
-    }
-
-    // Hero Parallax Effect
-    const heroSection = document.getElementById("hero");
-    const blob1 = document.getElementById("blob1");
-    const blob2 = document.getElementById("blob2");
-
-    heroSection.addEventListener("mousemove", (e) => {
-      const x = e.clientX / window.innerWidth;
-      const y = e.clientY / window.innerHeight;
-
-      blob1.style.transform = `translate(${x * 30}px, ${y * 30}px)`;
-      blob2.style.transform = `translate(${-x * 30}px, ${-y * 30}px)`;
-    });
-
-    // Number Counter Animation
-    const counters = document.querySelectorAll(".counter");
-    const speed = 200; // The lower the slower
-
-    const animateCounters = () => {
-      counters.forEach((counter) => {
-        const updateCount = () => {
-          const target = +counter.getAttribute("data-target");
-          const count = +counter.innerText;
-
-          // Lower inc to slow and higher to slow
-          const inc = target / speed;
-
-          if (count < target) {
-            // Check if it's an integer or float
-            if (Number.isInteger(target)) {
-              counter.innerText = Math.ceil(count + inc);
-            } else {
-              counter.innerText = (count + inc).toFixed(1);
-            }
-            setTimeout(updateCount, 20);
-          } else {
-            counter.innerText = target;
-          }
-        };
-        updateCount();
-      });
-    };
-
-    // Intersection Observer for Counters
-    let counterObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCounters();
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.5 },
-    );
-
-    // Observe the section containing counters
-    const servicesSection = document.getElementById("services");
-    if (servicesSection) {
-      counterObserver.observe(servicesSection);
-    }
-
-    // Nav Scroll & Back to Top Logic
-    window.addEventListener("scroll", function () {
-      const nav = document.getElementById("mainNav");
-      const innerNav = document.getElementById("innerNav");
-      const backToTopBtn = document.getElementById("backToTop");
-
-      // Nav styles
-      if (window.scrollY > 50) {
+    // Scroll listener
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) { // adjust offset if needed
         nav.classList.add("nav-scrolled");
-        innerNav.classList.remove("py-6");
-        innerNav.classList.add("py-3");
       } else {
         nav.classList.remove("nav-scrolled");
-        innerNav.classList.remove("py-3");
-        innerNav.classList.add("py-6");
-      }
-
-      // Back to Top Button
-      if (window.scrollY > 500) {
-        backToTopBtn.classList.remove(
-          "opacity-0",
-          "invisible",
-          "translate-y-10",
-        );
-      } else {
-        backToTopBtn.classList.add(
-          "opacity-0",
-          "invisible",
-          "translate-y-10",
-        );
       }
     });
-    //Cursors
+  });
 
-    const cursor = document.getElementById("cursor");
+    AOS.init({
+      duration: 900,
+      once: true,
+      easing: "ease-out-cubic",
+    });
+
+    const dot = document.getElementById("cursor-dot");
+    const ring = document.getElementById("cursor-ring");
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let ringX = 0;
+    let ringY = 0;
 
     document.addEventListener("mousemove", (e) => {
-      cursor.style.transform = `translate(${e.clientX - cursor.offsetWidth / 2}px, 
-                                        ${e.clientY - cursor.offsetHeight / 2}px)`;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      dot.style.left = mouseX + "px";
+      dot.style.top = mouseY + "px";
     });
 
-    // Links
-    document.querySelectorAll("a").forEach((el) => {
-      el.addEventListener("mouseenter", () => {
-        cursor.classList.add("cursor-link");
-      });
-      el.addEventListener("mouseleave", () => {
-        cursor.classList.remove("cursor-link");
-      });
-    });
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
 
-    // Buttons
-    document.querySelectorAll("button").forEach((el) => {
-      el.addEventListener("mouseenter", () => {
-        cursor.classList.add("cursor-button");
-      });
-      el.addEventListener("mouseleave", () => {
-        cursor.classList.remove("cursor-button");
-      });
-    });
+      ring.style.left = ringX + "px";
+      ring.style.top = ringY + "px";
 
-    // Text inputs
-    document.querySelectorAll("input, textarea").forEach((el) => {
-      el.addEventListener("mouseenter", () => {
-        cursor.classList.add("cursor-text");
-      });
-      el.addEventListener("mouseleave", () => {
-        cursor.classList.remove("cursor-text");
-      });
-    });
-
-    // Disable on mobile
-    if (window.innerWidth < 768) {
-      cursor.remove();
-      document.body.classList.remove("cursor-none");
+      requestAnimationFrame(animateRing);
     }
-    el.addEventListener("mouseenter", () => {
-      cursor.innerHTML = "→";
+
+    animateRing();
+
+    // Hover effect
+    document.querySelectorAll("a, button, .cursor-pointer").forEach(el => {
+      el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
+      el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
     });
-    el.addEventListener("mouseleave", () => {
-      cursor.innerHTML = "";
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mobileMenu.classList.toggle("-translate-x-full");
+      document.body.classList.toggle("menu-open", !isOpen);
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll("#mobileMenu a").forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.add("-translate-x-full");
+        document.body.classList.remove("menu-open");
+      });
+    });
+
+    // Navbar scroll effect
+    const mainNav = document.getElementById("mainNav");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        mainNav.classList.add("nav-scrolled");
+      } else {
+        mainNav.classList.remove("nav-scrolled");
+      }
+    });
+
+    // Back to top button
+    const backToTop = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        backToTop.classList.remove("opacity-0", "invisible", "translate-y-10");
+      } else {
+        backToTop.classList.add("opacity-0", "invisible", "translate-y-10");
+      }
+    });
+
+    // Tilt.js init for service cards
+    VanillaTilt.init(document.querySelectorAll(".service-card"), {
+      max: 8,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.2,
     });
   </script>
+
 </body>
 
 </html>
