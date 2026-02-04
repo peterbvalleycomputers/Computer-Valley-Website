@@ -87,7 +87,7 @@
       display: none;
     }
 
-    /* Nav Initial State - fully transparent */
+    /* Nav Initial State - completely transparent */
     #mainNav {
       background: transparent;
     }
@@ -95,6 +95,7 @@
     /* Logo colors */
     .logo-rv {
       color: #ea580c;
+      animation: logoPop 3s ease-in-out infinite;
     }
 
     #mainNav.nav-scrolled .logo-text {
@@ -147,6 +148,42 @@
 
     #mainNav.nav-scrolled #menuIcon {
       color: #0f172a;
+    }
+
+    @keyframes logoPop {
+      0%, 90%, 100% {
+        transform: scale(1);
+      }
+      95% {
+        transform: scale(1.05);
+      }
+    }
+
+    .logo-container {
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container:hover {
+      transform: scale(1.1) rotate(-2deg);
+    }
+
+    .logo-container::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: linear-gradient(135deg, rgba(234, 88, 12, 0.1) 0%, rgba(251, 146, 60, 0.1) 100%);
+      border-radius: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .logo-container:hover::before {
+      opacity: 1;
     }
 
     /* Logo Loop Animation */
@@ -252,11 +289,11 @@
 
       0%,
       100% {
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.2);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 0 20px rgba(255, 255, 255, 0.1);
       }
 
       50% {
-        text-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 60px rgba(255, 255, 255, 0.3);
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.3), 0 0 30px rgba(255, 255, 255, 0.15);
       }
     }
 
@@ -289,7 +326,7 @@
   </a>
 
   <!-- Navigation -->
-  <nav class="orange-section fixed w-full z-50 transition-all duration-300" id="mainNav">
+  <nav class="fixed w-full z-50 transition-all duration-300" id="mainNav">
     <!-- Top Utility Bar -->
     <div
       class="top-bar bg-orange-600 text-orange-100 text-xs border-b border-orange-500/20 relative z-20 transition-all duration-300">
@@ -311,6 +348,7 @@
             <i class="fa-brands fa-whatsapp mr-2 text-lg"></i> WhatsApp
           </a>
         </div>
+      </div>
     </div>
 
     <!-- Main Menu -->
@@ -961,9 +999,7 @@
 
   <script>
 
-    // NAVIGATION MENU
-    
-      // Wait until the DOM is ready
+    // Wait until the DOM is ready
   document.addEventListener("DOMContentLoaded", () => {
     const nav = document.getElementById("mainNav");
 
@@ -975,7 +1011,6 @@
         nav.classList.remove("nav-scrolled");
       }
     });
-  });
 
     AOS.init({
       duration: 900,
@@ -1026,7 +1061,7 @@
       const isNavScrolled = navBar?.classList.contains('nav-scrolled');
       
       if (isOverNav && !isNavScrolled) {
-        // Navigation is orange (top bar visible)
+        // Navigation is transparent/has orange top bar
         document.body.classList.add('cursor-on-orange');
       } else if (isOverNav && isNavScrolled) {
         // Navigation is white (scrolled)
@@ -1153,6 +1188,7 @@
         "max-glare": 0.2,
       });
     }
+  });
   </script>
 
 </body>

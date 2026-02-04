@@ -13,7 +13,6 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
-
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap");
 
@@ -37,11 +36,9 @@
       display: none;
     }
 
-    /* Nav Initial State */
+    /* Nav Initial State - completely transparent */
     #mainNav {
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      background: transparent;
     }
 
     /* Logo colors */
@@ -49,12 +46,33 @@
       color: #ea580c;
     }
 
-    .logo-text {
+    #mainNav.nav-scrolled .logo-text {
       color: #0f172a !important;
     }
 
+    #mainNav:not(.nav-scrolled) .logo-text {
+      color: white;
+    }
+
     /* Nav links colors */
-    #navLinks a:not(.bg-orange-600) {
+    #mainNav:not(.nav-scrolled) #navLinks a:not(.bg-orange-600) {
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    #mainNav:not(.nav-scrolled) #navLinks a:not(.bg-orange-600):hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    }
+
+    #mainNav.nav-scrolled #navLinks a:not(.bg-orange-600) {
       color: #334155;
       padding: 12px 20px;
       border-radius: 10px;
@@ -65,14 +83,18 @@
       font-weight: 600;
     }
 
-    #navLinks a:not(.bg-orange-600):hover {
+    #mainNav.nav-scrolled #navLinks a:not(.bg-orange-600):hover {
       background: #f1f5f9;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     /* Mobile menu icon */
-    #menuIcon {
+    #mainNav:not(.nav-scrolled) #menuIcon {
+      color: white;
+    }
+
+    #mainNav.nav-scrolled #menuIcon {
       color: #0f172a;
     }
 
@@ -86,7 +108,6 @@
     }
 
     @keyframes bounce {
-
       0%,
       20%,
       50%,
@@ -94,11 +115,9 @@
       100% {
         transform: translateY(0);
       }
-
       40% {
         transform: translateY(-10px);
       }
-
       60% {
         transform: translateY(-5px);
       }
@@ -125,12 +144,10 @@
 
     /* Popular Badge Animation */
     @keyframes pulse-badge {
-
       0%,
       100% {
         transform: scale(1);
       }
-
       50% {
         transform: scale(1.05);
       }
@@ -142,13 +159,11 @@
 
     /* Speed Visualization */
     @keyframes speedPulse {
-
       0%,
       100% {
         opacity: 0.3;
         transform: scale(1);
       }
-
       50% {
         opacity: 1;
         transform: scale(1.1);
@@ -171,68 +186,11 @@
     .feature-icon:hover {
       transform: rotate(10deg) scale(1.1);
     }
-
-    /* ===================== */
-    /* Custom Cursor (ORANGE) */
-    /* ===================== */
-
-    * {
-      cursor: none;
-    }
-
-    #cursor-dot {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      background: #ea580c;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s ease, background 0.15s ease;
-    }
-
-    #cursor-ring {
-      position: fixed;
-      width: 32px;
-      height: 32px;
-      border: 2px solid #ea580c;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: border-color 0.15s ease, background 0.15s ease;
-    }
-
-    /* Hover interaction */
-    .cursor-hover #cursor-dot {
-      transform: translate(-50%, -50%) scale(1.6);
-    }
-
-    .cursor-hover #cursor-ring {
-      background: rgba(234, 88, 12, 0.15);
-    }
-
-    /* Mobile fallback */
-    @media (max-width: 768px) {
-      * {
-        cursor: auto;
-      }
-
-      #cursor-dot,
-      #cursor-ring {
-        display: none;
-      }
-    }
   </style>
-
 </head>
 
 <body class="bg-white">
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
-
-  <a href="https://wa.me/yournumber"
+  <a href="https://wa.me/27824662244"
     class="whatsapp-float bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:bg-green-600 transition hover:scale-110">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
@@ -247,16 +205,16 @@
           <span class="flex items-center"><i class="fa-solid fa-location-dot text-white mr-2"></i> Riebeek
             Kasteel, Western Cape</span>
           <span class="flex items-center"><i class="fa-regular fa-envelope text-white mr-2"></i>
-            support@rvcomputers.co.za</span>
+            <a href="mailto:info@riebeekvalleycomputers.co.za" class="hover:text-white transition">info@riebeekvalleycomputers.co.za</a></span>
         </div>
         <div class="flex items-center justify-between w-full md:w-auto space-x-0 md:space-x-6">
-          <a href="tel:+27000000000" class="flex items-center hover:text-white transition font-semibold">
+          <a href="tel:+27224662244" class="flex items-center hover:text-white transition font-semibold">
             <i class="fa-solid fa-phone mr-2 text-white"></i>
-            <span class="hidden sm:inline">Call Us: </span> +27 (0) 21 000
-            0000
+            <span class="hidden sm:inline">Call Us: </span> +27 (0) 22 466
+            2244
           </a>
           <div class="w-px h-3 bg-orange-500 mx-3 md:hidden"></div>
-          <a href="https://wa.me/yournumber" class="flex items-center hover:text-white transition font-semibold">
+          <a href="https://wa.me/27824662244" class="flex items-center hover:text-white transition font-semibold">
             <i class="fa-brands fa-whatsapp mr-2 text-lg"></i> WhatsApp
           </a>
         </div>
@@ -271,7 +229,7 @@
       </a>
 
       <div class="hidden lg:flex space-x-10 items-center font-semibold text-slate-700" id="navLinks">
-        <a href="index.html" class="hover:text-orange-600 transition text-orange-600">Home</a>
+        <a href="index.html" class="hover:text-orange-600 transition">Home</a>
         <a href="index.html#services" class="hover:text-orange-600 transition">Services</a>
         <a href="index.html#testimonials" class="hover:text-orange-600 transition">Success Stories</a>
         <a href="#contact"
@@ -290,18 +248,19 @@
   <!-- Full Screen Mobile Menu Overlay -->
   <div id="mobileMenu"
     class="fixed inset-0 bg-slate-950/98 backdrop-blur-xl z-40 translate-x-full flex flex-col items-center justify-center space-y-8 text-2xl font-bold text-white lg:hidden">
+    <a href="index.html" onclick="toggleMobileMenu()"
+      class="hover:text-orange-500 transition transform hover:scale-110">Home</a>
     <a href="index.html#services" onclick="toggleMobileMenu()"
       class="hover:text-orange-500 transition transform hover:scale-110">Services</a>
-    <a href="isp.html" onclick="toggleMobileMenu()" class="text-orange-500 transition transform hover:scale-110">ISP</a>
     <a href="index.html#testimonials" onclick="toggleMobileMenu()"
       class="hover:text-orange-500 transition transform hover:scale-110">Success Stories</a>
     <a href="#contact" onclick="toggleMobileMenu()"
-      class="hover:text-orange-400 transition transform hover:scale-110">Get Connected</a>
+      class="text-orange-500 hover:text-orange-400 transition transform hover:scale-110">Get Connected</a>
   </div>
 
   <!-- Hero Section -->
   <section
-    class="relative min-h-[70vh] flex items-center bg-gradient-to-br from-orange-500 to-orange-600 px-6 overflow-hidden pt-40 pb-20">
+    class="orange-section relative min-h-[70vh] flex items-center bg-gradient-to-br from-orange-500 to-orange-600 px-6 overflow-hidden pt-40 pb-20">
     <!-- Animated Background -->
     <div class="absolute inset-0 opacity-10 pointer-events-none">
       <div class="absolute top-0 -left-1/4 w-1/2 h-full bg-white rounded-full blur-[150px]"></div>
@@ -318,657 +277,267 @@
 
     <div class="max-w-7xl mx-auto w-full relative z-10">
       <div class="text-center max-w-4xl mx-auto" data-aos="fade-up">
-        <div
-          class="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md px-6 py-3 rounded-full mb-8 border border-white/30">
-          <i class="fa-solid fa-bolt text-yellow-300 text-xl"></i>
-          <span class="text-white font-semibold">99.9% Uptime Guaranteed</span>
-        </div>
-
-        <h1 class="text-6xl md:text-7xl lg:text-8xl font-extrabold text-white leading-[1.1] mb-6">
-          Internet That<br />
-          <span class="gradient-text-white">Never Slows Down</span>
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6">
+          High-Speed Internet for
+          <span class="block text-orange-100">Riebeek Valley</span>
         </h1>
-
-        <p class="text-2xl md:text-3xl text-white/90 font-light mb-12 max-w-3xl mx-auto">
-          Uncapped Fibre & Wireless solutions for the Riebeek Valley
+        <p class="text-xl md:text-2xl text-white/90 font-light mb-8">
+          Uncapped Fibre & Wireless solutions with 99.9% uptime guarantee
         </p>
-
         <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
           <a href="#pricing"
-            class="group bg-white text-orange-600 px-12 py-6 rounded-2xl font-bold text-xl hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-white/30 active:scale-95 text-center w-full sm:w-auto">
-            View Packages
-            <i class="fa-solid fa-arrow-down ml-2 transform group-hover:translate-y-1 transition-transform"></i>
+            class="bg-white text-orange-600 px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-white/30 active:scale-95">
+            <i class="fa-solid fa-rocket mr-2"></i> View Plans
           </a>
-          <a href="#coverage-map"
-            class="group bg-white/10 text-white px-12 py-6 rounded-2xl font-bold text-xl backdrop-blur-md hover:bg-white/20 transition-all duration-300 active:scale-95 border-2 border-white/30 hover:border-white/50 text-center w-full sm:w-auto">
-            Check Coverage
-            <i class="fa-solid fa-map-marker-alt ml-2"></i>
+          <a href="#contact"
+            class="bg-white/10 text-white px-8 py-4 rounded-full font-bold text-lg backdrop-blur-md hover:bg-white/20 transition-all duration-300 border-2 border-white/30">
+            <i class="fa-solid fa-phone mr-2"></i> Call Us
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Why Choose Us -->
-  <section class="py-24 bg-white">
+  <!-- Features Section -->
+  <section class="py-20 bg-gradient-to-b from-orange-50 to-white">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16" data-aos="fade-up">
-        <h2 class="text-5xl font-extrabold text-slate-900 mb-4">
-          Why Valley Computers ISP?
-        </h2>
+        <h2 class="text-4xl font-extrabold text-slate-900 mb-4">Why Choose Our Internet</h2>
         <p class="text-xl text-slate-600 max-w-3xl mx-auto">
-          We're not just another internet provider. We're your local tech
-          partner, invested in keeping you connected.
+          Built for the Western Cape with local support and enterprise-grade reliability
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div
-          class="text-center p-8 rounded-3xl bg-gradient-to-br from-orange-50 to-white border border-orange-100 hover:shadow-xl transition duration-500"
-          data-aos="fade-up">
-          <div class="w-20 h-20 bg-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 feature-icon">
-            <i class="fa-solid fa-gauge-high text-4xl text-white"></i>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center group" data-aos="fade-up">
+          <div class="w-20 h-20 bg-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition">
+            <i class="fa-solid fa-bolt text-3xl text-white"></i>
           </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-3">
-            Lightning Fast
-          </h3>
-          <p class="text-slate-600">
-            Fibre speeds up to 1Gbps. Stream, game, and work without
-            buffering.
-          </p>
+          <h3 class="text-2xl font-bold text-slate-900 mb-4">Lightning Fast</h3>
+          <p class="text-slate-600">Speeds up to 1Gbps with symmetrical upload and download rates</p>
         </div>
 
-        <div
-          class="text-center p-8 rounded-3xl bg-gradient-to-br from-orange-50 to-white border border-orange-100 hover:shadow-xl transition duration-500"
-          data-aos="fade-up" data-aos-delay="100">
-          <div class="w-20 h-20 bg-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 feature-icon">
-            <i class="fa-solid fa-infinity text-4xl text-white"></i>
+        <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
+          <div class="w-20 h-20 bg-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition">
+            <i class="fa-solid fa-shield-halved text-3xl text-white"></i>
           </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-3">
-            Uncapped & Unshaped
-          </h3>
-          <p class="text-slate-600">
-            No throttling, no data limits. Use as much as you need, always.
-          </p>
+          <h3 class="text-2xl font-bold text-slate-900 mb-4">99.9% Uptime</h3>
+          <p class="text-slate-600">Enterprise-grade reliability with SLA guarantee for businesses</p>
         </div>
 
-        <div
-          class="text-center p-8 rounded-3xl bg-gradient-to-br from-orange-50 to-white border border-orange-100 hover:shadow-xl transition duration-500"
-          data-aos="fade-up" data-aos-delay="200">
-          <div class="w-20 h-20 bg-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 feature-icon">
-            <i class="fa-solid fa-headset text-4xl text-white"></i>
+        <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-20 h-20 bg-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition">
+            <i class="fa-solid fa-headset text-3xl text-white"></i>
           </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-3">Local Support</h3>
-          <p class="text-slate-600">
-            Real people, minutes away. No call centers, just your neighbors.
-          </p>
-        </div>
-
-        <div
-          class="text-center p-8 rounded-3xl bg-gradient-to-br from-orange-50 to-white border border-orange-100 hover:shadow-xl transition duration-500"
-          data-aos="fade-up" data-aos-delay="300">
-          <div class="w-20 h-20 bg-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 feature-icon">
-            <i class="fa-solid fa-shield-halved text-4xl text-white"></i>
-          </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-3">99.9% Uptime</h3>
-          <p class="text-slate-600">
-            Enterprise-grade infrastructure. Reliable connectivity you can
-            count on.
-          </p>
+          <h3 class="text-2xl font-bold text-slate-900 mb-4">Local Support</h3>
+          <p class="text-slate-600">24/7 support from our team right here in Riebeek Valley</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Pricing Section -->
-  <section id="pricing" class="py-24 bg-gradient-to-b from-orange-50 to-white">
+  <section id="pricing" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16" data-aos="fade-up">
-        <h2 class="text-5xl font-extrabold text-slate-900 mb-4">
-          Choose Your Speed
-        </h2>
-        <p class="text-xl text-slate-600 max-w-2xl mx-auto">
-          Flexible packages for homes and businesses. No contracts, no hidden
-          fees.
-        </p>
+        <h2 class="text-4xl font-extrabold text-slate-900 mb-4">Simple, Transparent Pricing</h2>
+        <p class="text-xl text-slate-600">No hidden fees. Just fast, reliable internet.</p>
       </div>
 
-      <!-- Fibre Packages -->
-      <div class="mb-20">
-        <div class="flex items-center justify-center mb-12" data-aos="fade-up">
-          <div class="h-px bg-gradient-to-r from-transparent via-orange-300 to-transparent w-full max-w-xs"></div>
-          <h3 class="text-3xl font-bold text-slate-900 px-8 whitespace-nowrap">
-            Fibre to the Home
-          </h3>
-          <div class="h-px bg-gradient-to-r from-transparent via-orange-300 to-transparent w-full max-w-xs"></div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Home Plan -->
+        <div class="pricing-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200" data-aos="fade-up">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">Home Fibre</h3>
+            <div class="text-5xl font-black text-slate-900 mb-2">
+              R699<span class="text-xl font-normal text-slate-600">/month</span>
+            </div>
+            <p class="text-slate-600">Perfect for families and remote work</p>
+          </div>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              Up to 200Mbps speed
+            </li>
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              Uncapped data
+            </li>
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              Free router installation
+            </li>
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              Email support
+            </li>
+          </ul>
+          <a href="#contact" class="w-full bg-slate-900 text-white py-3 rounded-full font-semibold hover:bg-slate-800 transition text-center block">
+            Get Started
+          </a>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Essential Package -->
-          <div class="pricing-card bg-white rounded-3xl border-2 border-slate-200 p-10 relative" data-aos="fade-up">
-            <div class="text-center mb-8">
-              <div class="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-2xl mb-4">
-                <i class="fa-solid fa-home text-2xl text-orange-600"></i>
-              </div>
-              <h4 class="text-2xl font-bold text-slate-900 mb-2">
-                Essential
-              </h4>
-              <p class="text-slate-500 text-sm">
-                Perfect for browsing & streaming
-              </p>
-            </div>
-
-            <div class="text-center mb-8">
-              <div class="flex items-baseline justify-center mb-2">
-                <span class="text-5xl font-black text-slate-900">R499</span>
-                <span class="text-slate-500 ml-2">/month</span>
-              </div>
-              <div class="text-orange-600 font-bold text-xl mb-4">
-                25 Mbps
-              </div>
-              <div class="text-xs text-slate-400 uppercase tracking-wider">
-                Uncapped · Unshaped
-              </div>
-            </div>
-
-            <ul class="space-y-4 mb-10">
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-orange-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">Stream HD on 2-3 devices</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-orange-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">Browse & social media</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-orange-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">Light video calls</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-orange-600 mr-3 mt-1"></i>
-                <span class="text-coverage-mapslate-600">Free installation</span>
-              </li>
-            </ul>
-
-            <a href="#contact"
-              class="block text-center bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-orange-600 transition">
-              Get Started
-            </a>
+        <!-- Business Plan -->
+        <div class="pricing-card bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-3xl border-2 border-orange-500 relative" data-aos="fade-up" data-aos-delay="100">
+          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+            <span class="popular-badge bg-orange-600 text-white px-4 py-1 rounded-full text-sm font-bold">
+              MOST POPULAR
+            </span>
           </div>
-
-          <!-- Premium Package - Popular -->
-          <div
-            class="pricing-card bg-gradient-to-br from-orange-600 to-orange-500 rounded-3xl border-2 border-orange-400 p-10 relative transform scale-105 shadow-2xl shadow-orange-600/30"
-            data-aos="fade-up" data-aos-delay="100">
-            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-              <span
-                class="popular-badge bg-yellow-400 text-slate-900 px-6 py-2 rounded-full text-xs font-black uppercase tracking-wider shadow-lg">
-                Most Popular
-              </span>
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">Business Pro</h3>
+            <div class="text-5xl font-black text-orange-600 mb-2">
+              R1299<span class="text-xl font-normal text-slate-600">/month</span>
             </div>
-
-            <div class="text-center mb-8">
-              <div
-                class="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4">
-                <i class="fa-solid fa-rocket text-2xl text-white"></i>
-              </div>
-              <h4 class="text-2xl font-bold text-white mb-2">Premium</h4>
-              <p class="text-orange-100 text-sm">
-                Ideal for families & remote work
-              </p>
-            </div>
-
-            <div class="text-center mb-8">
-              <div class="flex items-baseline justify-center mb-2">
-                <span class="text-5xl font-black text-white">R799</span>
-                <span class="text-orange-100 ml-2">/month</span>
-              </div>
-              <div class="text-white font-bold text-xl mb-4">100 Mbps</div>
-              <div class="text-xs text-orange-100 uppercase tracking-wider">
-                Uncapped · Unshaped
-              </div>
-            </div>
-
-            <ul class="space-y-4 mb-10">
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-white mr-3 mt-1"></i>
-                <span class="text-white">4K streaming on 5+ devices</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-white mr-3 mt-1"></i>
-                <span class="text-white">Smooth video conferencing</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-white mr-3 mt-1"></i>
-                <span class="text-white">Fast cloud uploads</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-white mr-3 mt-1"></i>
-                <span class="text-white">Priority support</span>
-              </li>
-            </ul>
-
-            <a href="#contact"
-              class="block text-center bg-white text-orange-600 py-4 rounded-xl font-bold hover:bg-orange-50 transition">
-              Get Started
-            </a>
+            <p class="text-slate-600">For growing businesses and teams</p>
           </div>
-
-          <!-- Business Package -->
-          <div class="pricing-card bg-white rounded-3xl border-2 border-slate-200 p-10 relative" data-aos="fade-up"
-            data-aos-delay="200">
-            <div class="text-center mb-8">
-              <div class="inline-flex items-center justify-center w-16 h-16 bg-slate-100 rounded-2xl mb-4">
-                <i class="fa-solid fa-building text-2xl text-slate-900"></i>
-              </div>
-              <h4 class="text-2xl font-bold text-slate-900 mb-2">Business</h4>
-              <p class="text-slate-500 text-sm">For power users & offices</p>
-            </div>
-
-            <div class="text-center mb-8">
-              <div class="flex items-baseline justify-center mb-2">
-                <span class="text-5xl font-black text-slate-900">R1,499</span>
-                <span class="text-slate-500 ml-2">/month</span>
-              </div>
-              <div class="text-orange-600 font-bold text-xl mb-4">
-                500 Mbps
-              </div>
-              <div class="text-xs text-slate-400 uppercase tracking-wider">
-                Uncapped · Unshaped
-              </div>
-            </div>
-
-            <ul class="space-y-4 mb-10">
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-orange-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">10+ simultaneous devices</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-orange-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">Enterprise-grade reliability</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-orange-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">Dedicated support line</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-orange-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">SLA guarantee</span>
-              </li>
-            </ul>
-
-            <a href="#contact"
-              class="block text-center bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-orange-600 transition">
-              Get Started
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Wireless Packages -->
-      <div>
-        <div class="flex items-center justify-center mb-12" data-aos="fade-up">
-          <div class="h-px bg-gradient-to-r from-transparent via-orange-300 to-transparent w-full max-w-xs"></div>
-          <h3 class="text-3xl font-bold text-slate-900 px-8 whitespace-nowrap">
-            Wireless Solutions
-          </h3>
-          <div class="h-px bg-gradient-to-r from-transparent via-orange-300 to-transparent w-full max-w-xs"></div>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              Up to 500Mbps speed
+            </li>
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              Uncapped unshaped
+            </li>
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              Priority support
+            </li>
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              Static IP included
+            </li>
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              24/7 phone support
+            </li>
+          </ul>
+          <a href="#contact" class="w-full bg-orange-600 text-white py-3 rounded-full font-semibold hover:bg-orange-700 transition text-center block">
+            Get Started
+          </a>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          <!-- Farm Connect -->
-          <div class="pricing-card bg-white rounded-3xl border-2 border-slate-200 p-10" data-aos="fade-up">
-            <div class="text-center mb-8">
-              <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-2xl mb-4">
-                <i class="fa-solid fa-tractor text-2xl text-green-600"></i>
-              </div>
-              <h4 class="text-2xl font-bold text-slate-900 mb-2">
-                Farm Connect
-              </h4>
-              <p class="text-slate-500 text-sm">Rural & remote properties</p>
+        <!-- Enterprise Plan -->
+        <div class="pricing-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200" data-aos="fade-up" data-aos-delay="200">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">Enterprise</h3>
+            <div class="text-5xl font-black text-slate-900 mb-2">
+              Custom<span class="text-xl font-normal text-slate-600">/month</span>
             </div>
-
-            <div class="text-center mb-8">
-              <div class="flex items-baseline justify-center mb-2">
-                <span class="text-4xl font-black text-slate-900">From R899</span>
-                <span class="text-slate-500 ml-2">/month</span>
-              </div>
-              <div class="text-orange-600 font-bold text-lg mb-4">
-                Up to 50 Mbps
-              </div>
-              <div class="text-xs text-slate-400 uppercase tracking-wider">
-                Uncapped · Unshaped
-              </div>
-            </div>
-
-            <ul class="space-y-4 mb-10">
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-green-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">Point-to-point wireless</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-green-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">No trenching or cables</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-green-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">Line-of-sight installation</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-green-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">Site survey included</span>
-              </li>
-            </ul>
-
-            <a href="#contact"
-              class="block text-center bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-green-600 transition">
-              Check Availability
-            </a>
+            <p class="text-slate-600">Tailored solutions for large organizations</p>
           </div>
-
-          <!-- Business Wireless -->
-          <div class="pricing-card bg-white rounded-3xl border-2 border-slate-200 p-10" data-aos="fade-up"
-            data-aos-delay="100">
-            <div class="text-center mb-8">
-              <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-2xl mb-4">
-                <i class="fa-solid fa-tower-cell text-2xl text-blue-600"></i>
-              </div>
-              <h4 class="text-2xl font-bold text-slate-900 mb-2">
-                Business Wireless
-              </h4>
-              <p class="text-slate-500 text-sm">
-                Backup & failover solutions
-              </p>
-            </div>
-
-            <div class="text-center mb-8">
-              <div class="flex items-baseline justify-center mb-2">
-                <span class="text-4xl font-black text-slate-900">From R1,199</span>
-                <span class="text-slate-500 ml-2">/month</span>
-              </div>
-              <div class="text-orange-600 font-bold text-lg mb-4">
-                Up to 100 Mbps
-              </div>
-              <div class="text-xs text-slate-400 uppercase tracking-wider">
-                Uncapped · Unshaped
-              </div>
-            </div>
-
-            <ul class="space-y-4 mb-10">
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-blue-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">Redundant connectivity</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-blue-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">Auto-failover capability</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-blue-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">24/7 monitoring</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fa-solid fa-check text-blue-600 mr-3 mt-1"></i>
-                <span class="text-slate-600">Managed equipment</span>
-              </li>
-            </ul>
-
-            <a href="#contact"
-              class="block text-center bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-blue-600 transition">
-              Request Quote
-            </a>
-          </div>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              Up to 1Gbps speed
+            </li>
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              Custom solutions
+            </li>
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              Dedicated account manager
+            </li>
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              SLA guarantee
+            </li>
+            <li class="flex items-center text-slate-700">
+              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+              Backup solutions
+            </li>
+          </ul>
+          <a href="#contact" class="w-full bg-slate-900 text-white py-3 rounded-full font-semibold hover:bg-slate-800 transition text-center block">
+            Contact Sales
+          </a>
         </div>
-      </div>
-
-      <!-- Custom Solutions CTA -->
-      <div class="mt-16 text-center bg-gradient-to-r from-orange-600 to-orange-500 rounded-3xl p-12" data-aos="fade-up">
-        <h3 class="text-3xl font-bold text-white mb-4">
-          Need a Custom Solution?
-        </h3>
-        <p class="text-orange-100 text-lg mb-8 max-w-2xl mx-auto">
-          We design bespoke network solutions for estates, business parks, and
-          multi-tenant buildings.
-        </p>
-        <a href="#contact"
-          class="inline-flex items-center bg-white text-orange-600 px-10 py-4 rounded-xl font-bold hover:bg-orange-50 transition text-lg">
-          <i class="fa-solid fa-comments mr-3"></i>
-          Let's Talk Custom
-        </a>
       </div>
     </div>
   </section>
 
-  <!-- Coverage Map -->
-  <section id="coverage-map" class="py-24 bg-white">
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-gradient-to-b from-white to-orange-50">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl font-extrabold text-slate-900 mb-4">Ready to Get Connected?</h2>
+        <p class="text-xl text-slate-600">Get in touch with our team to find the perfect solution for your needs</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12">
         <div data-aos="fade-right">
-          <h2 class="text-4xl font-extrabold text-slate-900 mb-6">
-            Expanding Across the Valley
-          </h2>
-          <p class="text-lg text-slate-600 mb-8">
-            Our network infrastructure covers Riebeek Kasteel and extends to
-            Malmesbury, with ongoing expansion to bring high-speed
-            connectivity to every corner of the region.
-          </p>
-
-          <div class="space-y-6 mb-10">
+          <div class="space-y-8">
             <div class="flex items-start space-x-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
-                <i class="fa-solid fa-circle-check text-orange-600 text-xl"></i>
+              <div class="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-phone text-white"></i>
               </div>
               <div>
-                <h4 class="font-bold text-slate-900 mb-1">Full Coverage</h4>
-                <p class="text-slate-600 text-sm">
-                  Riebeek Kasteel town center and surrounding residential
-                  areas with Fibre to the Home.
-                </p>
+                <h3 class="font-bold text-slate-900 mb-1">Call Us</h3>
+                <p class="text-slate-600">+27 (0) 22 466 2244</p>
+                <p class="text-sm text-slate-500">Mon-Fri 8am-6pm</p>
               </div>
             </div>
 
             <div class="flex items-start space-x-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                <i class="fa-solid fa-wifi text-green-600 text-xl"></i>
+              <div class="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-envelope text-white"></i>
               </div>
               <div>
-                <h4 class="font-bold text-slate-900 mb-1">Wireless Reach</h4>
-                <p class="text-slate-600 text-sm">
-                  Point-to-point wireless for farms and remote properties
-                  within line of sight of our towers.
-                </p>
+                <h3 class="font-bold text-slate-900 mb-1">Email Us</h3>
+                <p class="text-slate-600">info@riebeekvalleycomputers.co.za</p>
+                <p class="text-sm text-slate-500">We respond within 24 hours</p>
               </div>
             </div>
 
             <div class="flex items-start space-x-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <i class="fa-solid fa-rocket text-blue-600 text-xl"></i>
+              <div class="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fa-brands fa-whatsapp text-white"></i>
               </div>
               <div>
-                <h4 class="font-bold text-slate-900 mb-1">
-                  Malmesbury Expansion
-                </h4>
-                <p class="text-slate-600 text-sm">
-                  Growing fibre and wireless network in Malmesbury with
-                  business-grade solutions.
-                </p>
+                <h3 class="font-bold text-slate-900 mb-1">WhatsApp</h3>
+                <p class="text-slate-600">+27 82 466 2244</p>
+                <p class="text-sm text-slate-500">Quick responses available</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-location-dot text-white"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-slate-900 mb-1">Visit Us</h3>
+                <p class="text-slate-600">Riebeek Kasteel, Western Cape, 7307</p>
+                <p class="text-sm text-slate-500">By appointment only</p>
               </div>
             </div>
           </div>
-
-          <a href="#contact"
-            class="inline-flex items-center bg-orange-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-orange-700 transition">
-            Check My Address
-            <i class="fa-solid fa-arrow-right ml-2"></i>
-          </a>
         </div>
 
-        <div
-          class="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl shadow-orange-600/10 border border-orange-200"
-          data-aos="fade-left">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105945.97!2d18.85!3d-33.37!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dccf0b3e3c8e8e5%3A0x2b2b2b2b2b2b2b2b!2sRiebeek%20Kasteel%2C%20South%20Africa!5e0!3m2!1sen!2sza!4v1700000000000!5m2!1sen!2sza"
-            width="100%" height="100%" style="border: 0" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
-
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="py-24 bg-gradient-to-b from-orange-50 to-white">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="text-center mb-16" data-aos="fade-up">
-        <h2 class="text-5xl font-extrabold text-slate-900 mb-4">
-          Common Questions
-        </h2>
-        <p class="text-xl text-slate-600">
-          Everything you need to know about our ISP services
-        </p>
-      </div>
-
-      <div class="space-y-6" data-aos="fade-up">
-        <details
-          class="group bg-white rounded-2xl border-2 border-slate-200 p-8 cursor-pointer hover:border-orange-300 transition">
-          <summary class="flex justify-between items-center font-bold text-lg text-slate-900 list-none">
-            <span>What's included in installation?</span>
-            <i class="fa-solid fa-chevron-down text-orange-600 group-open:rotate-180 transition-transform"></i>
-          </summary>
-          <p class="text-slate-600 mt-4 leading-relaxed">
-            All fibre installations include the ONT (modem), professional
-            trenching or aerial cable routing, and basic indoor cabling. We'll
-            get you online with a free router loan while you decide on your
-            own equipment.
-          </p>
-        </details>
-
-        <details
-          class="group bg-white rounded-2xl border-2 border-slate-200 p-8 cursor-pointer hover:border-orange-300 transition">
-          <summary class="flex justify-between items-center font-bold text-lg text-slate-900 list-none">
-            <span>How long does installation take?</span>
-            <i class="fa-solid fa-chevron-down text-orange-600 group-open:rotate-180 transition-transform"></i>
-          </summary>
-          <p class="text-slate-600 mt-4 leading-relaxed">
-            Typical fibre installations are completed within 5-7 working days
-            from order confirmation. Wireless setups can often be done within
-            48 hours if line of sight is clear. We'll keep you updated every
-            step of the way.
-          </p>
-        </details>
-
-        <details
-          class="group bg-white rounded-2xl border-2 border-slate-200 p-8 cursor-pointer hover:border-orange-300 transition">
-          <summary class="flex justify-between items-center font-bold text-lg text-slate-900 list-none">
-            <span>Are there contracts or cancellation fees?</span>
-            <i class="fa-solid fa-chevron-down text-orange-600 group-open:rotate-180 transition-transform"></i>
-          </summary>
-          <p class="text-slate-600 mt-4 leading-relaxed">
-            We offer month-to-month packages with no long-term contracts.
-            Cancel anytime with 30 days' notice. If you've received subsidized
-            installation, a small equipment return fee may apply within the
-            first 12 months.
-          </p>
-        </details>
-
-        <details
-          class="group bg-white rounded-2xl border-2 border-slate-200 p-8 cursor-pointer hover:border-orange-300 transition">
-          <summary class="flex justify-between items-center font-bold text-lg text-slate-900 list-none">
-            <span>What if I have connection issues?</span>
-            <i class="fa-solid fa-chevron-down text-orange-600 group-open:rotate-180 transition-transform"></i>
-          </summary>
-          <p class="text-slate-600 mt-4 leading-relaxed">
-            Our local support team is available 24/7 via WhatsApp and phone.
-            Most issues are resolved remotely within minutes. For on-site
-            support, we typically reach you within 4-8 hours during business
-            hours.
-          </p>
-        </details>
-
-        <details
-          class="group bg-white rounded-2xl border-2 border-slate-200 p-8 cursor-pointer hover:border-orange-300 transition">
-          <summary class="flex justify-between items-center font-bold text-lg text-slate-900 list-none">
-            <span>Can I upgrade my package later?</span>
-            <i class="fa-solid fa-chevron-down text-orange-600 group-open:rotate-180 transition-transform"></i>
-          </summary>
-          <p class="text-slate-600 mt-4 leading-relaxed">
-            Absolutely! Speed upgrades are instant and can be done via a
-            simple phone call or WhatsApp message. Downgrades take effect from
-            the next billing cycle. No technician visit required for speed
-            changes.
-          </p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact/CTA Section -->
-  <section class="bg-white cursor-light">
-
-    id="contact"
-    class="py-24 bg-gradient-to-br from-orange-600 to-orange-500"
-    >
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-12 border-2 border-white/20" data-aos="fade-up">
-        <div class="text-center mb-12">
-          <h2 class="text-5xl font-extrabold text-white mb-4">
-            Ready to Get Connected?
-          </h2>
-          <p class="text-xl text-orange-100 max-w-2xl mx-auto">
-            Let's check if we're available in your area and get you set up
-            with blazing-fast internet.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8 mb-12">
-          <a href="tel:+27000000000"
-            class="group bg-white/10 backdrop-blur-md hover:bg-white/20 border-2 border-white/30 hover:border-white/50 rounded-2xl p-8 text-center transition">
-            <div
-              class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition">
-              <i class="fa-solid fa-phone text-3xl text-white"></i>
-            </div>
-            <h3 class="font-bold text-white mb-2">Call Us</h3>
-            <p class="text-orange-100 text-sm mb-3">Speak to a real person</p>
-            <span class="text-white font-semibold">+27 (0) 21 000 0000</span>
-          </a>
-
-          <a href="https://wa.me/yournumber"
-            class="group bg-white/10 backdrop-blur-md hover:bg-white/20 border-2 border-white/30 hover:border-white/50 rounded-2xl p-8 text-center transition">
-            <div
-              class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition">
-              <i class="fa-brands fa-whatsapp text-3xl text-white"></i>
-            </div>
-            <h3 class="font-bold text-white mb-2">WhatsApp</h3>
-            <p class="text-orange-100 text-sm mb-3">Quick and easy</p>
-            <span class="text-white font-semibold">Chat Now</span>
-          </a>
-
-          <a href="mailto:support@rvcomputers.co.za"
-            class="group bg-white/10 backdrop-blur-md hover:bg-white/20 border-2 border-white/30 hover:border-white/50 rounded-2xl p-8 text-center transition">
-            <div
-              class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition">
-              <i class="fa-solid fa-envelope text-3xl text-white"></i>
-            </div>
-            <h3 class="font-bold text-white mb-2">Email</h3>
-            <p class="text-orange-100 text-sm mb-3">Drop us a message</p>
-            <span class="text-white font-semibold break-all">support@rvcomputers.co.za</span>
-          </a>
-        </div>
-
-        <div class="text-center">
-          <p class="text-orange-100 text-sm mb-6">
-            Office Hours: Mon-Fri 8AM-5PM, Sat 9AM-1PM | Emergency Support:
-            24/7
-          </p>
-          <div class="flex flex-wrap justify-center gap-4 text-white/80 text-sm">
-            <span class="flex items-center"><i class="fa-solid fa-check mr-2 text-green-300"></i> Free
-              consultations</span>
-            <span class="flex items-center"><i class="fa-solid fa-check mr-2 text-green-300"></i> No
-              obligation quotes</span>
-            <span class="flex items-center"><i class="fa-solid fa-check mr-2 text-green-300"></i> Same-day
-              responses</span>
+        <div data-aos="fade-left">
+          <div class="bg-white p-8 rounded-3xl shadow-xl">
+            <h3 class="text-2xl font-bold text-slate-900 mb-6">Send us a message</h3>
+            <form class="space-y-6">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Full Name</label>
+                <input type="text" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500" placeholder="John Doe">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                <input type="email" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500" placeholder="john@example.com">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Phone</label>
+                <input type="tel" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500" placeholder="+27 12 345 6789">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Message</label>
+                <textarea rows="4" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500" placeholder="Tell us about your internet needs..."></textarea>
+              </div>
+              <button type="submit" class="w-full bg-orange-600 text-white py-3 rounded-full font-semibold hover:bg-orange-700 transition">
+                Send Message
+              </button>
+            </form>
           </div>
         </div>
       </div>
@@ -976,194 +545,80 @@
   </section>
 
   <!-- Footer -->
-  <footer class="bg-black text-white pt-20 pb-10">
+  <footer class="bg-slate-900 text-white py-12">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-        <div class="space-y-6">
-          <div class="text-3xl font-extrabold text-orange-500 tracking-tighter">
-            RV<span class="text-white">COMPUTERS</span>
-          </div>
-          <p class="text-slate-400 leading-relaxed text-sm">
-            Powering the Riebeek Valley with high-speed connectivity and
-            precision IT engineering. Your local partner for a digital future.
-          </p>
-          <div class="flex space-x-4">
-            <a href="#"
-              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-orange-600 transition text-lg"><i
-                class="fa-brands fa-facebook-f"></i></a>
-            <a href="#"
-              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-orange-600 transition text-lg"><i
-                class="fa-brands fa-instagram"></i></a>
-            <a href="#"
-              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-orange-600 transition text-lg"><i
-                class="fa-brands fa-linkedin-in"></i></a>
-          </div>
+      <div class="text-center">
+        <div class="text-3xl font-extrabold text-orange-500 tracking-tighter mb-4">
+          RV<span class="text-white">COMPUTERS</span>
         </div>
-
-        <div>
-          <h4 class="text-lg font-bold mb-6 border-b border-orange-500/30 pb-2 inline-block">
-            Services
-          </h4>
-          <ul class="space-y-4 text-slate-400 text-sm">
-            <li>
-              <a href="#pricing" class="hover:text-orange-400 transition">Fibre to the Home</a>
-            </li>
-            <li>
-              <a href="#pricing" class="hover:text-orange-400 transition">Wireless Business Internet</a>
-            </li>
-            <li>
-              <a href="index.html#services" class="hover:text-orange-400 transition">PC & Mac Repairs</a>
-            </li>
-            <li>
-              <a href="index.html#services" class="hover:text-orange-400 transition">Network Security</a>
-            </li>
-            <li>
-              <a href="index.html#services" class="hover:text-orange-400 transition">Managed IT Support</a>
-            </li>
-          </ul>
+        <p class="text-slate-400 mb-6">Powering the Riebeek Valley with high-speed connectivity</p>
+        <div class="flex justify-center space-x-6 mb-8">
+          <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-orange-600 transition">
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-orange-600 transition">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-orange-600 transition">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
         </div>
-
-        <div>
-          <h4 class="text-lg font-bold mb-6 border-b border-orange-500/30 pb-2 inline-block">
-            Support Hub
-          </h4>
-          <ul class="space-y-4 text-slate-400 text-sm">
-            <li>
-              <a href="#" class="hover:text-orange-400 transition">Remote Support Tool</a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-orange-400 transition">Speed Test</a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-orange-400 transition">Privacy Policy</a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-orange-400 transition">Terms & Conditions</a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-orange-400 transition">AUP Policy</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="space-y-6">
-          <h4 class="text-lg font-bold mb-6 border-b border-orange-500/30 pb-2 inline-block">
-            Stay Connected
-          </h4>
-          <p class="text-xs text-slate-400 uppercase tracking-widest font-bold">
-            Join our mailing list
-          </p>
-          <div class="flex">
-            <input type="email" placeholder="Email Address"
-              class="bg-slate-900 border border-slate-800 px-4 py-3 rounded-l-lg focus:outline-none focus:border-orange-500 w-full text-sm" />
-            <button class="bg-orange-600 px-4 py-3 rounded-r-lg hover:bg-orange-700 transition">
-              <i class="fa-solid fa-paper-plane"></i>
-            </button>
-          </div>
-          <div class="pt-4 space-y-2">
-            <div class="flex items-center space-x-3 text-slate-400 text-sm">
-              <i class="fa-solid fa-location-dot text-orange-500"></i>
-              <span>Riebeek Kasteel, 7307, RSA</span>
-            </div>
-            <div class="flex items-center space-x-3 text-slate-400 text-sm">
-              <i class="fa-solid fa-phone text-orange-500"></i>
-              <span>+27 (0) 21 000 0000</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-medium">
-        <div class="flex items-center space-x-4">
-          <span>© 2026 Riebeek Valley Computers (Pty) Ltd.</span>
-          <span class="hidden md:inline">|</span>
-          <span class="flex items-center"><span class="w-2 h-2 bg-orange-500 rounded-full mr-2 animate-pulse"></span>
-            Network Status: Online</span>
-        </div>
-        <div class="flex space-x-6">
-          <p>Reg No: 20XX/XXXXXX/07</p>
-          <p>ICASA Licensed Provider</p>
-        </div>
+        <p class="text-slate-500 text-sm">© 2026 Riebeek Valley Computers (Pty) Ltd. All rights reserved.</p>
       </div>
     </div>
-
-    <button id="backToTop" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Back to top"
-      class="fixed bottom-32 right-8 bg-slate-900/50 hover:bg-orange-600 text-white w-10 h-10 rounded-full border border-slate-700 transition duration-300 backdrop-blur-sm z-40 opacity-0 invisible translate-y-10">
-      <i class="fa-solid fa-chevron-up"></i>
-    </button>
   </footer>
 
   <script>
-    AOS.init({ duration: 1000, once: true });
+    // Wait until the DOM is ready
+    document.addEventListener("DOMContentLoaded", () => {
+      const nav = document.getElementById("mainNav");
 
-    // Toggle Mobile Menu
-    function toggleMobileMenu() {
-      const menu = document.getElementById("mobileMenu");
-      const icon = document.getElementById("menuIcon");
-      const body = document.body;
-
-      if (menu.classList.contains("translate-x-full")) {
-        menu.classList.remove("translate-x-full");
-        icon.classList.remove("fa-bars");
-        icon.classList.add("fa-times");
-        icon.classList.add("text-white");
-        body.classList.add("menu-open");
-      } else {
-        menu.classList.add("translate-x-full");
-        icon.classList.remove("fa-times");
-        icon.classList.remove("text-white");
-        icon.classList.add("fa-bars");
-        body.classList.remove("menu-open");
-      }
-    }
-
-    // Back to top button
-    const backToTop = document.getElementById("backToTop");
-
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 500) {
-        backToTop.classList.remove(
-          "opacity-0",
-          "invisible",
-          "translate-y-10",
-        );
-      } else {
-        backToTop.classList.add("opacity-0", "invisible", "translate-y-10");
-      }
-    });
-    const dot = document.getElementById("cursor-dot");
-    const ring = document.getElementById("cursor-ring");
-
-    let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
-
-    document.addEventListener("mousemove", e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      dot.style.left = mouseX + "px";
-      dot.style.top = mouseY + "px";
-    });
-
-    function animate() {
-      ringX += (mouseX - ringX) * 0.15;
-      ringY += (mouseY - ringY) * 0.15;
-      ring.style.left = ringX + "px";
-      ring.style.top = ringY + "px";
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    document.querySelectorAll(".cursor-light").forEach(section => {
-      section.addEventListener("mouseenter", () => {
-        document.body.classList.add("cursor-brand");
+      // Scroll listener
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          nav.classList.add("nav-scrolled");
+        } else {
+          nav.classList.remove("nav-scrolled");
+        }
       });
-      section.addEventListener("mouseleave", () => {
-        document.body.classList.remove("cursor-brand");
+
+      AOS.init({
+        duration: 900,
+        once: true,
+        easing: "ease-out-cubic",
+      });
+
+      // Mobile menu toggle function
+      function toggleMobileMenu() {
+        const mobileMenu = document.getElementById("mobileMenu");
+        const menuIcon = document.getElementById("menuIcon");
+        
+        mobileMenu.classList.toggle("translate-x-full");
+        document.body.classList.toggle("menu-open");
+        
+        // Toggle menu icon
+        if (mobileMenu.classList.contains("translate-x-full")) {
+          menuIcon.classList.remove("fa-times");
+          menuIcon.classList.add("fa-bars");
+        } else {
+          menuIcon.classList.remove("fa-bars");
+          menuIcon.classList.add("fa-times");
+        }
+      }
+
+      // Close mobile menu when clicking a link
+      document.querySelectorAll("#mobileMenu a").forEach(link => {
+        link.addEventListener("click", () => {
+          const mobileMenu = document.getElementById("mobileMenu");
+          mobileMenu.classList.add("translate-x-full");
+          document.body.classList.remove("menu-open");
+          const menuIcon = document.getElementById("menuIcon");
+          menuIcon.classList.remove("fa-times");
+          menuIcon.classList.add("fa-bars");
+        });
       });
     });
   </script>
-
 </body>
 
 </html>
