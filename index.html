@@ -13,306 +13,11 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <!-- Tilt.js for 3D hover effects -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+  <link rel="stylesheet" href="./Styles/homepage-style.css">
+  <script src="./JS/homepage-logic.js" defer></script>
 
-  <style>
-    @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap");
 
-    * {
-      cursor: none;
-    }
  
-    #cursor-dot {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      background: #ea580c;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s ease, background 0.15s ease;
-    }
-
-    #cursor-ring {
-      position: fixed;
-      width: 32px;
-      height: 32px;
-      border: 2px solid #ea580c;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: border-color 0.15s ease, background 0.15s ease;
-    }
-
-    /* White cursor on orange sections */
-    .cursor-on-orange #cursor-dot {
-      background: white;
-    }
-
-    .cursor-on-orange #cursor-ring {
-      border-color: white;
-    }
-
-    .cursor-hover #cursor-dot {
-      transform: translate(-50%, -50%) scale(1.6);
-    }
-
-    .cursor-hover #cursor-ring {
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .cursor-on-orange.cursor-hover #cursor-ring {
-      background: rgba(234, 88, 12, 0.15);
-    }
-
-
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: "Outfit", sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* Nav Scrolled State */
-    .nav-scrolled {
-      background: rgba(255, 255, 255, 0.98) !important;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-scrolled .top-bar {
-      display: none;
-    }
-
-    /* Nav Initial State - completely transparent */
-    #mainNav {
-      background: transparent;
-    }
-
-    /* Logo colors */
-    .logo-rv {
-      color: #ea580c;
-      animation: logoPop 3s ease-in-out infinite;
-    }
-
-    #mainNav.nav-scrolled .logo-text {
-      color: #0f172a !important;
-    }
-
-    #mainNav:not(.nav-scrolled) .logo-text {
-      color: white;
-    }
-
-    /* Nav links colors */
-    #mainNav:not(.nav-scrolled) #navLinks a:not(.bg-orange-600) {
-      color: white;
-      padding: 12px 20px;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    #mainNav:not(.nav-scrolled) #navLinks a:not(.bg-orange-600):hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
-    }
-
-    #mainNav.nav-scrolled #navLinks a:not(.bg-orange-600) {
-      color: #334155;
-      padding: 12px 20px;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    #mainNav.nav-scrolled #navLinks a:not(.bg-orange-600):hover {
-      background: #f1f5f9;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Mobile menu icon */
-    #mainNav:not(.nav-scrolled) #menuIcon {
-      color: white;
-    }
-
-    #mainNav.nav-scrolled #menuIcon {
-      color: #0f172a;
-    }
-
-    @keyframes logoPop {
-      0%, 90%, 100% {
-        transform: scale(1);
-      }
-      95% {
-        transform: scale(1.05);
-      }
-    }
-
-    .logo-container {
-      position: relative;
-      transition: transform 0.3s ease;
-    }
-
-    .logo-container:hover {
-      transform: scale(1.1) rotate(-2deg);
-    }
-
-    .logo-container::before {
-      content: '';
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      right: -10px;
-      bottom: -10px;
-      background: linear-gradient(135deg, rgba(234, 88, 12, 0.1) 0%, rgba(251, 146, 60, 0.1) 100%);
-      border-radius: 20px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: -1;
-    }
-
-    .logo-container:hover::before {
-      opacity: 1;
-    }
-
-    /* Logo Loop Animation */
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-
-      100% {
-        transform: translateX(-50%);
-      }
-    }
-
-    .logo-slider {
-      display: flex;
-      width: fit-content;
-      animation: scroll 30s linear infinite;
-    }
-
-    .logo-item {
-      width: 250px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      filter: grayscale(1);
-      opacity: 0.6;
-      transition: 0.3s;
-      flex-shrink: 0;
-    }
-
-    .logo-item:hover {
-      filter: grayscale(0);
-      opacity: 1;
-    }
-
-    .testimonial-card {
-      transition: all 0.4s ease;
-      border-radius: 20px;
-      transform-style: preserve-3d;
-    }
-
-    .testimonial-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.4);
-    }
-
-    .whatsapp-float {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 100;
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-
-      0%,
-      20%,
-      50%,
-      80%,
-      100% {
-        transform: translateY(0);
-      }
-
-      40% {
-        transform: translateY(-10px);
-      }
-
-      60% {
-        transform: translateY(-5px);
-      }
-    }
-
-    #mobileMenu {
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .menu-open {
-      overflow: hidden;
-    }
-
-    @keyframes float {
-
-      0%,
-      100% {
-        transform: translateY(0) translateX(0);
-      }
-
-      25% {
-        transform: translateY(-20px) translateX(10px);
-      }
-
-      50% {
-        transform: translateY(-40px) translateX(-10px);
-      }
-
-      75% {
-        transform: translateY(-20px) translateX(5px);
-      }
-    }
-
-    @keyframes textGlow {
-
-      0%,
-      100% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 0 20px rgba(255, 255, 255, 0.1);
-      }
-
-      50% {
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.3), 0 0 30px rgba(255, 255, 255, 0.15);
-      }
-    }
-
-    #hero h1 {
-      animation: textGlow 3s ease-in-out infinite;
-    }
-
-    @keyframes pulse-glow {
-
-      0%,
-      100% {
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      }
-
-      50% {
-        box-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.3);
-      }
-    }
-  </style>
 </head>
 
 <body class="bg-white">
@@ -338,10 +43,10 @@
             <a href="mailto:info@riebeekvalleycomputers.co.za" class="hover:text-white transition">info@riebeekvalleycomputers.co.za</a></span>
         </div>
         <div class="flex items-center justify-between w-full md:w-auto space-x-0 md:space-x-6">
-          <a href="tel:+27224662244" class="flex items-center hover:text-white transition font-semibold">
+          <a href="tel:+27799381260" class="flex items-center hover:text-white transition font-semibold">
             <i class="fa-solid fa-phone mr-2 text-white"></i>
-            <span class="hidden sm:inline ">Call Us: </span> +27 (0) 22 466
-            2244
+            <span class="hidden sm:inline">Call Us: </span> 079 938
+            1260
           </a>
           <div class="w-px h-3 bg-orange-500 mx-3 md:hidden"></div>
           <a href="https://wa.me/27824662244" class="flex items-center hover:text-white transition font-semibold">
@@ -512,37 +217,43 @@
       </p>
     </div>
     <div class="logo-slider">
-      <div class="logo-item text-3xl font-bold text-slate-400">
-        <i class="fa-brands fa-microsoft mr-2"></i>Microsoft
-      </div>
-      <div class="logo-item text-3xl font-bold text-slate-400">
-        <i class="fa-solid fa-shield mr-2"></i>ESET
-      </div>
-      <div class="logo-item text-3xl font-bold text-slate-400">
-        <i class="fa-solid fa-server mr-2"></i>Ubiquiti
-      </div>
-      <div class="logo-item text-3xl font-bold text-slate-400">
-        <i class="fa-solid fa-laptop mr-2"></i>Dell
-      </div>
-      <div class="logo-item text-3xl font-bold text-slate-400">
-        <i class="fa-brands fa-apple mr-2"></i>Apple
-      </div>
+      <a href="https://www.microsoft.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
+        <img src="https://img.shields.io/badge/Microsoft-0078D4?logo=microsoft&style=for-the-badge&logoColor=white" alt="Microsoft" class="h-8 w-auto">
+      </a>
+      <a href="https://www.tp-link.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
+        <img src="https://img.shields.io/badge/TP-Link-FF6B35?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcyBvcgPSJvd" alt="TP-Link" class="h-8 w-auto">
+      </a>
+      <a href="https://www.ui.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
+        <img src="https://img.shields.io/badge/Ubiquiti-0055FF?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="Ubiquiti" class="h-8 w-auto">
+      </a>
+      <a href="https://www.dell.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
+        <img src="https://img.shields.io/badge/Dell-007DB8?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="Dell" class="h-8 w-auto">
+      </a>
+      <a href="https://mikrotik.com/" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
+        <img src="https://img.shields.io/badge/MikroTik-FF6B35?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="MikroTik" class="h-8 w-auto">
+      </a>
+      <a href="https://www.tendacn.com/za" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
+        <img src="https://img.shields.io/badge/Tenda-FF6B35?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="Tenda" class="h-8 w-auto">
+      </a>
       <!-- Duplicate logos for seamless loop -->
-      <div class="logo-item text-3xl font-bold text-slate-400">
-        <i class="fa-brands fa-microsoft mr-2"></i>Microsoft
-      </div>
-      <div class="logo-item text-3xl font-bold text-slate-400">
-        <i class="fa-solid fa-shield mr-2"></i>ESET
-      </div>
-      <div class="logo-item text-3xl font-bold text-slate-400">
-        <i class="fa-solid fa-server mr-2"></i>Ubiquiti
-      </div>
-      <div class="logo-item text-3xl font-bold text-slate-400">
-        <i class="fa-solid fa-laptop mr-2"></i>Dell
-      </div>
-      <div class="logo-item text-3xl font-bold text-slate-400">
-        <i class="fa-brands fa-apple mr-2"></i>Apple
-      </div>
+      <a href="https://www.microsoft.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
+        <img src="https://img.shields.io/badge/Microsoft-0078D4?logo=microsoft&style=for-the-badge&logoColor=white" alt="Microsoft" class="h-8 w-auto">
+      </a>
+      <a href="https://www.tp-link.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
+        <img src="https://img.shields.io/badge/TP-Link-FF6B35?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="TP-Link" class="h-8 w-auto">
+      </a>
+      <a href="https://www.ui.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
+        <img src="https://img.shields.io/badge/Ubiquiti-0055FF?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="Ubiquiti" class="h-8 w-auto">
+      </a>
+      <a href="https://www.dell.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
+        <img src="https://img.shields.io/badge/Dell-007DB8?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="Dell" class="h-8 w-auto">
+      </a>
+      <a href="https://mikrotik.com/" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
+        <img src="https://img.shields.io/badge/MikroTik-FF6B35?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="MikroTik" class="h-8 w-auto">
+      </a>
+      <a href="https://www.tendacn.com/za" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
+        <img src="https://img.shields.io/badge/Tenda-FF6B35?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="Tenda" class="h-8 w-auto">
+      </a>
     </div>
   </div>
 
@@ -841,7 +552,7 @@
             <div
               class="p-6 bg-orange-50 rounded-2xl border border-orange-100 flex items-start space-x-4 hover:shadow-lg transition cursor-default">
               <div
-                class="bg-orange-700 text-white w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                class="bg-orange-600 text-white w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
                 <i class="fa-solid fa-network-wired"></i>
               </div>
               <div>
@@ -856,7 +567,7 @@
             <div
               class="p-6 bg-orange-50 rounded-2xl border border-orange-100 flex items-start space-x-4 hover:shadow-lg transition cursor-default">
               <div
-                class="bg-orange-800 text-white w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                class="bg-orange-600 text-white w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
                 <i class="fa-solid fa-map-marked-alt"></i>
               </div>
               <div>
@@ -980,11 +691,11 @@
           <div class="pt-4 space-y-2">
             <div class="flex items-center space-x-3 text-slate-400 text-sm">
               <i class="fa-solid fa-location-dot text-orange-500"></i>
-              <span>Riebeek Kasteel, 7307, RSA</span>
+              <span>6 Church Rd, Riebeek-Kasteel, 7307</span>
             </div>
             <div class="flex items-center space-x-3 text-slate-400 text-sm">
               <i class="fa-solid fa-phone text-orange-500"></i>
-              <span>+27 (0) 22 466 2244</span>
+              <span>079 938 1260</span>
             </div>
           </div>
         </div>
@@ -1010,201 +721,6 @@
       <i class="fa-solid fa-chevron-up"></i>
     </button>
   </footer>
-
-
-  <script>
-
-    // Wait until the DOM is ready
-  document.addEventListener("DOMContentLoaded", () => {
-    const nav = document.getElementById("mainNav");
-
-    // Scroll listener
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 50) { // adjust offset if needed
-        nav.classList.add("nav-scrolled");
-      } else {
-        nav.classList.remove("nav-scrolled");
-      }
-    });
-
-    AOS.init({
-      duration: 900,
-      once: true,
-      easing: "ease-out-cubic",
-    });
-
-    const dot = document.getElementById("cursor-dot");
-    const ring = document.getElementById("cursor-ring");
-
-    let mouseX = 0;
-    let mouseY = 0;
-    let ringX = 0;
-    let ringY = 0;
-
-    document.addEventListener("mousemove", (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-
-      dot.style.left = mouseX + "px";
-      dot.style.top = mouseY + "px";
-    });
-
-    function animateRing() {
-      ringX += (mouseX - ringX) * 0.15;
-      ringY += (mouseY - ringY) * 0.15;
-
-      ring.style.left = ringX + "px";
-      ring.style.top = ringY + "px";
-
-      requestAnimationFrame(animateRing);
-    }
-
-    animateRing();
-
-    // Cursor color change based on section
-    function updateCursorColor(e) {
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-      
-      // Check if cursor is over orange section
-      const elementBelow = document.elementFromPoint(mouseX, mouseY);
-      const orangeSection = elementBelow?.closest('.orange-section');
-      
-      // Special handling for navigation bar
-      const navBar = document.getElementById('mainNav');
-      const isOverNav = elementBelow?.closest('#mainNav') || navBar?.contains(elementBelow);
-      const isNavScrolled = navBar?.classList.contains('nav-scrolled');
-      
-      if (isOverNav && !isNavScrolled) {
-        // Navigation is transparent/has orange top bar
-        document.body.classList.add('cursor-on-orange');
-      } else if (isOverNav && isNavScrolled) {
-        // Navigation is white (scrolled)
-        document.body.classList.remove('cursor-on-orange');
-      } else if (orangeSection) {
-        // Other orange sections
-        document.body.classList.add('cursor-on-orange');
-      } else {
-        // White sections
-        document.body.classList.remove('cursor-on-orange');
-      }
-    }
-
-    document.addEventListener("mousemove", updateCursorColor);
-
-    // Hover effect
-    document.querySelectorAll("a, button, .cursor-pointer").forEach(el => {
-      el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
-      el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
-    });
-
-    // Mobile menu toggle function
-    function toggleMobileMenu() {
-      const mobileMenu = document.getElementById("mobileMenu");
-      const menuIcon = document.getElementById("menuIcon");
-      
-      mobileMenu.classList.toggle("-translate-x-full");
-      document.body.classList.toggle("menu-open");
-      
-      // Toggle menu icon
-      if (mobileMenu.classList.contains("-translate-x-full")) {
-        menuIcon.classList.remove("fa-times");
-        menuIcon.classList.add("fa-bars");
-      } else {
-        menuIcon.classList.remove("fa-bars");
-        menuIcon.classList.add("fa-times");
-      }
-    }
-
-    // Mobile menu toggle
-    const menuToggle = document.getElementById("menuToggle");
-    const mobileMenu = document.getElementById("mobileMenu");
-
-    if (menuToggle) {
-      menuToggle.addEventListener("click", toggleMobileMenu);
-    }
-
-    // Close mobile menu when clicking a link
-    document.querySelectorAll("#mobileMenu a").forEach(link => {
-      link.addEventListener("click", () => {
-        mobileMenu.classList.add("-translate-x-full");
-        document.body.classList.remove("menu-open");
-        const menuIcon = document.getElementById("menuIcon");
-        menuIcon.classList.remove("fa-times");
-        menuIcon.classList.add("fa-bars");
-      });
-    });
-
-    // Navbar scroll effect
-    const mainNav = document.getElementById("mainNav");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 50) {
-        mainNav.classList.add("nav-scrolled");
-      } else {
-        mainNav.classList.remove("nav-scrolled");
-      }
-    });
-
-    // Counter animation
-    const counters = document.querySelectorAll('.counter');
-    const speed = 200;
-
-    const animateCounter = (counter) => {
-      const target = +counter.getAttribute('data-target');
-      const increment = target / speed;
-      
-      const updateCount = () => {
-        const count = +counter.innerText;
-        
-        if (count < target) {
-          counter.innerText = Math.ceil(count + increment);
-          setTimeout(updateCount, 1);
-        } else {
-          counter.innerText = target;
-        }
-      };
-      
-      updateCount();
-    };
-
-    // Intersection Observer for counters
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCounter(entry.target);
-          counterObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    counters.forEach(counter => {
-      counterObserver.observe(counter);
-    });
-
-    // Testimonials scroll function
-    function scrollTestimonials(direction) {
-      const container = document.querySelector('.grid.md\\:grid-cols-3');
-      if (container) {
-        const scrollAmount = 320;
-        if (direction === 'left') {
-          container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        } else {
-          container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        }
-      }
-    }
-
-    // Tilt.js init for service cards
-    if (typeof VanillaTilt !== 'undefined') {
-      VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-        max: 8,
-        speed: 400,
-        glare: true,
-        "max-glare": 0.2,
-      });
-    }
-  });
-  </script>
 
 </body>
 
