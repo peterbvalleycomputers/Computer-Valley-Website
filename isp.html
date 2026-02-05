@@ -16,6 +16,55 @@
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap");
 
+    * {
+      cursor: none;
+    }
+
+    #cursor-dot {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: #ea580c;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    #cursor-ring {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      border: 2px solid #ea580c;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    /* White cursor on orange sections */
+    .cursor-on-orange #cursor-dot {
+      background: white;
+    }
+
+    .cursor-on-orange #cursor-ring {
+      border-color: white;
+    }
+
+    .cursor-hover #cursor-dot {
+      transform: translate(-50%, -50%) scale(1.6);
+    }
+
+    .cursor-hover #cursor-ring {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .cursor-on-orange.cursor-hover #cursor-ring {
+      background: rgba(234, 88, 12, 0.15);
+    }
+
     html {
       scroll-behavior: smooth;
     }
@@ -190,6 +239,9 @@
 </head>
 
 <body class="bg-white">
+  <!-- Custom Cursor -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
   <a href="https://wa.me/27824662244"
     class="whatsapp-float bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:bg-green-600 transition hover:scale-110">
     <i class="fa-brands fa-whatsapp"></i>
@@ -284,7 +336,7 @@
         <p class="text-xl md:text-2xl text-white/90 font-light mb-8">
           Uncapped Fibre & Wireless solutions with 99.9% uptime guarantee
         </p>
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-16">
           <a href="#pricing"
             class="bg-white text-orange-600 px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-white/30 active:scale-95">
             <i class="fa-solid fa-rocket mr-2"></i> View Plans
@@ -293,6 +345,16 @@
             class="bg-white/10 text-white px-8 py-4 rounded-full font-bold text-lg backdrop-blur-md hover:bg-white/20 transition-all duration-300 border-2 border-white/30">
             <i class="fa-solid fa-phone mr-2"></i> Call Us
           </a>
+        </div>
+
+        <!-- Coverage Areas -->
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 inline-block">
+          <p class="text-white font-semibold mb-3">Available in:</p>
+          <div class="flex flex-wrap justify-center gap-3">
+            <span class="bg-white/20 px-4 py-2 rounded-full text-white text-sm">Riebeek Kasteel</span>
+            <span class="bg-white/20 px-4 py-2 rounded-full text-white text-sm">Malmesbury</span>
+            <span class="bg-white/20 px-4 py-2 rounded-full text-white text-sm">Swartland</span>
+          </div>
         </div>
       </div>
     </div>
@@ -344,114 +406,167 @@
         <p class="text-xl text-slate-600">No hidden fees. Just fast, reliable internet.</p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Home Plan -->
-        <div class="pricing-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200" data-aos="fade-up">
-          <div class="text-center mb-8">
-            <h3 class="text-2xl font-bold text-slate-900 mb-2">Home Fibre</h3>
-            <div class="text-5xl font-black text-slate-900 mb-2">
-              R699<span class="text-xl font-normal text-slate-600">/month</span>
+      <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <!-- 2 MBPS Plan -->
+        <div class="pricing-card bg-gradient-to-br from-slate-50 to-white p-6 rounded-2xl border border-slate-200" data-aos="fade-up">
+          <div class="text-center mb-6">
+            <h3 class="text-xl font-bold text-slate-900 mb-2">2 MBPS</h3>
+            <div class="text-4xl font-black text-slate-900 mb-2">
+              R350<span class="text-lg font-normal text-slate-600">/month</span>
             </div>
-            <p class="text-slate-600">Perfect for families and remote work</p>
+            <p class="text-sm text-slate-600">Basic browsing</p>
           </div>
-          <ul class="space-y-4 mb-8">
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
-              Up to 200Mbps speed
-            </li>
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
               Uncapped data
             </li>
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
-              Free router installation
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
+              Wireless connection
             </li>
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
               Email support
             </li>
           </ul>
-          <a href="#contact" class="w-full bg-slate-900 text-white py-3 rounded-full font-semibold hover:bg-slate-800 transition text-center block">
+          <a href="#contact" class="w-full bg-slate-900 text-white py-2 rounded-full font-semibold hover:bg-slate-800 transition text-center block text-sm">
             Get Started
           </a>
         </div>
 
-        <!-- Business Plan -->
-        <div class="pricing-card bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-3xl border-2 border-orange-500 relative" data-aos="fade-up" data-aos-delay="100">
-          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-            <span class="popular-badge bg-orange-600 text-white px-4 py-1 rounded-full text-sm font-bold">
-              MOST POPULAR
+        <!-- 4 MBPS Plan -->
+        <div class="pricing-card bg-gradient-to-br from-slate-50 to-white p-6 rounded-2xl border border-slate-200" data-aos="fade-up" data-aos-delay="50">
+          <div class="text-center mb-6">
+            <h3 class="text-xl font-bold text-slate-900 mb-2">4 MBPS</h3>
+            <div class="text-4xl font-black text-slate-900 mb-2">
+              R550<span class="text-lg font-normal text-slate-600">/month</span>
+            </div>
+            <p class="text-sm text-slate-600">Streaming & work</p>
+          </div>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
+              Uncapped data
+            </li>
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
+              Wireless connection
+            </li>
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
+              Email & phone support
+            </li>
+          </ul>
+          <a href="#contact" class="w-full bg-slate-900 text-white py-2 rounded-full font-semibold hover:bg-slate-800 transition text-center block text-sm">
+            Get Started
+          </a>
+        </div>
+
+        <!-- 6 MBPS Plan -->
+        <div class="pricing-card bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-2xl border-2 border-orange-500 relative" data-aos="fade-up" data-aos-delay="100">
+          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+            <span class="popular-badge bg-orange-600 text-white px-2 py-1 rounded-full text-xs font-bold">
+              POPULAR
             </span>
           </div>
-          <div class="text-center mb-8">
-            <h3 class="text-2xl font-bold text-slate-900 mb-2">Business Pro</h3>
-            <div class="text-5xl font-black text-orange-600 mb-2">
-              R1299<span class="text-xl font-normal text-slate-600">/month</span>
+          <div class="text-center mb-6">
+            <h3 class="text-xl font-bold text-slate-900 mb-2">6 MBPS</h3>
+            <div class="text-4xl font-black text-orange-600 mb-2">
+              R650<span class="text-lg font-normal text-slate-600">/month</span>
             </div>
-            <p class="text-slate-600">For growing businesses and teams</p>
+            <p class="text-sm text-slate-600">Family usage</p>
           </div>
-          <ul class="space-y-4 mb-8">
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
-              Up to 500Mbps speed
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
+              Uncapped data
             </li>
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
-              Uncapped unshaped
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
+              Wireless connection
             </li>
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
               Priority support
             </li>
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
-              Static IP included
-            </li>
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
-              24/7 phone support
-            </li>
           </ul>
-          <a href="#contact" class="w-full bg-orange-600 text-white py-3 rounded-full font-semibold hover:bg-orange-700 transition text-center block">
+          <a href="#contact" class="w-full bg-orange-600 text-white py-2 rounded-full font-semibold hover:bg-orange-700 transition text-center block text-sm">
             Get Started
           </a>
         </div>
 
-        <!-- Enterprise Plan -->
-        <div class="pricing-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200" data-aos="fade-up" data-aos-delay="200">
-          <div class="text-center mb-8">
-            <h3 class="text-2xl font-bold text-slate-900 mb-2">Enterprise</h3>
-            <div class="text-5xl font-black text-slate-900 mb-2">
-              Custom<span class="text-xl font-normal text-slate-600">/month</span>
+        <!-- 8 MBPS Plan -->
+        <div class="pricing-card bg-gradient-to-br from-slate-50 to-white p-6 rounded-2xl border border-slate-200" data-aos="fade-up" data-aos-delay="150">
+          <div class="text-center mb-6">
+            <h3 class="text-xl font-bold text-slate-900 mb-2">8 MBPS</h3>
+            <div class="text-4xl font-black text-slate-900 mb-2">
+              R850<span class="text-lg font-normal text-slate-600">/month</span>
             </div>
-            <p class="text-slate-600">Tailored solutions for large organizations</p>
+            <p class="text-sm text-slate-600">Heavy usage</p>
           </div>
-          <ul class="space-y-4 mb-8">
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
-              Up to 1Gbps speed
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
+              Uncapped data
             </li>
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
-              Custom solutions
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
+              Wireless connection
             </li>
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
-              Dedicated account manager
-            </li>
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
-              SLA guarantee
-            </li>
-            <li class="flex items-center text-slate-700">
-              <i class="fa-solid fa-check text-green-500 mr-3"></i>
-              Backup solutions
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
+              Priority support
             </li>
           </ul>
-          <a href="#contact" class="w-full bg-slate-900 text-white py-3 rounded-full font-semibold hover:bg-slate-800 transition text-center block">
-            Contact Sales
+          <a href="#contact" class="w-full bg-slate-900 text-white py-2 rounded-full font-semibold hover:bg-slate-800 transition text-center block text-sm">
+            Get Started
           </a>
+        </div>
+
+        <!-- 10 MBPS Plan -->
+        <div class="pricing-card bg-gradient-to-br from-slate-50 to-white p-6 rounded-2xl border border-slate-200" data-aos="fade-up" data-aos-delay="200">
+          <div class="text-center mb-6">
+            <h3 class="text-xl font-bold text-slate-900 mb-2">10 MBPS</h3>
+            <div class="text-4xl font-black text-slate-900 mb-2">
+              R1050<span class="text-lg font-normal text-slate-600">/month</span>
+            </div>
+            <p class="text-sm text-slate-600">Premium speed</p>
+          </div>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
+              Uncapped data
+            </li>
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
+              Wireless connection
+            </li>
+            <li class="flex items-center text-slate-700 text-sm">
+              <i class="fa-solid fa-check text-green-500 mr-2"></i>
+              24/7 priority support
+            </li>
+          </ul>
+          <a href="#contact" class="w-full bg-slate-900 text-white py-2 rounded-full font-semibold hover:bg-slate-800 transition text-center block text-sm">
+            Get Started
+          </a>
+        </div>
+      </div>
+
+      <!-- Installation Fee and UPS Info -->
+      <div class="mt-12 text-center" data-aos="fade-up">
+        <div class="bg-gradient-to-r from-orange-50 to-slate-50 p-6 rounded-2xl border border-orange-200">
+          <h3 class="text-xl font-bold text-slate-900 mb-4">Additional Information</h3>
+          <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-orange-600 mb-2">R1000</div>
+              <p class="text-slate-600">Once-off Installation Fee</p>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-slate-700 mb-2">R100</div>
+              <p class="text-slate-600">Optional UPS Rental (per month)</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -563,7 +678,7 @@
             <i class="fa-brands fa-linkedin-in"></i>
           </a>
         </div>
-        <p class="text-slate-500 text-sm">© 2026 Riebeek Valley Computers (Pty) Ltd. All rights reserved.</p>
+        <p class="text-slate-500 text-sm"> 2026 Riebeek Valley Computers (Pty) Ltd. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -616,6 +731,70 @@
           menuIcon.classList.remove("fa-times");
           menuIcon.classList.add("fa-bars");
         });
+      });
+
+      // Custom Cursor
+      const dot = document.getElementById("cursor-dot");
+      const ring = document.getElementById("cursor-ring");
+
+      let mouseX = 0;
+      let mouseY = 0;
+      let ringX = 0;
+      let ringY = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        dot.style.left = mouseX + "px";
+        dot.style.top = mouseY + "px";
+      });
+
+      function animateRing() {
+        ringX += (mouseX - ringX) * 0.1;
+        ringY += (mouseY - ringY) * 0.1;
+        
+        ring.style.left = ringX + "px";
+        ring.style.top = ringY + "px";
+        
+        requestAnimationFrame(animateRing);
+      }
+
+      animateRing();
+
+      // Cursor color change based on section
+      function updateCursorColor(e) {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        // Check if cursor is over orange section
+        const elementBelow = document.elementFromPoint(mouseX, mouseY);
+        const orangeSection = elementBelow?.closest('.orange-section');
+        const nav = document.getElementById('mainNav');
+        const isOverNav = elementBelow?.closest('#mainNav');
+        const isNavScrolled = nav.classList.contains('nav-scrolled');
+        
+        if (isOverNav && !isNavScrolled) {
+          // Navigation is transparent/has orange top bar
+          document.body.classList.add('cursor-on-orange');
+        } else if (isOverNav && isNavScrolled) {
+          // Navigation is white (scrolled)
+          document.body.classList.remove('cursor-on-orange');
+        } else if (orangeSection) {
+          // Other orange sections
+          document.body.classList.add('cursor-on-orange');
+        } else {
+          // White sections
+          document.body.classList.remove('cursor-on-orange');
+        }
+      }
+
+      document.addEventListener("mousemove", updateCursorColor);
+
+      // Hover effect
+      document.querySelectorAll("a, button, .cursor-pointer").forEach(el => {
+        el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
+        el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
       });
     });
   </script>
