@@ -201,6 +201,7 @@ body {
     display: flex;
     width: fit-content;
     animation: scroll 30s linear infinite;
+    gap: 0;
 }
 
 .logo-item {
@@ -212,11 +213,51 @@ body {
     opacity: 0.6;
     transition: 0.3s;
     flex-shrink: 0;
+    margin: 0;
+    padding: 0 20px;
 }
 
 .logo-item:hover {
     filter: grayscale(0);
     opacity: 1;
+}
+
+.testimonial-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonial-track {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+.testimonial-slide {
+    min-width: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.testimonial-slide > div {
+    border-radius: 24px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 40px;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.testimonial-carousel .flex.justify-center {
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 400px;
+    margin: 20px auto 0;
 }
 
 .testimonial-card {

@@ -179,6 +179,132 @@
       }
     }
 
+    // Testimonial Carousel functionality
+    let currentTestimonial = 0;
+    const testimonials = document.querySelectorAll('.testimonial-slide');
+    const totalTestimonials = testimonials.length;
+    const testimonialTrack = document.getElementById('testimonialTrack');
+    const testimonialDots = document.getElementById('testimonialDots');
+
+    function updateTestimonialCarousel() {
+      if (testimonialTrack) {
+        // Calculate how many triples we can show
+        const triplesToShow = Math.floor(totalTestimonials / 3);
+        const startIndex = Math.floor(currentTestimonial / 3) * 3;
+        
+        // Hide all testimonials first
+        testimonials.forEach(testimonial => {
+          testimonial.style.display = 'none';
+        });
+        
+        // Show current triple
+        for (let i = 0; i < 3 && (startIndex + i) < totalTestimonials; i++) {
+          const testimonial = testimonials[startIndex + i];
+          if (testimonial) {
+            testimonial.style.display = 'block';
+          }
+        }
+        
+        // Update dots
+        if (testimonialDots) {
+          const dots = testimonialDots.querySelectorAll('button');
+          dots.forEach((dot, index) => {
+            if (index === Math.floor(currentTestimonial / 3)) {
+              dot.classList.remove('bg-white/50');
+              dot.classList.add('bg-white');
+            } else {
+              dot.classList.remove('bg-white');
+              dot.classList.add('bg-white/50');
+            }
+          });
+        }
+      }
+    }
+
+    function nextTestimonial() {
+      const maxTriples = Math.floor(totalTestimonials / 3);
+      currentTestimonial = (currentTestimonial + 3) % (maxTriples * 3);
+      updateTestimonialCarousel();
+    }
+
+    function previousTestimonial() {
+      const maxTriples = Math.floor(totalTestimonials / 3);
+      currentTestimonial = (currentTestimonial - 3 + (maxTriples * 3)) % (maxTriples * 3);
+      updateTestimonialCarousel();
+    }
+
+    function goToTestimonial(tripleIndex) {
+      currentTestimonial = tripleIndex * 3;
+      updateTestimonialCarousel();
+    }
+
+    // Auto-rotate testimonials
+    setInterval(nextTestimonial, 5000);
+
+    // Testimonials scroll function (kept for backward compatibility)
+    function scrollTestimonials(direction) {
+      if (direction === 'left') {
+        previousTestimonial();
+      } else {
+        nextTestimonial();
+      }
+    }
+
+    // Coverage Checker functionality
+    const coverageForm = document.querySelector('form');
+    const coverageResult = document.getElementById('coverage-result');
+    
+    if (coverageForm) {
+      coverageForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Simulate coverage check
+        const formData = new FormData(coverageForm);
+        const address = formData.get('street') + ', ' + formData.get('area');
+        
+        // List of covered areas
+        const coveredAreas = [
+          'Riebeek Kasteel', 'Malmesbury', 'Gouda', 'Riebeek West',
+          'Hermon', 'Abbotsdale', 'Chatsworth', 'Westbank'
+        ];
+        
+        // Check if address contains any covered area
+        const isCovered = coveredAreas.some(area => 
+          address.toLowerCase().includes(area.toLowerCase())
+        );
+        
+        if (isCovered) {
+          coverageResult.classList.remove('hidden');
+          coverageResult.classList.remove('bg-red-50', 'border-red-200');
+          coverageResult.classList.add('bg-green-50', 'border-green-200');
+          
+          coverageResult.innerHTML = `
+            <div class="flex items-center">
+              <i class="fa-solid fa-check-circle text-green-600 text-2xl mr-3"></i>
+              <div>
+                <h4 class="font-bold text-green-800">Great news! We cover your area.</h4>
+                <p class="text-green-700">Contact us to get connected with high-speed internet.</p>
+              </div>
+            </div>
+          `;
+        } else {
+          coverageResult.classList.remove('hidden');
+          coverageResult.classList.remove('bg-green-50', 'border-green-200');
+          coverageResult.classList.add('bg-red-50', 'border-red-200');
+          
+          coverageResult.innerHTML = `
+            <div class="flex items-center">
+              <i class="fa-solid fa-times-circle text-red-600 text-2xl mr-3"></i>
+              <div>
+                <h4 class="font-bold text-red-800">Sorry, we don&apos;t cover your area yet.</h4>
+                <p class="text-red-700">Contact us to discuss expansion possibilities.</p>
+              </div>
+            </div>
+          `;
+        }
+      });
+    }
+
     // Tilt.js init for service cards
     if (typeof VanillaTilt !== 'undefined') {
       VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {

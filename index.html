@@ -147,22 +147,25 @@
 
     <div class="max-w-7xl mx-auto w-full relative z-10">
       <div class="text-center max-w-5xl mx-auto" data-aos="fade-up">
-        <!-- WiFi Signal Animation -->
-        <div class="mb-10">
-          <div class="relative inline-flex items-center justify-center">
-            <!-- Animated WiFi Signal Waves -->
-            <div class="absolute w-40 h-40 border-4 border-white/20 rounded-full animate-ping" style="animation-duration: 2s;"></div>
-            <div class="absolute w-32 h-32 border-4 border-white/30 rounded-full animate-ping" style="animation-delay: 0.5s; animation-duration: 2s;"></div>
-            <div class="absolute w-24 h-24 border-4 border-white/40 rounded-full animate-ping" style="animation-delay: 1s; animation-duration: 2s;"></div>
-
-            <!-- Central WiFi Icon -->
-            <i class="fa-solid fa-wifi text-6xl text-white animate-pulse relative z-10" style="animation-duration: 2s;"></i>
-          </div>
-        </div>
-
         <!-- Main Headline -->
-        <h1 class="text-7xl md:text-8xl lg:text-9xl font-extrabold text-white leading-[1.1] mb-6">
-          <span class="block mb-2">Lightning</span>
+        <h1 class="text-7xl md:text-8xl lg:text-9xl font-extrabold text-white leading-[1.1] mb-6 relative">
+          <span class="block mb-2 relative">
+            Lightning
+            <span class="relative inline-block">
+              <!-- WiFi Signal Animation positioned right next to g -->
+              <div class="absolute -right-8 -top-0 md:-right-12 md:-top-1 lg:-right-16 lg:-top-2 transform rotate-12">
+                <div class="relative inline-flex items-center justify-center">
+                  <!-- Animated WiFi Signal Waves -->
+                  <div class="absolute w-10 h-10 md:w-14 md:h-14 lg:w-18 lg:h-18 border-4 border-white/20 rounded-full animate-ping" style="animation-duration: 2s;"></div>
+                  <div class="absolute w-6 h-6 md:w-10 md:h-10 lg:w-14 lg:h-14 border-4 border-white/30 rounded-full animate-ping" style="animation-delay: 0.5s; animation-duration: 2s;"></div>
+                  <div class="absolute w-4 h-4 md:w-6 md:h-6 lg:w-10 lg:h-10 border-4 border-white/40 rounded-full animate-ping" style="animation-delay: 1s; animation-duration: 2s;"></div>
+
+                  <!-- Central WiFi Icon -->
+                  <i class="fa-solid fa-wifi text-lg md:text-xl lg:text-2xl text-white animate-pulse relative z-10" style="animation-duration: 2s;"></i>
+                </div>
+              </div>
+            </span>
+          </span>
           <span class="text-white drop-shadow-2xl">Fast Tech Solutions</span>
         </h1>
 
@@ -218,41 +221,41 @@
     </div>
     <div class="logo-slider">
       <a href="https://www.microsoft.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
-        <img src="https://img.shields.io/badge/Microsoft-0078D4?logo=microsoft&style=for-the-badge&logoColor=white" alt="Microsoft" class="h-8 w-auto">
+        <i class="fa-brands fa-microsoft mr-2"></i>Microsoft
       </a>
       <a href="https://www.tp-link.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
-        <img src="https://img.shields.io/badge/TP-Link-FF6B35?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcyBvcgPSJvd" alt="TP-Link" class="h-8 w-auto">
+        <i class="fa-solid fa-network-wired mr-2"></i>TP-Link
       </a>
       <a href="https://www.ui.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
-        <img src="https://img.shields.io/badge/Ubiquiti-0055FF?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="Ubiquiti" class="h-8 w-auto">
+        <i class="fa-solid fa-server mr-2"></i>Ubiquiti
       </a>
       <a href="https://www.dell.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
-        <img src="https://img.shields.io/badge/Dell-007DB8?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="Dell" class="h-8 w-auto">
+        <i class="fa-solid fa-laptop mr-2"></i>Dell
       </a>
       <a href="https://mikrotik.com/" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
-        <img src="https://img.shields.io/badge/MikroTik-FF6B35?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="MikroTik" class="h-8 w-auto">
+        <i class="fa-solid fa-wifi mr-2"></i>MikroTik
       </a>
       <a href="https://www.tendacn.com/za" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
-        <img src="https://img.shields.io/badge/Tenda-FF6B35?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="Tenda" class="h-8 w-auto">
+        <i class="fa-solid fa-wifi mr-2"></i>Tenda
       </a>
       <!-- Duplicate logos for seamless loop -->
       <a href="https://www.microsoft.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
-        <img src="https://img.shields.io/badge/Microsoft-0078D4?logo=microsoft&style=for-the-badge&logoColor=white" alt="Microsoft" class="h-8 w-auto">
+        <i class="fa-brands fa-microsoft mr-2"></i>Microsoft
       </a>
       <a href="https://www.tp-link.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
-        <img src="https://img.shields.io/badge/TP-Link-FF6B35?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="TP-Link" class="h-8 w-auto">
+        <i class="fa-solid fa-network-wired mr-2"></i>TP-Link
       </a>
       <a href="https://www.ui.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
-        <img src="https://img.shields.io/badge/Ubiquiti-0055FF?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="Ubiquiti" class="h-8 w-auto">
+        <i class="fa-solid fa-server mr-2"></i>Ubiquiti
       </a>
       <a href="https://www.dell.com" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
-        <img src="https://img.shields.io/badge/Dell-007DB8?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="Dell" class="h-8 w-auto">
+        <i class="fa-solid fa-laptop mr-2"></i>Dell
       </a>
       <a href="https://mikrotik.com/" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
-        <img src="https://img.shields.io/badge/MikroTik-FF6B35?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="MikroTik" class="h-8 w-auto">
+        <i class="fa-solid fa-wifi mr-2"></i>MikroTik
       </a>
       <a href="https://www.tendacn.com/za" target="_blank" rel="noopener noreferrer" class="logo-item text-3xl font-bold text-slate-400 hover:text-orange-600 transition">
-        <img src="https://img.shields.io/badge/Tenda-FF6B35?logo=data:image/svg+xml;base64,PHN2ZyBjbGlmPSJodHRwcz0nLnBibGltZXRJbGltZyBvcyBvcgPSJvd" alt="Tenda" class="h-8 w-auto">
+        <i class="fa-solid fa-wifi mr-2"></i>Tenda
       </a>
     </div>
   </div>
@@ -378,99 +381,241 @@
     </div>
   </section>
 
+  <!-- Testimonals-->
+  
   <section id="testimonials" class="orange-section py-32 bg-gradient-to-br from-orange-600 to-orange-500">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="flex flex-col md:flex-row justify-between items-end mb-20">
-        <div data-aos="fade-right">
-          <h2 class="text-5xl font-extrabold text-white mb-4">
-            Real Stories.
-          </h2>
-          <p class="text-xl text-orange-100">
-            What the Riebeek Valley community says about us.
-          </p>
-        </div>
-        <div class="flex space-x-4 mt-8 md:mt-0" data-aos="fade-left">
-          <button onclick="scrollTestimonials('left')" aria-label="Previous testimonials"
-            class="w-14 h-14 rounded-full border-2 border-white/30 text-white flex items-center justify-center hover:bg-white hover:text-orange-600 hover:border-white transition active:scale-90">
-            <i class="fa-solid fa-arrow-left"></i>
-          </button>
-          <button onclick="scrollTestimonials('right')" aria-label="Next testimonials"
-            class="w-14 h-14 rounded-full border-2 border-white/30 text-white flex items-center justify-center hover:bg-white hover:text-orange-600 hover:border-white transition active:scale-90">
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-5xl font-extrabold text-white mb-4">
+          Real Stories.
+        </h2>
+        <p class="text-xl text-orange-100">
+          What the Riebeek Valley community says about us.
+        </p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-8 md:overflow-visible overflow-x-auto snap-x snap-mandatory pb-4 md:pb-0"
-        style="scroll-padding: 0 24px">
-        <div class="testimonial-card bg-white p-10 border-2 border-white/20 cursor-default min-w-[300px] snap-center"
-          data-aos="fade-up" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
-          data-tilt-max-glare="0.2">
-          <div class="flex text-orange-500 mb-6">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-              class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-          </div>
-          <p class="text-slate-600 italic mb-8">
-            "Riebeek Valley Computers transformed our business WiFi. We
-            finally have stable internet in our remote packhouse. Professional
-            and local!"
-          </p>
-          <div class="flex items-center space-x-4">
-            <div
-              class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
-              SJ
+      <div class="testimonial-carousel relative overflow-hidden" data-aos="fade-up">
+        <div class="testimonial-track flex transition-transform duration-500 ease-in-out" id="testimonialTrack">
+          <div class="testimonial-slide min-w-full px-4">
+            <div class="bg-white p-10 border-2 border-white/20 cursor-default">
+              <div class="flex text-orange-500 mb-6">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-slate-600 italic mb-8">
+                "Riebeek Valley Computers transformed our business WiFi. We
+                finally have stable internet in our remote packhouse. Professional
+                and local!"
+              </p>
+              <div class="flex items-center space-x-4">
+                <div
+                  class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
+                  SJ
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900">Sarah J.</h4>
+                  <p class="text-xs text-slate-500">Farm Owner</p>
+                </div>
+              </div>
             </div>
-            <div>
-              <h4 class="font-bold text-slate-900">Sarah J.</h4>
-              <p class="text-xs text-slate-500">Farm Owner</p>
+          </div>
+
+          <div class="testimonial-slide min-w-full px-4">
+            <div class="bg-white p-10 border-2 border-white/20 cursor-default">
+              <div class="flex text-orange-500 mb-6">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-slate-600 italic mb-8">
+                "My laptop was dead with all my business files. They fixed it in
+                24 hours and recovered everything. Absolute lifesavers!"
+              </p>
+              <div class="flex items-center space-x-4">
+                <div
+                  class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
+                  DM
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900">David M.</h4>
+                  <p class="text-xs text-slate-500">Architect</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide min-w-full px-4">
+            <div class="bg-white p-10 border-2 border-white/20 cursor-default">
+              <div class="flex text-orange-500 mb-6">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-slate-600 italic mb-8">
+                "Fastest Fibre in valley. No more buffering during Netflix.
+                The setup was painless and support is instant."
+              </p>
+              <div class="flex items-center space-x-4">
+                <div
+                  class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
+                  JP
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900">John P.</h4>
+                  <p class="text-xs text-slate-500">Restaurant Owner</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide min-w-full px-4">
+            <div class="bg-white p-10 border-2 border-white/20 cursor-default">
+              <div class="flex text-orange-500 mb-6">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-slate-600 italic mb-8">
+                "Their network engineering team setup our entire farm with
+                wireless coverage. Now we can work from anywhere on the property.
+                Incredible service!"
+              </p>
+              <div class="flex items-center space-x-4">
+                <div
+                  class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
+                  MP
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900">Maria P.</h4>
+                  <p class="text-xs text-slate-500">Farm Manager</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide min-w-full px-4">
+            <div class="bg-white p-10 border-2 border-white/20 cursor-default">
+              <div class="flex text-orange-500 mb-6">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-slate-600 italic mb-8">
+                "As a graphic designer, I need reliable internet. Valley Computers
+                delivered fibre that's faster than advertised. Best decision
+                I've made for my business."
+              </p>
+              <div class="flex items-center space-x-4">
+                <div
+                  class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
+                  KL
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900">Kevin L.</h4>
+                  <p class="text-xs text-slate-500">Graphic Designer</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide min-w-full px-4">
+            <div class="bg-white p-10 border-2 border-white/20 cursor-default">
+              <div class="flex text-orange-500 mb-6">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-slate-600 italic mb-8">
+                "Our guest WiFi was constantly failing until Valley Computers
+                installed our new system. Now guests compliment us on our
+                reliable connection. Highly recommended!"
+              </p>
+              <div class="flex items-center space-x-4">
+                <div
+                  class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
+                  RT
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900">Robert T.</h4>
+                  <p class="text-xs text-slate-500">Guesthouse Owner</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide min-w-full px-4">
+            <div class="bg-white p-10 border-2 border-white/20 cursor-default">
+              <div class="flex text-orange-500 mb-6">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-slate-600 italic mb-8">
+                "Their team setup our entire office network with enterprise-grade
+                security. Fast, reliable, and the support is outstanding.
+                Best IT company in the valley!"
+              </p>
+              <div class="flex items-center space-x-4">
+                <div
+                  class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
+                  LW
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900">Lisa W.</h4>
+                  <p class="text-xs text-slate-500">Office Manager</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide min-w-full px-4">
+            <div class="bg-white p-10 border-2 border-white/20 cursor-default">
+              <div class="flex text-orange-500 mb-6">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-slate-600 italic mb-8">
+                "I run a small online shop and need constant internet. Their fibre
+                service never goes down and speeds are always consistent.
+                Perfect for my business needs."
+              </p>
+              <div class="flex items-center space-x-4">
+                <div
+                  class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
+                  SV
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900">Susan V.</h4>
+                  <p class="text-xs text-slate-500">Online Shop Owner</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide min-w-full px-4">
+            <div class="bg-white p-10 border-2 border-white/20 cursor-default">
+              <div class="flex text-orange-500 mb-6">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-slate-600 italic mb-8">
+                "Their emergency repair service saved my business. They fixed my
+                server in 2 hours and recovered all my data. Worth every
+                cent for their expertise!"
+              </p>
+              <div class="flex items-center space-x-4">
+                <div
+                  class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
+                  MB
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900">Mark B.</h4>
+                  <p class="text-xs text-slate-500">Business Owner</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="testimonial-card bg-white p-10 border-2 border-white/20 cursor-default min-w-[300px] snap-center"
-          data-aos="fade-up" data-aos-delay="100" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
-          data-tilt-max-glare="0.2">
-          <div class="flex text-orange-500 mb-6">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-              class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-          </div>
-          <p class="text-slate-600 italic mb-8">
-            "My laptop was dead with all my business files. They fixed it in
-            24 hours and recovered everything. Absolute lifesavers!"
-          </p>
-          <div class="flex items-center space-x-4">
-            <div
-              class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
-              DM
-            </div>
-            <div>
-              <h4 class="font-bold text-slate-900">David M.</h4>
-              <p class="text-xs text-slate-500">Architect</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card bg-white p-10 border-2 border-white/20 cursor-default min-w-[300px] snap-center"
-          data-aos="fade-up" data-aos-delay="200" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
-          data-tilt-max-glare="0.2">
-          <div class="flex text-orange-500 mb-6">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-              class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-          </div>
-          <p class="text-slate-600 italic mb-8">
-            "Fastest Fibre in the valley. No more buffering during Netflix.
-            The setup was painless and the support is instant."
-          </p>
-          <div class="flex items-center space-x-4">
-            <div
-              class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">
-              LV
-            </div>
-            <div>
-              <h4 class="font-bold text-slate-900">Lize V.</h4>
-              <p class="text-xs text-slate-500">Resident</p>
-            </div>
-          </div>
+        <!-- Carousel Navigation Dots Only -->
+        <div class="flex justify-center mt-8 space-x-2">
+          <button onclick="goToTestimonial(0)" class="w-3 h-3 rounded-full bg-white transition" aria-label="Go to testimonial 1"></button>
+          <button onclick="goToTestimonial(1)" class="w-3 h-3 rounded-full bg-white/50 transition" aria-label="Go to testimonial 2"></button>
+          <button onclick="goToTestimonial(2)" class="w-3 h-3 rounded-full bg-white/50 transition" aria-label="Go to testimonial 3"></button>
         </div>
       </div>
     </div>
@@ -585,18 +730,71 @@
           class="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl shadow-orange-600/10 border border-orange-200"
           data-aos="fade-left">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105945.97!2d18.85!3d-33.37!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dccf0b3e3c8e8e5%3A0x2b2b2b2b2b2b2b2b!2sRiebeek%20Kasteel%2C%20South%20Africa!5e0!3m2!1sen!2sza!4v1700000000000!5m2!1sen!2sza"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d80000!2d18.85!3d-33.35!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dccf0b3e3c8e8e5%3A0x2b2b2b2b2b2b2b2b!2sRiebeek%20Kasteel%2C%20Malmesbury%2C%20Gouda%2C%20Riebeek%20West%2C%20Hermon%2C%20Abbotsdale%2C%20Chatsworth%2C%20Westbank%2C%20Western%20Cape!5e0!3m2!1sen!2sza!4v1700000000000!5m2!1sen!2sza"
             width="100%" height="100%" style="border: 0" allowfullscreen="" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade">
           </iframe>
-
           <div
-            class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-xl border border-orange-500/20 shadow-lg flex justify-between items-center">
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Coverage: Riebeek Kasteel &
-              Malmesbury</span>
+            class="absolute top-10 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-xl border border-orange-500/20 shadow-lg flex justify-between items-center">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">
+              Coverage: Riebeek Kasteel, Malmesbury, Gouda, 
+              <br>Riebeek West, Hermon, Abbotsdale, Chatsworth & Westbank
+            </span>
             <div class="flex space-x-2">
               <span class="w-3 h-3 bg-orange-500 rounded-full animate-pulse"></span>
               <span class="w-3 h-3 bg-orange-600 rounded-full animate-pulse" style="animation-delay: 0.2s"></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coverage Checker Section -->
+  <section class="py-16 bg-gradient-to-b from-orange-500 to-orange-600">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-extrabold text-white mb-4">Check Your Coverage</h2>
+        <p class="text-orange-100">Enter your address to see if we provide service in your area</p>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-xl p-8" data-aos="fade-up" data-aos-delay="100">
+        <form class="space-y-6">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-2">Street Address</label>
+              <input type="text" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500" placeholder="6 Church Rd">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-2">Area/Suburb</label>
+              <input type="text" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500" placeholder="Riebeek Kasteel">
+            </div>
+          </div>
+          
+          <div class="grid md:grid-cols-3 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-2">City</label>
+              <input type="text" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500" placeholder="Western Cape">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-2">Postal Code</label>
+              <input type="text" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500" placeholder="7307">
+            </div>
+            <div class="flex items-end">
+              <button type="submit" class="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition">
+                <i class="fa-solid fa-search mr-2"></i>Check Coverage
+              </button>
+            </div>
+          </div>
+        </form>
+        
+        <div class="mt-8 p-4 bg-green-50 border border-green-200 rounded-lg hidden" id="coverage-result">
+          <div class="flex items-center">
+            <i class="fa-solid fa-check-circle text-green-600 text-2xl mr-3"></i>
+            <div>
+              <h4 class="font-bold text-green-800">Great news! We cover your area.</h4>
+              <p class="text-green-700">Contact us to get connected with high-speed internet.</p>
             </div>
           </div>
         </div>
