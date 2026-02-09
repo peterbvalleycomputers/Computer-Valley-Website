@@ -12,6 +12,7 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <link rel="stylesheet" href="./Styles/isp-style.css">
   <script src="./JS/isp-logic.js" defer></script>
 
@@ -19,8 +20,17 @@
 
 <body class="bg-white">
   <!-- Custom Cursor -->
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
+  <div class="Cursor" id="cursor"></div>
+  <!-- SVG Filters for Morphing Cursor -->
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" style="position: absolute; top: -9999px;">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 35 -15" result="goo" />
+        <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+      </filter>
+    </defs>
+  </svg>
   <a href="https://wa.me/27824662244"
     class="whatsapp-float bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:bg-green-600 transition hover:scale-110">
     <i class="fa-brands fa-whatsapp"></i>
@@ -30,7 +40,7 @@
   <nav class="fixed w-full z-50 transition-all duration-300" id="mainNav">
     <!-- Top Utility Bar -->
     <div
-      class="top-bar bg-orange-600 text-orange-100 text-xs border-b border-orange-500/20 relative z-20 transition-all duration-300">
+      class="top-bar bg-orange-600 text-white text-xs border-b border-orange-500/20 relative z-20 transition-all duration-300">
       <div class="max-w-7xl mx-auto px-6 h-10 flex justify-between items-center">
         <div class="hidden md:flex items-center space-x-6">
           <span class="flex items-center"><i class="fa-solid fa-location-dot text-white mr-2"></i> Riebeek
@@ -55,7 +65,7 @@
     <div class="max-w-7xl mx-auto px-6 flex justify-between items-center py-6 transition-all duration-300"
       id="innerNav">
       <a href="index.html" class="text-3xl font-extrabold tracking-tighter cursor-pointer z-50 relative logo-container">
-        <span class="logo-rv text-orange-600">VALLEY</span><span class="logo-text text-slate-900">COMPUTERS</span>
+        <span class="logo-rv">VALLEY</span><span class="logo-text text-slate-900">COMPUTERS</span>
       </a>
 
       <div class="hidden lg:flex space-x-10 items-center font-semibold text-slate-700" id="navLinks">
@@ -351,11 +361,11 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="py-20 bg-gradient-to-b from-white to-orange-50">
+  <section id="contact" class="orange-section py-20 bg-gradient-to-br from-orange-500 to-orange-600">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16" data-aos="fade-up">
-        <h2 class="text-4xl font-extrabold text-slate-900 mb-4">Ready to Get Connected?</h2>
-        <p class="text-xl text-slate-600">Get in touch with our team to find the perfect solution for your needs</p>
+        <h2 class="text-4xl font-extrabold text-white mb-4">Ready to Get Connected?</h2>
+        <p class="text-xl text-orange-100">Get in touch with our team to find the perfect solution for your needs</p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-12">
@@ -366,9 +376,9 @@
                 <i class="fa-solid fa-phone text-white"></i>
               </div>
               <div>
-                <h3 class="font-bold text-slate-900 mb-1">Call Us</h3>
-                <p class="text-slate-600">079 938 1260</p>
-                <p class="text-sm text-slate-500">Open - Closes 5pm</p>
+                <h3 class="font-bold text-white mb-1">Call Us</h3>
+                <p class="text-orange-100">079 938 1260</p>
+                <p class="text-sm text-orange-100/80">Open - Closes 5pm</p>
               </div>
             </div>
 
@@ -377,9 +387,9 @@
                 <i class="fa-solid fa-envelope text-white"></i>
               </div>
               <div>
-                <h3 class="font-bold text-slate-900 mb-1">Email Us</h3>
-                <p class="text-slate-600">info@riebeekvalleycomputers.co.za</p>
-                <p class="text-sm text-slate-500">We respond within 24 hours</p>
+                <h3 class="font-bold text-white mb-1">Email Us</h3>
+                <p class="text-orange-100">info@riebeekvalleycomputers.co.za</p>
+                <p class="text-sm text-orange-100/80">We respond within 24 hours</p>
               </div>
             </div>
 
@@ -388,9 +398,9 @@
                 <i class="fa-brands fa-whatsapp text-white"></i>
               </div>
               <div>
-                <h3 class="font-bold text-slate-900 mb-1">WhatsApp</h3>
-                <p class="text-slate-600">+27 79 938 1260</p>
-                <p class="text-sm text-slate-500">Quick responses available</p>
+                <h3 class="font-bold text-white mb-1">WhatsApp</h3>
+                <p class="text-orange-100">+27 79 938 1260</p>
+                <p class="text-sm text-orange-100/80">Quick responses available</p>
               </div>
             </div>
 
@@ -399,36 +409,60 @@
                 <i class="fa-solid fa-location-dot text-white"></i>
               </div>
               <div>
-                <h3 class="font-bold text-slate-900 mb-1">Visit Us</h3>
-                <p class="text-slate-600">6 Church Rd, Riebeek-Kasteel, 7307</p>
-                <p class="text-sm text-slate-500">Open - Closes 5pm</p>
+                <h3 class="font-bold text-white mb-1">Visit Us</h3>
+                <p class="text-orange-100">6 Church Rd, Riebeek-Kasteel, 7307</p>
+                <p class="text-sm text-orange-100/80">Open - Closes 5pm</p>
               </div>
             </div>
           </div>
         </div>
 
         <div data-aos="fade-left">
-          <div class="bg-white p-8 rounded-3xl shadow-xl">
-            <h3 class="text-2xl font-bold text-slate-900 mb-6">Send us a message</h3>
+          <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-white/20">
+            <h3 class="text-2xl font-bold text-white mb-2">Send us a message</h3>
+            <p class="text-orange-100 mb-6">We'll get back to you within 24 hours</p>
+
             <form class="space-y-6">
-              <div>
-                <label class="block text-sm font-medium text-slate-700 mb-2">Full Name</label>
-                <input type="text" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500" placeholder="John Doe">
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-white mb-2">Full Name</label>
+                  <input type="text" class="w-full px-4 py-3 bg-white/90 border border-white/30 rounded-lg focus:ring-2 focus:ring-white focus:border-white text-slate-900 placeholder-slate-500" placeholder="John Doe">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-white mb-2">Email</label>
+                  <input type="email" class="w-full px-4 py-3 bg-white/90 border border-white/30 rounded-lg focus:ring-2 focus:ring-white focus:border-white text-slate-900 placeholder-slate-500" placeholder="john@example.com">
+                </div>
               </div>
-              <div>
-                <label class="block text-sm font-medium text-slate-700 mb-2">Email</label>
-                <input type="email" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500" placeholder="john@example.com">
+              
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-white mb-2">Phone</label>
+                  <input type="tel" class="w-full px-4 py-3 bg-white/90 border border-white/30 rounded-lg focus:ring-2 focus:ring-white focus:border-white text-slate-900 placeholder-slate-500" placeholder="+27 12 345 6789">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-white mb-2">Service Type</label>
+                  <select class="w-full px-4 py-3 bg-white/90 border border-white/30 rounded-lg focus:ring-2 focus:ring-white focus:border-white text-slate-900">
+                    <option value="">Select a service</option>
+                    <option value="fibre">Fibre to Home</option>
+                    <option value="wireless">Wireless Business</option>
+                    <option value="consultation">Site Survey</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
               </div>
+              
               <div>
-                <label class="block text-sm font-medium text-slate-700 mb-2">Phone</label>
-                <input type="tel" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500" placeholder="+27 12 345 6789">
+                <label class="block text-sm font-medium text-white mb-2">Message</label>
+                <textarea rows="4" class="w-full px-4 py-3 bg-white/90 border border-white/30 rounded-lg focus:ring-2 focus:ring-white focus:border-white text-slate-900 placeholder-slate-500" placeholder="Tell us about your internet needs..."></textarea>
               </div>
-              <div>
-                <label class="block text-sm font-medium text-slate-700 mb-2">Message</label>
-                <textarea rows="4" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500" placeholder="Tell us about your internet needs..."></textarea>
+              
+              <div class="flex items-center space-x-3">
+                <input type="checkbox" id="urgent" class="w-4 h-4 text-orange-600 border-white/30 rounded focus:ring-2 focus:ring-white focus:border-white">
+                <label for="urgent" class="text-white text-sm">This is urgent - I need service ASAP</label>
               </div>
-              <button type="submit" class="w-full bg-orange-600 text-white py-3 rounded-full font-semibold hover:bg-orange-700 transition">
-                Send Message
+              
+              <button type="submit" class="w-full bg-white text-orange-600 py-3 rounded-full font-semibold hover:bg-orange-50 transition transform hover:scale-105 shadow-lg">
+                <i class="fa-solid fa-paper-plane mr-2"></i>Send Message
               </button>
             </form>
           </div>
@@ -438,7 +472,7 @@
   </section>
 
   <!-- Footer -->
-  <footer class="bg-slate-900 text-white py-12">
+  <footer class="bg-black text-white py-12">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center">
         <div class="text-3xl font-extrabold text-orange-500 tracking-tighter mb-4">
@@ -446,13 +480,13 @@
         </div>
         <p class="text-slate-400 mb-6">Powering the Riebeek Valley with high-speed connectivity</p>
         <div class="flex justify-center space-x-6 mb-8">
-          <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-orange-600 transition">
+          <a href="#" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-orange-600 transition">
             <i class="fa-brands fa-facebook-f"></i>
           </a>
-          <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-orange-600 transition">
+          <a href="#" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-orange-600 transition">
             <i class="fa-brands fa-instagram"></i>
           </a>
-          <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-orange-600 transition">
+          <a href="#" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-orange-600 transition">
             <i class="fa-brands fa-linkedin-in"></i>
           </a>
         </div>
@@ -460,6 +494,7 @@
       </div>
     </div>
   </footer>
+
 </body>
 
 </html>

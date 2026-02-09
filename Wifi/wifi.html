@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-color: #000;
+    }
+
+    .wifi-icon {
+        position: relative;
+        width: 120px;
+        height: 80px;
+    }
+
+    .wifi-icon .dot {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 16px;
+        height: 16px;
+        background: white;
+        border-radius: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* Wi-Fi arcs */
+    .wifi-icon .arc {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        border-radius: 50%;
+        border-style: solid;
+        border-color: white transparent transparent transparent;
+        transform: translateX(-50%);
+        opacity: 0;
+        animation: wifiPulse 1.8s infinite ease-in-out;
+    }
+
+    /* First arc (inner) */
+    .wifi-icon .arc1 {
+        width: 60px;
+        height: 60px;
+        border-width: 6px;
+    }
+
+    /* Second arc (outer) */
+    .wifi-icon .arc2 {
+        width: 96px;
+        height: 96px;
+        border-width: 6px;
+        animation-delay: 0.4s;
+    }
+
+    /* Animation */
+    @keyframes wifiPulse {
+        0% {
+            opacity: 0;
+            transform: translateX(-50%) scale(0.7);
+        }
+
+        40% {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translateX(-50%) scale(1.15);
+        }
+    }
+</style>
+
+<body>
+    <div class="wifi-icon">
+        <span class="dot"></span>
+        <span class="arc arc1"></span>
+        <span class="arc arc2"></span>
+    </div>
+
+
+</body>
+
+</html>
+

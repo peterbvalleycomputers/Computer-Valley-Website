@@ -1,53 +1,52 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap");
 
-    * {
-      cursor: none;
-    }
+* {
+    cursor: none;
+}
 
-    #cursor-dot {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      background: #ea580c;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s ease, background 0.15s ease;
-    }
+/* Ensure form elements also use custom cursor */
+input, textarea, select, button, a {
+    cursor: none !important;
+}
 
-    #cursor-ring {
-      position: fixed;
-      width: 32px;
-      height: 32px;
-      border: 2px solid #ea580c;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: border-color 0.15s ease, background 0.15s ease;
-    }
+/* Morphing Cursor */
+.Cursor {
+    pointer-events: none;
+    position: fixed;
+    display: block;
+    border-radius: 0;
+    transform-origin: center center;
+    mix-blend-mode: difference;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    filter: url("#goo");
+}
 
-    /* White cursor on orange sections */
-    .cursor-on-orange #cursor-dot {
-      background: white;
-    }
+.Cursor span {
+    position: absolute;
+    display: block;
+    width: 26px;
+    height: 26px;
+    border-radius: 20px;
+    background-color: white;
+    transform-origin: center center;
+    transform: translate(-50%, -50%);
+}
 
-    .cursor-on-orange #cursor-ring {
-      border-color: white;
-    }
+/* Orange cursor on white sections */
+.cursor-on-orange .Cursor span {
+    background-color: #ea580c;
+}
 
-    .cursor-hover #cursor-dot {
-      transform: translate(-50%, -50%) scale(1.6);
-    }
+/* Black theme cursor colors */
+body.dark-theme .Cursor span {
+    background-color: white;
+}
 
-    .cursor-hover #cursor-ring {
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .cursor-on-orange.cursor-hover #cursor-ring {
-      background: rgba(234, 88, 12, 0.15);
-    }
+body.dark-theme.cursor-on-orange .Cursor span {
+    background-color: #ea580c;
+}
 
     html {
       scroll-behavior: smooth;
@@ -76,6 +75,10 @@
 
     /* Logo colors */
     .logo-rv {
+      color: #000000;
+    }
+
+    #mainNav.nav-scrolled .logo-rv {
       color: #ea580c;
     }
 
@@ -231,4 +234,85 @@
 
     .feature-icon:hover {
       transform: rotate(10deg) scale(1.1);
+    }
+
+    body.dark-theme {
+      background-color: #0a0a0a;
+      color: #ffffff;
+    }
+
+    body.dark-theme section.bg-white {
+      background-color: #0a0a0a !important;
+    }
+
+    body.dark-theme section.bg-gradient-to-b.from-orange-50.to-white,
+    body.dark-theme section.bg-gradient-to-b.from-white.to-orange-50 {
+      background: linear-gradient(to bottom, #0a0a0a, #1a1a1a) !important;
+    }
+
+    body.dark-theme .pricing-card {
+      background: #1a1a1a !important;
+      border-color: #3a3a3a !important;
+    }
+
+    body.dark-theme .pricing-card.bg-gradient-to-br.from-orange-50.to-orange-100 {
+      background: linear-gradient(to bottom right, #1a0a05, #1a1a1a) !important;
+    }
+
+    body.dark-theme #pricing .bg-gradient-to-r.from-orange-50.to-slate-50 {
+      background: linear-gradient(to right, #1a0a05, #1a1a1a) !important;
+      border-color: #3a3a3a !important;
+    }
+
+    body.dark-theme #contact .bg-white {
+      background: #1a1a1a !important;
+    }
+
+    body.dark-theme .nav-scrolled {
+      background: rgba(10, 10, 10, 0.98) !important;
+    }
+
+    body.dark-theme .top-bar {
+      background-color: #000000 !important;
+      border-bottom-color: #333333 !important;
+    }
+
+    body.dark-theme #mainNav.nav-scrolled .logo-text {
+      color: #ffffff !important;
+    }
+
+    body.dark-theme .text-slate-900 {
+      color: #ffffff !important;
+    }
+
+    body.dark-theme .text-slate-700 {
+      color: #e5e5e5 !important;
+    }
+
+    body.dark-theme .text-slate-600 {
+      color: #d1d5db !important;
+    }
+
+    body.dark-theme .text-slate-500 {
+      color: #9ca3af !important;
+    }
+
+    body.dark-theme #mainNav.nav-scrolled #navLinks a:not(.bg-orange-600) {
+      color: #e5e5e5;
+    }
+
+    body.dark-theme #mainNav.nav-scrolled #navLinks a:not(.bg-orange-600):hover {
+      background: #2a2a2a;
+    }
+
+    body.dark-theme #mainNav.nav-scrolled #menuIcon {
+      color: #fb923c !important;
+    }
+
+    body.dark-theme input,
+    body.dark-theme textarea,
+    body.dark-theme select {
+      background-color: #1a1a1a !important;
+      border-color: #3a3a3a !important;
+      color: #ffffff !important;
     }

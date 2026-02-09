@@ -4,59 +4,48 @@
     cursor: none;
 }
 
-#cursor-dot {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background: #ea580c;
-    border-radius: 50%;
+/* Ensure form elements also use custom cursor */
+input, textarea, select, button, a {
+    cursor: none !important;
+}
+
+/* Morphing Cursor */
+.Cursor {
     pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.15s ease, background 0.15s ease;
-}
-
-#cursor-ring {
     position: fixed;
-    width: 32px;
-    height: 32px;
-    border: 2px solid #ea580c;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
+    display: block;
+    border-radius: 0;
+    transform-origin: center center;
+    mix-blend-mode: difference;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    filter: url("#goo");
+}
+
+.Cursor span {
+    position: absolute;
+    display: block;
+    width: 26px;
+    height: 26px;
+    border-radius: 20px;
+    background-color: white;
+    transform-origin: center center;
     transform: translate(-50%, -50%);
-    transition: border-color 0.15s ease, background 0.15s ease;
 }
 
-/* White cursor on orange sections */
-.cursor-on-orange #cursor-dot {
-    background: white;
+/* Orange cursor on white sections */
+.cursor-on-orange .Cursor span {
+    background-color: #ea580c;
 }
 
-.cursor-on-orange #cursor-ring {
-    border-color: white;
+/* Black theme cursor colors */
+body.dark-theme .Cursor span {
+    background-color: white;
 }
 
-.cursor-hover #cursor-dot {
-    transform: translate(-50%, -50%) scale(1.6);
-}
-
-.cursor-hover #cursor-ring {
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.cursor-on-orange.cursor-hover #cursor-ring {
-    background: rgba(234, 88, 12, 0.15);
-}
-
-
-
-html,
-body {
-    margin: 0;
-    padding: 0;
-    font-family: "Outfit", sans-serif;
-    overflow-x: hidden;
+body.dark-theme.cursor-on-orange .Cursor span {
+    background-color: #ea580c;
 }
 
 /* Nav Scrolled State */
@@ -75,14 +64,19 @@ body {
     background: transparent;
 }
 
-/* Logo colors */
+/* Initial state (top of page) */
 .logo-rv {
-    color: #ea580c;
+    color: #000000;
     animation: logoPop 3s ease-in-out infinite;
 }
 
+/* On scroll */
+#mainNav.nav-scrolled .logo-rv {
+    color: #ea580c;
+}
+
 #mainNav.nav-scrolled .logo-text {
-    color: #0f172a !important;
+    color: #ffffff !important;
 }
 
 #mainNav:not(.nav-scrolled) .logo-text {
@@ -186,6 +180,93 @@ body {
     opacity: 1;
 }
 
+/* Radio Signal Animation */
+.loadingio-spinner-radio-2by998twmg8 {
+  width: 261px;
+  height: 261px;
+  display: inline-block;
+  overflow: hidden;
+  background: rgba(2, 5, 8, 0);
+}
+
+.ldio-yzaezf3dcmj {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0;
+}
+
+.ldio-yzaezf3dcmj div {
+  box-sizing: content-box;
+}
+
+.ldio-yzaezf3dcmj div:nth-child(1) {
+  width: 143.54999999999998px;
+  height: 143.54999999999998px;
+  left: 73.08px;
+  top: 52.199999999999996px;
+  border-radius: 0 143.54999999999998px 0 0;
+  border: 26.099999999999998px solid #ffffff;
+  background: none;
+  animation-delay: 0.1s;
+  border-bottom: 0;
+  border-left: 0;
+}
+
+.ldio-yzaezf3dcmj div:nth-child(2) {
+  width: 143.54999999999998px;
+  height: 143.54999999999998px;
+  left: 73.08px;
+  top: 52.199999999999996px;
+  border-radius: 0 143.54999999999998px 0 0;
+  border: 26.099999999999998px solid #ffffff;
+  background: none;
+  animation-delay: 0.2s;
+  border-bottom: 0;
+  border-left: 0;
+}
+
+.ldio-yzaezf3dcmj div:nth-child(3) {
+  width: 143.54999999999998px;
+  height: 143.54999999999998px;
+  left: 73.08px;
+  top: 52.199999999999996px;
+  border-radius: 0 143.54999999999998px 0 0;
+  border: 26.099999999999998px solid #ffffff;
+  background: none;
+  animation-delay: 0.3s;
+  border-bottom: 0;
+  border-left: 0;
+}
+
+.ldio-yzaezf3dcmj div:nth-child(4) {
+  width: 143.54999999999998px;
+  height: 143.54999999999998px;
+  left: 73.08px;
+  top: 52.199999999999996px;
+  border-radius: 0 143.54999999999998px 0 0;
+  border: 26.099999999999998px solid #ffffff;
+  background: none;
+  animation-delay: 0.4s;
+  border-bottom: 0;
+  border-left: 0;
+}
+
+@keyframes ldio-yzaezf3dcmj {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.ldio-yzaezf3dcmj div {
+  animation: ldio-yzaezf3dcmj 1s linear infinite;
+}
+
 /* Logo Loop Animation */
 @keyframes scroll {
     0% {
@@ -231,17 +312,37 @@ body {
 }
 
 .testimonial-track {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
     gap: 24px;
-    transition: transform 0.5s ease-in-out;
     width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    cursor: grab;
+    user-select: none;
+}
+
+.testimonial-track:active {
+    cursor: grabbing;
 }
 
 .testimonial-slide {
-    min-width: 100%;
+    flex: 0 0 calc(50% - 12px);
     padding: 0 16px;
     box-sizing: border-box;
+    display: none;
+    scroll-snap-align: start;
+}
+
+/* Show 2 testimonials at a time */
+.testimonial-slide.active {
+    display: block;
+}
+
+/* Responsive - single column on mobile */
+@media (max-width: 768px) {
+    .testimonial-slide {
+        flex: 0 0 100%;
+    }
 }
 
 .testimonial-slide > div {
@@ -339,7 +440,93 @@ body {
 }
 
 #hero h1 {
-    animation: textGlow 3s ease-in-out infinite;
+    animation: none;
+}
+
+.lightning-text {
+    display: inline-block;
+    transition: text-shadow 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+}
+
+@keyframes lightningGlow {
+
+    0%,
+    100% {
+        text-shadow:
+            0 0 0 rgba(255, 255, 255, 0),
+            0 0 0 rgba(251, 146, 60, 0);
+        filter: brightness(1);
+    }
+
+    35% {
+        text-shadow:
+            0 0 10px rgba(255, 255, 255, 0.25),
+            0 0 22px rgba(251, 146, 60, 0.45),
+            0 0 44px rgba(251, 146, 60, 0.25);
+        filter: brightness(1.12);
+    }
+
+    55% {
+        text-shadow:
+            0 0 14px rgba(255, 255, 255, 0.35),
+            0 0 30px rgba(251, 146, 60, 0.6),
+            0 0 60px rgba(251, 146, 60, 0.35);
+        filter: brightness(1.18);
+    }
+}
+
+.lightning-text:hover {
+    transform: translateY(-2px) scale(1.02);
+    animation: lightningGlow 1.2s ease-in-out infinite;
+}
+
+/* WiFi Signal Lightning Effects */
+.wifi-signal {
+    display: inline-block;
+    transition: text-shadow 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+    animation: wifiPulse 2s ease-in-out infinite;
+}
+
+@keyframes wifiPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+.wifi-signal:hover {
+    transform: translateY(-2px) scale(1.15);
+    animation: wifiLightningGlow 1.2s ease-in-out infinite;
+}
+
+@keyframes wifiLightningGlow {
+    0%, 100% {
+        text-shadow:
+            0 0 0 rgba(255, 255, 255, 0),
+            0 0 0 rgba(251, 146, 60, 0);
+        filter: brightness(1);
+        transform: translateY(-2px) scale(1.15);
+    }
+    35% {
+        text-shadow:
+            0 0 15px rgba(255, 255, 255, 0.4),
+            0 0 35px rgba(251, 146, 60, 0.6),
+            0 0 70px rgba(251, 146, 60, 0.3);
+        filter: brightness(1.2);
+        transform: translateY(-3px) scale(1.18);
+    }
+    55% {
+        text-shadow:
+            0 0 20px rgba(255, 255, 255, 0.5),
+            0 0 45px rgba(251, 146, 60, 0.8),
+            0 0 90px rgba(251, 146, 60, 0.4);
+        filter: brightness(1.3);
+        transform: translateY(-4px) scale(1.22);
+    }
 }
 
 @keyframes pulse-glow {
@@ -352,4 +539,216 @@ body {
     50% {
         box-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.3);
     }
+}
+
+/* Dark Theme Styles */
+body.dark-theme {
+    background-color: #0a0a0a;
+    color: #ffffff;
+}
+
+body.dark-theme {
+    background-color: #0a0a0a !important;
+}
+
+/* Main background sections */
+body.dark-theme .bg-white,
+body.dark-theme .bg-gradient-to-b.from-white.to-orange-50,
+body.dark-theme .bg-gradient-to-b.from-orange-50.to-white {
+    background: linear-gradient(to bottom, #0a0a0a, #1a1a1a) !important;
+}
+
+body.dark-theme .bg-orange-50 {
+    background-color: #1a0a05 !important;
+}
+
+/* Navigation dark theme */
+body.dark-theme .nav-scrolled {
+    background: rgba(10, 10, 10, 0.98) !important;
+}
+
+/* Top utility bar dark theme */
+body.dark-theme .top-bar {
+    background-color: #000000 !important;
+    border-bottom-color: #333333 !important;
+}
+
+body.dark-theme #mainNav:not(.nav-scrolled) #navLinks a:not(.bg-orange-600) {
+    color: #ffffff;
+}
+
+body.dark-theme #mainNav.nav-scrolled #navLinks a:not(.bg-orange-600) {
+    color: #e5e5e5;
+}
+
+body.dark-theme #mainNav.nav-scrolled #navLinks a:not(.bg-orange-600):hover {
+    background: #2a2a2a;
+}
+
+body.dark-theme #mainNav:not(.nav-scrolled) #navLinks a:not(.bg-orange-600):hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme #mainNav:not(.nav-scrolled) #menuIcon {
+    color: #ffffff;
+}
+
+body.dark-theme #mainNav.nav-scrolled #menuIcon {
+    color: #fb923c !important;
+}
+
+body.dark-theme .logo-text {
+    color: #ffffff !important;
+}
+
+/* Service cards dark theme */
+body.dark-theme .bg-gradient-to-br.from-orange-50.to-white {
+    background: linear-gradient(to bottom right, #1a0a05, #2a2a2a) !important;
+    border-color: #3a1a05 !important;
+}
+
+body.dark-theme .text-slate-900 {
+    color: #ffffff !important;
+}
+
+body.dark-theme .text-slate-600 {
+    color: #d1d5db !important;
+}
+
+body.dark-theme .text-slate-500 {
+    color: #9ca3af !important;
+}
+
+body.dark-theme .text-slate-700 {
+    color: #e5e5e5 !important;
+}
+
+body.dark-theme .text-slate-400 {
+    color: #9ca3af !important;
+}
+
+/* Testimonials dark theme */
+body.dark-theme .testimonial-slide > div {
+    background: #1a1a1a !important;
+    border-color: #3a3a3a !important;
+}
+
+body.dark-theme .testimonial-slide .text-slate-600 {
+    color: #d1d5db !important;
+}
+
+body.dark-theme .testimonial-slide .text-slate-900 {
+    color: #ffffff !important;
+}
+
+body.dark-theme .testimonial-slide .text-slate-500 {
+    color: #9ca3af !important;
+}
+
+body.dark-theme .testimonial-slide .bg-orange-100 {
+    background-color: #3a1a05 !important;
+}
+
+/* Why Choose section dark theme */
+body.dark-theme .bg-gradient-to-b.from-orange-50.to-white {
+    background: linear-gradient(to bottom, #1a0a05, #0a0a0a) !important;
+}
+
+/* Logo slider dark theme */
+body.dark-theme .logo-item {
+    color: #9ca3af !important;
+}
+
+body.dark-theme .logo-item:hover {
+    color: #fb923c !important;
+}
+
+/* Mobile menu dark theme */
+body.dark-theme #mobileMenu {
+    background: rgba(10, 10, 10, 0.98) !important;
+}
+
+/* Border colors */
+body.dark-theme .border-orange-100 {
+    border-color: #3a1a05 !important;
+}
+
+body.dark-theme .border-white\/20 {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Shadow adjustments for dark theme */
+body.dark-theme .hover:shadow-orange-500\/10:hover {
+    box-shadow: 0 25px 50px -12px rgba(251, 146, 60, 0.25) !important;
+}
+
+/* Dark theme toggle button */
+body.dark-theme #darkModeToggle {
+    background: rgba(255, 146, 60, 0.1);
+}
+body.dark-theme #darkModeToggle:hover {
+    background: rgba(255, 146, 60, 0.2);
+}
+
+/* Orange elements remain unchanged - all orange classes keep their colors */
+/* Note: Orange colors remain the same in dark theme - no additional styling needed */
+
+/* White text on orange backgrounds stays white */
+body.dark-theme .orange-section .text-white,
+body.dark-theme .bg-orange-600 .text-white,
+body.dark-theme .bg-orange-500 .text-white {
+    color: #ffffff !important;
+}
+
+/* Dark theme for form elements */
+body.dark-theme input,
+body.dark-theme textarea,
+body.dark-theme select {
+    background-color: #1a1a1a !important;
+    border-color: #3a3a3a !important;
+    color: #ffffff !important;
+}
+
+body.dark-theme input:focus,
+body.dark-theme textarea:focus,
+body.dark-theme select:focus {
+    border-color: #fb923c !important;
+}
+
+body.dark-theme #pcRepairsCta,
+body.dark-theme #pcRepairsCta i {
+    color: #000000 !important;
+}
+
+/* Dark theme for coverage results */
+body.dark-theme .bg-green-50 {
+    background-color: #064e3b !important;
+}
+
+body.dark-theme .bg-red-50 {
+    background-color: #7f1d1d !important;
+}
+
+body.dark-theme .border-green-200 {
+    border-color: #065f46 !important;
+}
+
+body.dark-theme .border-red-200 {
+    border-color: #991b1b !important;
+}
+
+body.dark-theme .text-green-800 {
+    color: #34d399 !important;
+}
+
+body.dark-theme .text-green-700 {
+    color: #6ee7b7 !important;
+}
+
+body.dark-theme .text-red-800 {
+    color: #f87171 !important;
+}
+
+body.dark-theme .text-red-700 {
+    color: #fca5a5 !important;
 }
