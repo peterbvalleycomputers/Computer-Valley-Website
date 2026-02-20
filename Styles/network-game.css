@@ -1,0 +1,118 @@
+/* ── Network Repair Mini-Game ── */
+.network-game-section {
+    position: relative;
+    background: linear-gradient(180deg, #0a0a0a 0%, #0a0a0a 50%, #000000 100%);
+    overflow: hidden;
+}
+
+.network-game-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 420px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(234, 88, 12, 0.2);
+    box-shadow:
+        0 0 40px rgba(234, 88, 12, 0.08),
+        0 20px 60px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #0a0a0a 0%, #000000 100%);
+}
+
+.network-game-container canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.network-game-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(234, 88, 12, 0.1);
+    border: 1px solid rgba(234, 88, 12, 0.25);
+    border-radius: 999px;
+    padding: 6px 16px;
+    margin-bottom: 16px;
+}
+
+.network-game-badge i {
+    color: #ea580c;
+    font-size: 14px;
+}
+
+.network-game-badge span {
+    color: #fb923c;
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.network-game-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    color: rgba(255, 255, 255, 0.35);
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+}
+
+.network-game-hint i {
+    color: rgba(234, 88, 12, 0.5);
+}
+
+/* Scanline overlay for retro-tech feel */
+.network-game-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.03) 2px,
+        rgba(0, 0, 0, 0.03) 4px
+    );
+    border-radius: 20px;
+}
+
+/* Corner decorations */
+.network-game-container::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border: 1px solid rgba(234, 88, 12, 0.06);
+    border-radius: 14px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .network-game-container {
+        height: 350px;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .network-game-container {
+        height: 300px;
+        border-radius: 12px;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .network-game-container {
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+}

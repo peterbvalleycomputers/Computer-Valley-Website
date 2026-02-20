@@ -1,0 +1,126 @@
+/* Testimonial Cards with Separate Colored Backgrounds */
+.testimonial-slide > div {
+    border-radius: 24px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin: 0 auto;
+    max-width: 600px;
+    transition: all 0.4s ease;
+}
+
+/* Dark background for contact form */
+.contact-form-dark {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%) !important;
+    border: 2px solid #374151 !important;
+    color: #ffffff !important;
+}
+
+.contact-form-dark input,
+.contact-form-dark textarea,
+.contact-form-dark select {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+}
+
+.contact-form-dark input::placeholder,
+.contact-form-dark textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.contact-form-dark button {
+    background: linear-gradient(135deg, #374151 0%, #1f2937 100%) !important;
+    border: 2px solid #374151 !important;
+    color: #ffffff !important;
+}
+
+.contact-form-dark button:hover {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%) !important;
+    border-color: #111827 !important;
+}
+
+/* Separate backgrounds for different testimonials */
+.testimonial-slide:nth-child(1) > div {
+    background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+    border: 2px solid #f59e0b;
+}
+
+.testimonial-slide:nth-child(2) > div {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 2px solid #3b82f6;
+}
+
+.testimonial-slide:nth-child(3) > div {
+    background: linear-gradient(135deg, #f0fdf4 0%, #d9f99d 100%);
+    border: 2px solid #10b981;
+}
+
+.testimonial-slide:nth-child(4) > div {
+    background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+    border: 2px solid #f59e0b;
+}
+
+.testimonial-slide:nth-child(5) > div {
+    background: linear-gradient(135deg, #f3e8ff 0%, #dbeafe 100%);
+    border: 2px solid #60a5fa;
+}
+
+.testimonial-slide:nth-child(6) > div {
+    background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+    border: 2px solid #f59e0b;
+}
+
+.testimonial-slide:nth-child(7) > div {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 2px solid #3b82f6;
+}
+
+.testimonial-slide:nth-child(8) > div {
+    background: linear-gradient(135deg, #f0fdf4 0%, #d9f99d 100%);
+    border: 2px solid #10b981;
+}
+
+.testimonial-slide:nth-child(9) > div {
+    background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+    border: 2px solid #f59e0b;
+}
+
+.testimonial-slide:nth-child(10) > div {
+    background: linear-gradient(135deg, #f3e8ff 0%, #dbeafe 100%);
+    border: 2px solid #60a5fa;
+}
+
+.testimonial-slide:nth-child(11) > div {
+    background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+    border: 2px solid #f59e0b;
+}
+
+.testimonial-slide:nth-child(12) > div {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 2px solid #3b82f6;
+}
+
+.testimonial-slide:nth-child(13) > div {
+    background: linear-gradient(135deg, #f0fdf4 0%, #d9f99d 100%);
+    border: 2px solid #10b981;
+}
+
+.testimonial-slide:nth-child(14) > div {
+    background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+    border: 2px solid #f59e0b;
+}
+
+.testimonial-slide:nth-child(15) > div {
+    background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+    border: 2px solid #f59e0b;
+}
+
+.testimonial-slide:nth-child(16) > div {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 2px solid #3b82f6;
+}
+
+.testimonial-slide:nth-child(17) > div {
+    background: linear-gradient(135deg, #f0fdf4 0%, #d9f99d 100%);
+    border: 2px solid #10b981;
+}

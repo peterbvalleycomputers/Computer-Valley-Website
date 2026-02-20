@@ -1,15 +1,38 @@
+// Scroll to top on page load/refresh
+window.scrollTo(0, 0);
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
 // Wait until the DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
+  const loader = document.getElementById('pageLoader');
+  const loaderSub = document.getElementById('pageLoaderSub');
+  const loaderStart = performance.now();
+  const isInternalNav = sessionStorage.getItem('internalNav');
+  sessionStorage.removeItem('internalNav');
+  if (loader && isInternalNav) {
+    loader.remove();
+  } else if (loader) {
+    document.body.classList.add('loader-lock');
+  }
   const nav = document.getElementById("mainNav");
 
-  // Scroll listener
+  // Scroll listener (rAF-throttled)
+  let scrollTicking = false;
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) { // adjust offset if needed
-      nav.classList.add("nav-scrolled");
-    } else {
-      nav.classList.remove("nav-scrolled");
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        if (window.scrollY > 50) {
+          nav.classList.add("nav-scrolled");
+        } else {
+          nav.classList.remove("nav-scrolled");
+        }
+        scrollTicking = false;
+      });
     }
-  });
+  }, {passive: true});
 
   AOS.init({
     duration: 900,
@@ -17,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     easing: "ease-out-cubic",
   });
 
-  // Morphing Cursor Implementation
+  // Morphing Cursor Implementation with gooey effect
   const cursor = document.getElementById("cursor");
   const amount = 20;
   const sineDots = Math.floor(amount * 0.3);
@@ -39,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
       this.range = width / 2 - width / 2 * this.scale + 2;
       this.limit = width * 0.75 * this.scale;
       this.element = document.createElement("span");
-      gsap.set(this.element, {scale: this.scale});
+      this.element.style.transform = `translate3d(0px,0px,0) scale(${this.scale})`;
       cursor.appendChild(this.element);
     }
 
@@ -50,23 +73,23 @@ document.addEventListener("DOMContentLoaded", () => {
       this.angleY = Math.PI * 2 * Math.random();
     }
 
-    draw(delta) {
+    draw() {
       if (!idle || this.index <= sineDots) {
-        gsap.set(this.element, {x: this.x, y: this.y});
+        this.element.style.transform = `translate3d(${this.x}px,${this.y}px,0) scale(${this.scale})`;
       } else {
         this.angleX += this.anglespeed;
         this.angleY += this.anglespeed;
         this.y = this.lockY + Math.sin(this.angleY) * this.range;
         this.x = this.lockX + Math.sin(this.angleX) * this.range;
-        gsap.set(this.element, {x: this.x, y: this.y});
+        this.element.style.transform = `translate3d(${this.x}px,${this.y}px,0) scale(${this.scale})`;
       }
     }
   }
 
   function init() {
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("touchmove", onTouchMove);
-    lastFrame += new Date();
+    window.addEventListener("mousemove", onMouseMove, {passive: true});
+    window.addEventListener("touchmove", onTouchMove, {passive: true});
+    lastFrame = performance.now();
     buildDots();
     render();
   }
@@ -99,9 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
     mousePosition.x = event.clientX - width / 2;
     mousePosition.y = event.clientY - width / 2;
     resetIdleTimer();
-    
-    // Update cursor color based on section
-    updateCursorColor(event);
   };
 
   const onTouchMove = event => {
@@ -111,134 +131,92 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const render = timestamp => {
-    const delta = timestamp - lastFrame;
-    positionCursor(delta);
+    positionCursor();
     lastFrame = timestamp;
     requestAnimationFrame(render);
   };
 
-  const positionCursor = delta => {
+  const positionCursor = () => {
     let x = mousePosition.x;
     let y = mousePosition.y;
-    dots.forEach((dot, index, dots) => {
-      let nextDot = dots[index + 1] || dots[0];
+    for (let i = 0; i < dots.length; i++) {
+      const dot = dots[i];
+      const nextDot = dots[i + 1] || dots[0];
       dot.x = x;
       dot.y = y;
-      dot.draw(delta);
-      if (!idle || index <= sineDots) {
-        const dx = (nextDot.x - dot.x) * 0.35;
-        const dy = (nextDot.y - dot.y) * 0.35;
-        x += dx;
-        y += dy;
+      dot.draw();
+      if (!idle || i <= sineDots) {
+        x += (nextDot.x - dot.x) * 0.35;
+        y += (nextDot.y - dot.y) * 0.35;
       }
-    });
-  };
-
-  // Cursor color change based on section
-  function updateCursorColor(e) {
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-    
-    // Check if cursor is over orange section
-    const elementBelow = document.elementFromPoint(mouseX, mouseY);
-    const orangeSection = elementBelow?.closest('.orange-section');
-    
-    // Special handling for navigation bar
-    const navBar = document.getElementById('mainNav');
-    const isOverNav = elementBelow?.closest('#mainNav') || navBar?.contains(elementBelow);
-    const isNavScrolled = navBar?.classList.contains('nav-scrolled');
-    
-    if (isOverNav && !isNavScrolled) {
-      // Navigation is transparent/has orange top bar
-      document.body.classList.add('cursor-on-orange');
-    } else if (isOverNav && isNavScrolled) {
-      // Navigation is white (scrolled)
-      document.body.classList.remove('cursor-on-orange');
-    } else if (orangeSection) {
-      // Other orange sections
-      document.body.classList.add('cursor-on-orange');
-    } else {
-      // White sections
-      document.body.classList.remove('cursor-on-orange');
     }
-  }
+  };
 
   init();
 
-  // Dark Theme Toggle Functionality
-  const darkModeToggle = document.getElementById('darkModeToggle');
-  const darkModeToggleMobile = document.getElementById('darkModeToggleMobile');
-  const themeIcon = document.getElementById('themeIcon');
-  const themeIconMobile = document.getElementById('themeIconMobile');
-  const body = document.body;
+  // Site is permanently dark themed.
+  document.body.classList.add('dark-theme');
 
-  // Check for saved theme preference or default to light mode
-  const currentTheme = localStorage.getItem('theme') || 'dark';
-  
-  if (currentTheme === 'dark') {
-    body.classList.add('dark-theme');
-    updateThemeIcons(true);
-  }
-
-  function toggleDarkMode() {
-    const isDark = body.classList.toggle('dark-theme');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    updateThemeIcons(isDark);
-  }
-
-  function updateThemeIcons(isDark) {
-    if (themeIcon) {
-      themeIcon.className = isDark ? 'fa-solid fa-sun text-white' : 'fa-solid fa-moon text-slate-700';
-    }
-    if (themeIconMobile) {
-      themeIconMobile.className = isDark ? 'fa-solid fa-sun text-white' : 'fa-solid fa-moon text-orange-400';
-    }
-  }
-
-  // Add event listeners for both desktop and mobile toggles
-  if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', toggleDarkMode);
-  }
-  if (darkModeToggleMobile) {
-    darkModeToggleMobile.addEventListener('click', toggleDarkMode);
-  }
-
-  // Mobile menu toggle function
-  function toggleMobileMenu() {
+  // Mobile menu functionality
+  function initMobileMenu() {
+    const menuToggle = document.getElementById("menuToggle");
     const mobileMenu = document.getElementById("mobileMenu");
     const menuIcon = document.getElementById("menuIcon");
     
-    mobileMenu.classList.toggle("-translate-x-full");
-    document.body.classList.toggle("menu-open");
-    
-    // Toggle menu icon
-    if (mobileMenu.classList.contains("-translate-x-full")) {
-      menuIcon.classList.remove("fa-times");
-      menuIcon.classList.add("fa-bars");
-    } else {
-      menuIcon.classList.remove("fa-bars");
-      menuIcon.classList.add("fa-times");
+    if (!menuToggle || !mobileMenu || !menuIcon) return;
+
+    // Toggle menu function
+    function toggleMenu() {
+      const isOpen = !mobileMenu.classList.contains('translate-x-full');
+      
+      // Toggle menu visibility with smooth transition
+      if (isOpen) {
+        mobileMenu.classList.add('translate-x-full');
+        document.body.classList.remove('overflow-hidden');
+        menuIcon.classList.remove('fa-xmark');
+        menuIcon.classList.add('fa-bars');
+      } else {
+        mobileMenu.classList.remove('translate-x-full');
+        document.body.classList.add('overflow-hidden');
+        menuIcon.classList.remove('fa-bars');
+        menuIcon.classList.add('fa-xmark');
+      }
     }
-  }
 
-  // Mobile menu toggle
-  const menuToggle = document.getElementById("menuToggle");
-
-  if (menuToggle) {
-    menuToggle.addEventListener("click", toggleMobileMenu);
-  }
-
-  // Close mobile menu when clicking a link
-  document.querySelectorAll("#mobileMenu a").forEach(link => {
-    link.addEventListener("click", () => {
-      const mobileMenu = document.getElementById("mobileMenu");
-      mobileMenu.classList.add("-translate-x-full");
-      document.body.classList.remove("menu-open");
-      const menuIcon = document.getElementById("menuIcon");
-      menuIcon.classList.remove("fa-times");
-      menuIcon.classList.add("fa-bars");
+    // Toggle menu on button click
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
     });
-  });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.classList.contains('translate-x-full') && 
+          !menuToggle.contains(e.target) && 
+          !mobileMenu.contains(e.target)) {
+        toggleMenu();
+      }
+    });
+
+    // Close menu when clicking on a link
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', toggleMenu);
+    });
+
+    // Close menu when pressing Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !mobileMenu.classList.contains('translate-x-full')) {
+        toggleMenu();
+      }
+    });
+  }
+
+  // Initialize mobile menu when DOM is loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
+  } else {
+    initMobileMenu();
+  }
 
   // Counter animation
   const counters = document.querySelectorAll('.counter');
@@ -246,20 +224,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const animateCounter = (counter) => {
     const target = +counter.getAttribute('data-target');
-    const increment = target / speed;
+    const duration = 1200; // ms
+    let start = null;
     
-    const updateCount = () => {
-      const count = +counter.innerText;
-      
-      if (count < target) {
-        counter.innerText = Math.ceil(count + increment);
-        setTimeout(updateCount, 1);
-      } else {
-        counter.innerText = target;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      // Ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = eased * target;
+      counter.innerText = progress < 1 ? Math.ceil(current) : target;
+      if (progress < 1) {
+        requestAnimationFrame(step);
       }
     };
     
-    updateCount();
+    requestAnimationFrame(step);
   };
 
   // Intersection Observer for counters
@@ -276,17 +256,17 @@ document.addEventListener("DOMContentLoaded", () => {
     counterObserver.observe(counter);
   });
 
-  // Testimonial Carousel functionality
+  // Testimonials Carousel
   let currentTestimonial = 0;
   const testimonials = document.querySelectorAll('.testimonial-slide');
   const totalTestimonials = testimonials.length;
   const testimonialTrack = document.getElementById('testimonialTrack');
-
+  
+  // Cache DOM elements and use CSS classes for better performance
   function updateTestimonialCarousel() {
     if (testimonialTrack) {
-      // Hide all testimonials first
+      // Hide all testimonials at once using CSS class
       testimonials.forEach(testimonial => {
-        testimonial.style.display = 'none';
         testimonial.classList.remove('active');
       });
       
@@ -294,47 +274,45 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let i = 0; i < 2 && (currentTestimonial + i) < totalTestimonials; i++) {
         const testimonial = testimonials[currentTestimonial + i];
         if (testimonial) {
-          testimonial.style.display = 'block';
           testimonial.classList.add('active');
         }
       }
       
-      // Update dots - calculate which pair we're showing
+      // Update dots more efficiently
       const currentPair = Math.floor(currentTestimonial / 2);
-      const dots = document.querySelectorAll('.testimonial-carousel .flex.justify-center button');
-      dots.forEach((dot, index) => {
-        if (index === currentPair) {
-          dot.classList.remove('bg-white/50');
-          dot.classList.add('bg-white');
-        } else {
-          dot.classList.remove('bg-white');
-          dot.classList.add('bg-white/50');
-        }
+      const navigationDots = document.querySelectorAll('.testimonial-carousel .flex.justify-center button');
+      navigationDots.forEach((dot, index) => {
+        dot.classList.toggle('bg-orange-500', index === currentPair);
+        dot.classList.toggle('bg-orange-500/35', index !== currentPair);
+        dot.classList.toggle('shadow-[0_0_12px_rgba(249,115,22,0.75)]', index === currentPair);
       });
     }
   }
 
-  function nextTestimonial() {
-    // Move to next pair (2 testimonials at a time)
-    const maxPairs = Math.ceil(totalTestimonials / 2);
-    currentTestimonial = (currentTestimonial + 2) % totalTestimonials;
-    updateTestimonialCarousel();
-  }
+  // Cap to even pairs so the last slide never shows a lone card
+  const maxStartIndex = totalTestimonials >= 2 ? (totalTestimonials - (totalTestimonials % 2)) - 2 : 0;
 
-  function previousTestimonial() {
-    // Move to previous pair (2 testimonials at a time)
-    currentTestimonial = (currentTestimonial - 2 + totalTestimonials) % totalTestimonials;
+  window.nextTestimonial = function nextTestimonial() {
+    currentTestimonial = currentTestimonial + 2;
+    if (currentTestimonial > maxStartIndex) currentTestimonial = 0;
     updateTestimonialCarousel();
-  }
+  };
 
-  function goToTestimonial(startIndex) {
-    // Go to specific testimonial (will show it and the next one)
+  window.previousTestimonial = function previousTestimonial() {
+    currentTestimonial = currentTestimonial - 2;
+    if (currentTestimonial < 0) currentTestimonial = maxStartIndex;
+    updateTestimonialCarousel();
+  };
+
+  window.goToTestimonial = function goToTestimonial(startIndex) {
     currentTestimonial = startIndex;
     updateTestimonialCarousel();
-  }
+  };
+
+  updateTestimonialCarousel();
 
   // Auto-rotate testimonials
-  setInterval(nextTestimonial, 5000);
+  setInterval(window.nextTestimonial, 5000);
 
   // Manual drag functionality for testimonials
   let isDown = false;
@@ -464,4 +442,246 @@ document.addEventListener("DOMContentLoaded", () => {
       "max-glare": 0.2,
     });
   }
+
+  // ── Hero Interactivity ──
+
+  // 1. Mouse-tracking glow that follows cursor inside hero
+  const heroSection = document.getElementById('hero');
+  const heroGlow = document.getElementById('heroGlow');
+  const heroOrbs = document.querySelectorAll('.hero-orb');
+
+  if (heroSection && heroGlow) {
+    heroSection.addEventListener('mouseenter', () => {
+      heroGlow.style.opacity = '1';
+    });
+    heroSection.addEventListener('mouseleave', () => {
+      heroGlow.style.opacity = '0';
+    });
+
+    let heroRAF = false;
+    heroSection.addEventListener('mousemove', (e) => {
+      if (heroRAF) return;
+      heroRAF = true;
+      requestAnimationFrame(() => {
+        const rect = heroSection.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        heroGlow.style.transform = `translate3d(${x - 300}px,${y - 300}px,0)`;
+
+        const cx = (x / rect.width - 0.5) * 2;
+        const cy = (y / rect.height - 0.5) * 2;
+        heroOrbs.forEach(orb => {
+          const speed = parseFloat(orb.dataset.speed) || 0.02;
+          const ox = cx * speed * rect.width;
+          const oy = cy * speed * rect.height;
+          orb.style.transform = `translate3d(${ox}px,${oy}px,0)`;
+        });
+        heroRAF = false;
+      });
+    }, {passive: true});
+  }
+
+  // 2. Typing text effect
+  const heroTyped = document.getElementById('heroTyped');
+  if (heroTyped) {
+    const phrases = ['Networks', 'Connections', 'Solutions', 'Infrastructure', 'Experiences'];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingSpeed = 100;
+
+    function typeHero() {
+      const current = phrases[phraseIndex];
+
+      if (isDeleting) {
+        heroTyped.textContent = current.substring(0, charIndex - 1);
+        charIndex--;
+        typingSpeed = 50;
+      } else {
+        heroTyped.textContent = current.substring(0, charIndex + 1);
+        charIndex++;
+        typingSpeed = 120;
+      }
+
+      if (!isDeleting && charIndex === current.length) {
+        typingSpeed = 2000; // pause at end
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        typingSpeed = 400; // pause before next word
+      }
+
+      setTimeout(typeHero, typingSpeed);
+    }
+
+    // Start typing after a short delay
+    setTimeout(typeHero, 800);
+  }
+
+  // 3. Tilt effect on stat badges
+  document.querySelectorAll('.hero-stat-badge').forEach(badge => {
+    badge.addEventListener('mousemove', (e) => {
+      const rect = badge.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      badge.style.transform = 'translateY(-2px) perspective(600px) rotateX(' + (-y * 8) + 'deg) rotateY(' + (x * 8) + 'deg)';
+    });
+    badge.addEventListener('mouseleave', () => {
+      badge.style.transform = '';
+    });
+  });
+
+  // ── WhatsApp Chat Widget ──
+  const waChatBtn = document.getElementById('waChatBtn');
+  const waChatPopup = document.getElementById('waChatPopup');
+  const waChatClose = document.getElementById('waChatClose');
+  const waChatBadge = document.getElementById('waChatBadge');
+  const waChatInput = document.getElementById('waChatInput');
+  const waChatSend = document.getElementById('waChatSend');
+  const waChatTime = document.getElementById('waChatTime');
+
+  if (waChatTime) {
+    const now = new Date();
+    waChatTime.textContent = now.toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  // Hide badge until button is revealed
+  if (waChatBadge) waChatBadge.style.display = 'none';
+
+  if (waChatBtn && waChatPopup) {
+    waChatBtn.addEventListener('click', () => {
+      waChatBtn.classList.add('is-visible');
+      const isOpen = waChatPopup.classList.toggle('is-open');
+      if (isOpen && waChatBadge) {
+        waChatBadge.style.display = 'none';
+      }
+    });
+
+    if (waChatClose) {
+      waChatClose.addEventListener('click', () => {
+        waChatPopup.classList.remove('is-open');
+      });
+    }
+
+    // Send custom message via WhatsApp
+    function sendWaMessage() {
+      const msg = waChatInput ? waChatInput.value.trim() : '';
+      if (msg) {
+        const encoded = encodeURIComponent(msg);
+        window.open('https://wa.me/27799381260?text=' + encoded, '_blank');
+        waChatInput.value = '';
+      }
+    }
+
+    if (waChatSend) waChatSend.addEventListener('click', sendWaMessage);
+    if (waChatInput) {
+      waChatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') sendWaMessage();
+      });
+    }
+
+    // Close popup when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#waChatWidget')) {
+        waChatPopup.classList.remove('is-open');
+      }
+    });
+
+    // Track if user has manually opened the chat
+    let userOpenedChat = false;
+    waChatBtn.addEventListener('click', () => { userOpenedChat = true; });
+
+    // Show button after 60 seconds, then auto-open popup after 2 minutes if not clicked
+    setTimeout(() => {
+      waChatBtn.classList.add('is-visible');
+      if (waChatBadge) waChatBadge.style.display = 'flex';
+    }, 60000);
+
+    setTimeout(() => {
+      if (!userOpenedChat && !waChatPopup.classList.contains('is-open')) {
+        waChatBtn.classList.add('is-visible');
+        waChatPopup.classList.add('is-open');
+        if (waChatBadge) waChatBadge.style.display = 'none';
+      }
+    }, 120000);
+  }
+
+  // ── Back to Top Button ──
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    let bttTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!bttTicking) {
+        bttTicking = true;
+        requestAnimationFrame(() => {
+          if (window.scrollY > 400) {
+            backToTop.classList.remove('opacity-0', 'invisible', 'translate-y-10');
+            backToTop.classList.add('opacity-100', 'visible', 'translate-y-0');
+          } else {
+            backToTop.classList.add('opacity-0', 'invisible', 'translate-y-10');
+            backToTop.classList.remove('opacity-100', 'visible', 'translate-y-0');
+          }
+          bttTicking = false;
+        });
+      }
+    }, {passive: true});
+  }
+
+  if (loader) {
+    const jokes = [
+      'Warming up the WiFi gremlins…',
+      'Untangling the ethernet spaghetti…',
+      'Convincing the computer to behave…',
+      'Polishing pixels and sharpening bits…',
+      'Checking if it\'s plugged in (again)…',
+      'Deploying tiny internet hamsters…',
+      'Teaching the modem new tricks…',
+      'Bribing the firewall with cookies…',
+      'Downloading more RAM (just kidding)…',
+      'Asking the cloud for directions…',
+      'Reticulating network splines…',
+      'Negotiating with the DNS gods…',
+      'Feeding the server hamsters…',
+      'Converting caffeine to code…',
+      'Rebooting the internet (hold tight)…',
+      'Counting packets… 1, 2, skip a few…',
+      'Waking up the backup generator…',
+      'Convincing electrons to move faster…',
+      'Updating the flux capacitor…',
+      'Defragmenting the cloud…',
+      'Pinging the mothership…',
+      'Calibrating the bandwidth thrusters…',
+      'Spinning up the fibre optics…',
+      'Whispering sweet nothings to the router…',
+      'Loading awesomeness at 99.9% uptime…',
+    ];
+
+    const picked = jokes[Math.floor(Math.random() * jokes.length)];
+    if (loaderSub) {
+      loaderSub.textContent = picked;
+    }
+
+    const minDuration = 3000;
+    const elapsed = performance.now() - loaderStart;
+    const remaining = Math.max(0, minDuration - elapsed);
+    setTimeout(() => {
+      loader.classList.add('is-hidden');
+      document.body.classList.remove('loader-lock');
+      setTimeout(() => {
+        loader.remove();
+      }, 500);
+    }, remaining);
+  }
+
+  // Mark internal link clicks so the loader is skipped on navigation
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (href && !href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('#')) {
+      sessionStorage.setItem('internalNav', '1');
+    }
+  });
 });

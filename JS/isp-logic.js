@@ -1,5 +1,15 @@
  // Wait until the DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
+  const loader = document.getElementById('pageLoader');
+  const loaderSub = document.getElementById('pageLoaderSub');
+  const loaderStart = performance.now();
+  const isInternalNav = sessionStorage.getItem('internalNav');
+  sessionStorage.removeItem('internalNav');
+  if (loader && isInternalNav) {
+    loader.remove();
+  } else if (loader) {
+    document.body.classList.add('loader-lock');
+  }
   const nav = document.getElementById("mainNav");
 
   // Morphing Cursor Implementation (same as homepage)
@@ -51,9 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function init() {
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("touchmove", onTouchMove);
-    lastFrame += new Date();
+    lastFrame = performance.now();
     buildDots();
-    render();
+    requestAnimationFrame(render);
   }
 
   function startIdleTimer() {
@@ -144,25 +154,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   init();
 
-  function applyThemeFromStorage() {
-    const currentTheme = localStorage.getItem('theme') || 'dark';
-    if (currentTheme === 'dark') {
-      document.body.classList.add('dark-theme');
-    } else {
-      document.body.classList.remove('dark-theme');
-    }
-  }
-
-  applyThemeFromStorage();
-
-  window.addEventListener('storage', (e) => {
-    if (e.key === 'theme') {
-      applyThemeFromStorage();
-    }
-  });
+  // Site is permanently dark themed.
+  document.body.classList.add('dark-theme');
 
   // Scroll listener
   window.addEventListener("scroll", () => {
+    if (!nav) return;
     if (window.scrollY > 50) {
       nav.classList.add("nav-scrolled");
     } else {
@@ -176,21 +173,22 @@ document.addEventListener("DOMContentLoaded", () => {
     easing: "ease-out-cubic",
   });
 
-  // Mobile menu toggle function
-  function toggleMobileMenu() {
+  // Mobile menu toggle function (exposed globally for inline onclick)
+  window.toggleMobileMenu = function toggleMobileMenu() {
     const mobileMenu = document.getElementById("mobileMenu");
     const menuIcon = document.getElementById("menuIcon");
+    if (!mobileMenu || !menuIcon) return;
     
-    mobileMenu.classList.toggle("-translate-x-full");
+    mobileMenu.classList.toggle("translate-x-full");
     document.body.classList.toggle("menu-open");
     
     // Toggle menu icon
-    if (mobileMenu.classList.contains("-translate-x-full")) {
-      menuIcon.classList.remove("fa-times");
+    if (mobileMenu.classList.contains("translate-x-full")) {
+      menuIcon.classList.remove("fa-xmark");
       menuIcon.classList.add("fa-bars");
     } else {
       menuIcon.classList.remove("fa-bars");
-      menuIcon.classList.add("fa-times");
+      menuIcon.classList.add("fa-xmark");
     }
   }
 
@@ -198,10 +196,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("#mobileMenu a").forEach(link => {
     link.addEventListener("click", () => {
       const mobileMenu = document.getElementById("mobileMenu");
-      mobileMenu.classList.add("-translate-x-full");
+      if (!mobileMenu) return;
+      mobileMenu.classList.add("translate-x-full");
       document.body.classList.remove("menu-open");
       const menuIcon = document.getElementById("menuIcon");
-      menuIcon.classList.remove("fa-times");
+      if (!menuIcon) return;
+      menuIcon.classList.remove("fa-xmark");
       menuIcon.classList.add("fa-bars");
     });
   });
@@ -210,5 +210,216 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("a, button, .cursor-pointer").forEach(el => {
     el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
     el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
+  });
+
+  // ── ISP Hero Interactivity ──
+
+  // 1. Mouse-tracking glow + parallax orbs
+  const ispHero = document.getElementById('isp-hero');
+  const ispGlow = document.getElementById('ispHeroGlow');
+  const ispOrbs = document.querySelectorAll('.isp-hero-orb');
+
+  if (ispHero && ispGlow) {
+    ispHero.addEventListener('mouseenter', () => {
+      ispGlow.style.opacity = '1';
+    });
+    ispHero.addEventListener('mouseleave', () => {
+      ispGlow.style.opacity = '0';
+    });
+    ispHero.addEventListener('mousemove', (e) => {
+      const rect = ispHero.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      ispGlow.style.left = (x - 300) + 'px';
+      ispGlow.style.top = (y - 300) + 'px';
+
+      const cx = (x / rect.width - 0.5) * 2;
+      const cy = (y / rect.height - 0.5) * 2;
+      ispOrbs.forEach(orb => {
+        const speed = parseFloat(orb.dataset.speed) || 0.02;
+        const ox = cx * speed * rect.width;
+        const oy = cy * speed * rect.height;
+        orb.style.transform = 'translate(' + ox + 'px, ' + oy + 'px)';
+      });
+    });
+  }
+
+  // 2. Animated speed counter (counts up to 10, loops through speeds)
+  const speedCounter = document.getElementById('ispSpeedCounter');
+  if (speedCounter) {
+    const speeds = [2, 4, 6, 8, 10];
+    let speedIdx = 0;
+
+    function animateSpeed() {
+      const target = speeds[speedIdx];
+      const duration = 1200;
+      const startTime = performance.now();
+      const startVal = 0;
+
+      function tick(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(startVal + (target - startVal) * eased);
+        speedCounter.textContent = current;
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          setTimeout(() => {
+            speedIdx = (speedIdx + 1) % speeds.length;
+            animateSpeed();
+          }, 2000);
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    setTimeout(animateSpeed, 600);
+  }
+
+  // 3. Tilt on coverage badges
+  document.querySelectorAll('.isp-coverage-badge').forEach(badge => {
+    badge.addEventListener('mousemove', (e) => {
+      const rect = badge.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      badge.style.transform = 'translateY(-2px) perspective(600px) rotateX(' + (-y * 8) + 'deg) rotateY(' + (x * 8) + 'deg)';
+    });
+    badge.addEventListener('mouseleave', () => {
+      badge.style.transform = '';
+    });
+  });
+
+  // 4. VanillaTilt on feature cards
+  if (typeof VanillaTilt !== 'undefined') {
+    VanillaTilt.init(document.querySelectorAll('.isp-feature-card'), {
+      max: 5,
+      speed: 400,
+      glare: true,
+      'max-glare': 0.1,
+    });
+  }
+
+  // ── WhatsApp Chat Widget ──
+  const waChatBtn = document.getElementById('waChatBtn');
+  const waChatPopup = document.getElementById('waChatPopup');
+  const waChatClose = document.getElementById('waChatClose');
+  const waChatBadge = document.getElementById('waChatBadge');
+  const waChatInput = document.getElementById('waChatInput');
+  const waChatSend = document.getElementById('waChatSend');
+  const waChatTime = document.getElementById('waChatTime');
+
+  if (waChatTime) {
+    const now = new Date();
+    waChatTime.textContent = now.toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  // Hide badge until button is revealed
+  if (waChatBadge) waChatBadge.style.display = 'none';
+
+  if (waChatBtn && waChatPopup) {
+    waChatBtn.addEventListener('click', () => {
+      waChatBtn.classList.add('is-visible');
+      const isOpen = waChatPopup.classList.toggle('is-open');
+      if (isOpen && waChatBadge) {
+        waChatBadge.style.display = 'none';
+      }
+    });
+
+    if (waChatClose) {
+      waChatClose.addEventListener('click', () => {
+        waChatPopup.classList.remove('is-open');
+      });
+    }
+
+    function sendWaMessage() {
+      const msg = waChatInput ? waChatInput.value.trim() : '';
+      if (msg) {
+        const encoded = encodeURIComponent(msg);
+        window.open('https://wa.me/27799381260?text=' + encoded, '_blank');
+        waChatInput.value = '';
+      }
+    }
+
+    if (waChatSend) waChatSend.addEventListener('click', sendWaMessage);
+    if (waChatInput) {
+      waChatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') sendWaMessage();
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#waChatWidget')) {
+        waChatPopup.classList.remove('is-open');
+      }
+    });
+
+    // Show button after 60 seconds, then auto-open popup
+    setTimeout(() => {
+      waChatBtn.classList.add('is-visible');
+      if (waChatBadge) waChatBadge.style.display = 'flex';
+      setTimeout(() => {
+        if (!waChatPopup.classList.contains('is-open')) {
+          waChatPopup.classList.add('is-open');
+          if (waChatBadge) waChatBadge.style.display = 'none';
+        }
+      }, 3000);
+    }, 60000);
+  }
+
+  // ── Back to Top Button ──
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTop.classList.remove('opacity-0', 'invisible', 'translate-y-10');
+        backToTop.classList.add('opacity-100', 'visible', 'translate-y-0');
+      } else {
+        backToTop.classList.add('opacity-0', 'invisible', 'translate-y-10');
+        backToTop.classList.remove('opacity-100', 'visible', 'translate-y-0');
+      }
+    });
+  }
+
+  if (loader) {
+    const jokes = [
+      'Negotiating with the router…',
+      'Shouting at the modem politely…',
+      'Finding the missing 1% uptime…',
+      'Aligning satellites (wink)…',
+      'Asking fibre to go faster…',
+      'Counting packets. All of them.',
+      'Waking up the bandwidth fairy…',
+      'Polishing the ethernet cables…',
+      'Convincing packets to stay in line…',
+      'Reticulating network splines…',
+    ];
+
+    const picked = jokes[Math.floor(Math.random() * jokes.length)];
+    if (loaderSub) {
+      loaderSub.textContent = picked;
+    }
+
+    const minDuration = 3000;
+    const elapsed = performance.now() - loaderStart;
+    const remaining = Math.max(0, minDuration - elapsed);
+    setTimeout(() => {
+      loader.classList.add('is-hidden');
+      document.body.classList.remove('loader-lock');
+      setTimeout(() => {
+        loader.remove();
+      }, 500);
+    }, remaining);
+  }
+
+  // Mark internal link clicks so the loader is skipped on navigation
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (href && !href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('#')) {
+      sessionStorage.setItem('internalNav', '1');
+    }
   });
 });
