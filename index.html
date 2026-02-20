@@ -430,30 +430,6 @@
           </a>
         </div>
 
-        <!-- Floating stat badges -->
-        <div class="flex flex-wrap justify-center gap-4 md:gap-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="hero-stat-badge">
-            <i class="fa-solid fa-signal text-orange-500/60 text-lg mb-1"></i>
-            <span class="text-2xl md:text-3xl font-black text-orange-500">99.9%</span>
-            <span class="text-xs text-white/50 uppercase tracking-wider font-semibold">Uptime</span>
-          </div>
-          <div class="hero-stat-badge">
-            <i class="fa-solid fa-users text-orange-500/60 text-lg mb-1"></i>
-            <span class="text-2xl md:text-3xl font-black text-orange-500">500+</span>
-            <span class="text-xs text-white/50 uppercase tracking-wider font-semibold">Happy Clients</span>
-          </div>
-          <div class="hero-stat-badge">
-            <i class="fa-solid fa-headset text-orange-500/60 text-lg mb-1"></i>
-            <span class="text-2xl md:text-3xl font-black text-orange-500">24/7</span>
-            <span class="text-xs text-white/50 uppercase tracking-wider font-semibold">Support</span>
-          </div>
-          <div class="hero-stat-badge">
-            <i class="fa-solid fa-gauge-high text-orange-500/60 text-lg mb-1"></i>
-            <span class="text-2xl md:text-3xl font-black text-orange-500">&lt;8min</span>
-            <span class="text-xs text-white/50 uppercase tracking-wider font-semibold">Response</span>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -594,44 +570,41 @@
         </div>
       </div>
 
-      <div class="grid md:grid-cols-4 gap-12">
-        <div class="text-center group hover:-translate-y-2 transition duration-300" data-aos="fade-up">
-          <div class="text-5xl font-black text-orange-600 mb-2 flex justify-center items-baseline">
-            <span class="counter" data-target="99.9">0</span>%
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5" data-aos="fade-up">
+        <div class="rounded-2xl bg-black text-white p-4 sm:p-6 border border-orange-500/25 shadow-xl shadow-orange-500/15 min-w-0">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs uppercase tracking-wider text-orange-300 font-bold">ISP Uptime</span>
+            <i class="fa-solid fa-signal text-orange-400"></i>
           </div>
-          <div
-            class="text-slate-500 font-bold uppercase text-xs tracking-widest group-hover:text-orange-600 transition">
-            ISP Uptime
-          </div>
-        </div>
-        <div class="text-center group hover:-translate-y-2 transition duration-300" data-aos="fade-up"
-          data-aos-delay="100">
-          <div class="text-5xl font-black text-orange-600 mb-2 flex justify-center items-baseline">
-            <span class="counter" data-target="15">0</span>k+
-          </div>
-          <div
-            class="text-slate-500 font-bold uppercase text-xs tracking-widest group-hover:text-orange-600 transition">
-            Repairs Done
+          <div class="text-3xl sm:text-4xl font-black leading-none text-orange-500">
+            <span class="counter" data-target="99.9">0</span><span class="text-xl sm:text-2xl">%</span>
           </div>
         </div>
-        <div class="text-center group hover:-translate-y-2 transition duration-300" data-aos="fade-up"
-          data-aos-delay="200">
-          <div class="text-5xl font-black text-orange-600 mb-2 flex justify-center items-baseline">
-            <span class="counter" data-target="24">0</span>/7
+        <div class="rounded-2xl bg-black text-white p-4 sm:p-6 border border-orange-500/25 shadow-xl shadow-orange-500/15 min-w-0" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs uppercase tracking-wider text-orange-300 font-bold">Happy Clients</span>
+            <i class="fa-solid fa-users text-orange-400"></i>
           </div>
-          <div
-            class="text-slate-500 font-bold uppercase text-xs tracking-widest group-hover:text-orange-600 transition">
-            Network Monitoring
+          <div class="text-3xl sm:text-4xl font-black leading-none text-orange-500">
+            <span class="counter" data-target="500">0</span><span class="text-xl sm:text-2xl">+</span>
           </div>
         </div>
-        <div class="text-center group hover:-translate-y-2 transition duration-300" data-aos="fade-up"
-          data-aos-delay="300">
-          <div class="text-5xl font-black text-orange-600 mb-2 flex justify-center items-baseline">
-            0<span class="counter" data-target="8">0</span>min
+        <div class="rounded-2xl bg-black text-white p-4 sm:p-6 border border-orange-500/25 shadow-xl shadow-orange-500/15 min-w-0" data-aos="fade-up" data-aos-delay="200">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs uppercase tracking-wider text-orange-300 font-bold">Support</span>
+            <i class="fa-solid fa-headset text-orange-400"></i>
           </div>
-          <div
-            class="text-slate-500 font-bold uppercase text-xs tracking-widest group-hover:text-orange-600 transition">
-            Avg Response
+          <div class="text-3xl sm:text-4xl font-black leading-none text-orange-500">
+            <span class="counter" data-target="24">0</span><span class="text-xl sm:text-2xl">/7</span>
+          </div>
+        </div>
+        <div class="rounded-2xl bg-black text-white p-4 sm:p-6 border border-orange-500/25 shadow-xl shadow-orange-500/15 min-w-0" data-aos="fade-up" data-aos-delay="300">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs uppercase tracking-wider text-orange-300 font-bold">Avg Response</span>
+            <i class="fa-solid fa-gauge-high text-orange-400"></i>
+          </div>
+          <div class="text-3xl sm:text-4xl font-black leading-none text-orange-500">
+            <span class="text-xl sm:text-2xl align-top">&lt;</span><span class="counter" data-target="8">0</span><span class="text-xl sm:text-2xl">min</span>
           </div>
         </div>
       </div>
