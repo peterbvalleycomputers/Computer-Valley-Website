@@ -403,6 +403,47 @@
       </div>
     </div>
   </section>
+  <!-- WhatsApp Live Chat Widget -->
+  <div class="wa-chat-widget" id="waChatWidget">
+    <div class="wa-chat-popup" id="waChatPopup">
+      <div class="wa-chat-header">
+        <div class="wa-chat-avatar"><i class="fa-brands fa-whatsapp"></i></div>
+        <div class="wa-chat-header-info">
+          <div class="wa-chat-header-name">Valley Computers Support</div>
+          <div class="wa-chat-header-status"><span class="wa-online-dot"></span> Typically replies within minutes</div>
+        </div>
+        <button class="wa-chat-close" id="waChatClose" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="wa-chat-body">
+        <div class="wa-chat-bubble">
+          <p class="wa-chat-bubble-text">Hi there! Need help with a question?</p>
+          <div class="wa-chat-bubble-time" id="waChatTime"></div>
+        </div>
+      </div>
+      <div class="wa-chat-actions">
+        <div class="wa-chat-actions-label">Quick replies</div>
+        <a class="wa-chat-quick-btn" href="https://wa.me/27799381260?text=Hi%2C%20I%27d%20like%20help%20with%20an%20FAQ%20question" target="_blank" rel="noopener noreferrer">
+          <i class="fa-solid fa-circle-question"></i> Help with FAQ
+        </a>
+        <a class="wa-chat-quick-btn" href="https://wa.me/27799381260?text=Hi%2C%20I%27d%20like%20to%20check%20internet%20coverage" target="_blank" rel="noopener noreferrer">
+          <i class="fa-solid fa-map-location-dot"></i> Coverage check
+        </a>
+        <a class="wa-chat-quick-btn" href="https://wa.me/27799381260?text=Hi%2C%20I%20need%20technical%20support" target="_blank" rel="noopener noreferrer">
+          <i class="fa-solid fa-screwdriver-wrench"></i> Technical support
+        </a>
+      </div>
+      <div class="wa-chat-input-row">
+        <input type="text" class="wa-chat-input" id="waChatInput" placeholder="Type a message...">
+        <button class="wa-chat-send" id="waChatSend" aria-label="Send message"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <div class="wa-chat-footer">Powered by WhatsApp &bull; End-to-end encrypted</div>
+    </div>
+    <button class="wa-chat-btn" id="waChatBtn" aria-label="Chat with us on WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span class="wa-chat-badge" id="waChatBadge">1</span>
+    </button>
+  </div>
+
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -532,6 +573,69 @@
 
     document.body.classList.add('dark-theme');
   </script>
+  <script>
+    (function() {
+      const waChatBtn = document.getElementById('waChatBtn');
+      const waChatPopup = document.getElementById('waChatPopup');
+      const waChatClose = document.getElementById('waChatClose');
+      const waChatBadge = document.getElementById('waChatBadge');
+      const waChatInput = document.getElementById('waChatInput');
+      const waChatSend = document.getElementById('waChatSend');
+      const waChatTime = document.getElementById('waChatTime');
+
+      if (!waChatBtn || !waChatPopup) return;
+
+      if (waChatTime) {
+        const now = new Date();
+        waChatTime.textContent = now.toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' });
+      }
+
+      if (waChatBadge) waChatBadge.style.display = 'none';
+
+      waChatBtn.addEventListener('click', () => {
+        waChatBtn.classList.add('is-visible');
+        const isOpen = waChatPopup.classList.toggle('is-open');
+        if (isOpen && waChatBadge) waChatBadge.style.display = 'none';
+      });
+
+      if (waChatClose) {
+        waChatClose.addEventListener('click', () => {
+          waChatPopup.classList.remove('is-open');
+        });
+      }
+
+      function sendWaMessage() {
+        const msg = waChatInput ? waChatInput.value.trim() : '';
+        if (!msg) return;
+        window.open('https://wa.me/27799381260?text=' + encodeURIComponent(msg), '_blank');
+        waChatInput.value = '';
+      }
+
+      if (waChatSend) waChatSend.addEventListener('click', sendWaMessage);
+      if (waChatInput) {
+        waChatInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') sendWaMessage();
+        });
+      }
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('#waChatWidget')) {
+          waChatPopup.classList.remove('is-open');
+        }
+      });
+
+      waChatBtn.classList.add('is-visible');
+      if (waChatBadge) waChatBadge.style.display = 'flex';
+
+      setTimeout(() => {
+        if (!waChatPopup.classList.contains('is-open')) {
+          waChatPopup.classList.add('is-open');
+          if (waChatBadge) waChatBadge.style.display = 'none';
+        }
+      }, 120000);
+    })();
+  </script>
+
 </body>
 
 </html>

@@ -355,17 +355,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Show button after 60 seconds, then auto-open popup
+    // Show button immediately; auto-open popup after 2 minutes if still unopened
+    waChatBtn.classList.add('is-visible');
+    if (waChatBadge) waChatBadge.style.display = 'flex';
+
     setTimeout(() => {
-      waChatBtn.classList.add('is-visible');
-      if (waChatBadge) waChatBadge.style.display = 'flex';
-      setTimeout(() => {
-        if (!waChatPopup.classList.contains('is-open')) {
-          waChatPopup.classList.add('is-open');
-          if (waChatBadge) waChatBadge.style.display = 'none';
-        }
-      }, 3000);
-    }, 60000);
+      if (!waChatPopup.classList.contains('is-open')) {
+        waChatPopup.classList.add('is-open');
+        if (waChatBadge) waChatBadge.style.display = 'none';
+      }
+    }, 120000);
   }
 
   // ── Back to Top Button ──

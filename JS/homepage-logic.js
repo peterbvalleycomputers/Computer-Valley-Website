@@ -593,11 +593,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let userOpenedChat = false;
     waChatBtn.addEventListener('click', () => { userOpenedChat = true; });
 
-    // Show button after 60 seconds, then auto-open popup after 2 minutes if not clicked
-    setTimeout(() => {
-      waChatBtn.classList.add('is-visible');
-      if (waChatBadge) waChatBadge.style.display = 'flex';
-    }, 60000);
+    // Show button immediately; auto-open after 2 minutes if user has not engaged yet
+    waChatBtn.classList.add('is-visible');
+    if (waChatBadge) waChatBadge.style.display = 'flex';
 
     setTimeout(() => {
       if (!userOpenedChat && !waChatPopup.classList.contains('is-open')) {
