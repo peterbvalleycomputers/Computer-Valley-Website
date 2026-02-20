@@ -40,9 +40,15 @@ document.addEventListener("DOMContentLoaded", () => {
     easing: "ease-out-cubic",
   });
 
+  document.body.classList.add('custom-cursor-enabled');
+
   // Morphing Cursor Implementation with gooey effect
   const cursor = document.getElementById("cursor");
-  const amount = 20;
+  const customCursorEnabled = document.body.classList.contains('custom-cursor-enabled');
+  if (!customCursorEnabled) {
+    if (cursor) cursor.remove();
+  } else {
+  const amount = 12;
   const sineDots = Math.floor(amount * 0.3);
   const width = 26;
   const idleTimeout = 150;
@@ -153,6 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   init();
+  }
 
   // Site is permanently dark themed.
   document.body.classList.add('dark-theme');
@@ -165,28 +172,38 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if (!menuToggle || !mobileMenu || !menuIcon) return;
 
-    // Toggle menu function
-    function toggleMenu() {
-      const isOpen = !mobileMenu.classList.contains('translate-x-full');
-      
-      // Toggle menu visibility with smooth transition
-      if (isOpen) {
-        mobileMenu.classList.add('translate-x-full');
-        document.body.classList.remove('overflow-hidden');
-        menuIcon.classList.remove('fa-xmark');
-        menuIcon.classList.add('fa-bars');
-      } else {
+    function closeMenuDetails() {
+      mobileMenu.querySelectorAll('details[open]').forEach((detailsEl) => {
+        detailsEl.removeAttribute('open');
+      });
+    }
+
+    function setMenuOpen(open) {
+      if (open) {
         mobileMenu.classList.remove('translate-x-full');
-        document.body.classList.add('overflow-hidden');
+        document.body.classList.add('menu-open');
         menuIcon.classList.remove('fa-bars');
         menuIcon.classList.add('fa-xmark');
+        menuToggle.setAttribute('aria-expanded', 'true');
+      } else {
+        mobileMenu.classList.add('translate-x-full');
+        document.body.classList.remove('menu-open');
+        menuIcon.classList.remove('fa-xmark');
+        menuIcon.classList.add('fa-bars');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        closeMenuDetails();
       }
+    }
+
+    window.toggleMobileMenu = function toggleMobileMenu() {
+      const isOpen = !mobileMenu.classList.contains('translate-x-full');
+      setMenuOpen(!isOpen);
     }
 
     // Toggle menu on button click
     menuToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      toggleMenu();
+      window.toggleMobileMenu();
     });
 
     // Close menu when clicking outside
@@ -194,19 +211,26 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!mobileMenu.classList.contains('translate-x-full') && 
           !menuToggle.contains(e.target) && 
           !mobileMenu.contains(e.target)) {
-        toggleMenu();
+        setMenuOpen(false);
       }
     });
 
     // Close menu when clicking on a link
     document.querySelectorAll('#mobileMenu a').forEach(link => {
-      link.addEventListener('click', toggleMenu);
+      link.addEventListener('click', () => setMenuOpen(false));
     });
 
     // Close menu when pressing Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !mobileMenu.classList.contains('translate-x-full')) {
-        toggleMenu();
+        setMenuOpen(false);
+      }
+    });
+
+    // Ensure menu is closed when returning to desktop layout.
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024 && !mobileMenu.classList.contains('translate-x-full')) {
+        setMenuOpen(false);
       }
     });
   }

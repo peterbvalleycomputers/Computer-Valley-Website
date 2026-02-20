@@ -11,10 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add('loader-lock');
   }
   const nav = document.getElementById("mainNav");
+  document.body.classList.add('custom-cursor-enabled');
 
   // Morphing Cursor Implementation (same as homepage)
   const cursor = document.getElementById("cursor");
-  const amount = 20;
+  const customCursorEnabled = document.body.classList.contains('custom-cursor-enabled');
+  if (!customCursorEnabled) {
+    if (cursor) cursor.remove();
+  } else {
+  const amount = 12;
   const sineDots = Math.floor(amount * 0.3);
   const width = 26;
   const idleTimeout = 150;
@@ -34,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
       this.range = width / 2 - width / 2 * this.scale + 2;
       this.limit = width * 0.75 * this.scale;
       this.element = document.createElement("span");
-      gsap.set(this.element, {scale: this.scale});
+      this.element.style.transform = `translate3d(0px,0px,0) scale(${this.scale})`;
       cursor.appendChild(this.element);
     }
 
@@ -47,13 +52,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     draw(delta) {
       if (!idle || this.index <= sineDots) {
-        gsap.set(this.element, {x: this.x, y: this.y});
+        this.element.style.transform = `translate3d(${this.x}px,${this.y}px,0) scale(${this.scale})`;
       } else {
         this.angleX += this.anglespeed;
         this.angleY += this.anglespeed;
         this.y = this.lockY + Math.sin(this.angleY) * this.range;
         this.x = this.lockX + Math.sin(this.angleX) * this.range;
-        gsap.set(this.element, {x: this.x, y: this.y});
+        this.element.style.transform = `translate3d(${this.x}px,${this.y}px,0) scale(${this.scale})`;
       }
     }
   }
@@ -153,6 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   init();
+  }
 
   // Site is permanently dark themed.
   document.body.classList.add('dark-theme');
@@ -173,37 +179,54 @@ document.addEventListener("DOMContentLoaded", () => {
     easing: "ease-out-cubic",
   });
 
+  function closeMobileMenuDetails() {
+    document.querySelectorAll("#mobileMenu details[open]").forEach((detailsEl) => {
+      detailsEl.removeAttribute("open");
+    });
+  }
+
+  function setMobileMenuOpen(open) {
+    const mobileMenu = document.getElementById("mobileMenu");
+    const menuIcon = document.getElementById("menuIcon");
+    const menuToggle = document.getElementById("menuToggle");
+    if (!mobileMenu || !menuIcon) return;
+
+    if (open) {
+      mobileMenu.classList.remove("translate-x-full");
+      document.body.classList.add("menu-open");
+      menuIcon.classList.remove("fa-bars");
+      menuIcon.classList.add("fa-xmark");
+      if (menuToggle) menuToggle.setAttribute("aria-expanded", "true");
+    } else {
+      mobileMenu.classList.add("translate-x-full");
+      document.body.classList.remove("menu-open");
+      menuIcon.classList.remove("fa-xmark");
+      menuIcon.classList.add("fa-bars");
+      if (menuToggle) menuToggle.setAttribute("aria-expanded", "false");
+      closeMobileMenuDetails();
+    }
+  }
+
   // Mobile menu toggle function (exposed globally for inline onclick)
   window.toggleMobileMenu = function toggleMobileMenu() {
     const mobileMenu = document.getElementById("mobileMenu");
-    const menuIcon = document.getElementById("menuIcon");
-    if (!mobileMenu || !menuIcon) return;
-    
-    mobileMenu.classList.toggle("translate-x-full");
-    document.body.classList.toggle("menu-open");
-    
-    // Toggle menu icon
-    if (mobileMenu.classList.contains("translate-x-full")) {
-      menuIcon.classList.remove("fa-xmark");
-      menuIcon.classList.add("fa-bars");
-    } else {
-      menuIcon.classList.remove("fa-bars");
-      menuIcon.classList.add("fa-xmark");
-    }
+    if (!mobileMenu) return;
+    const isOpen = !mobileMenu.classList.contains("translate-x-full");
+    setMobileMenuOpen(!isOpen);
   }
 
   // Close mobile menu when clicking a link
   document.querySelectorAll("#mobileMenu a").forEach(link => {
     link.addEventListener("click", () => {
-      const mobileMenu = document.getElementById("mobileMenu");
-      if (!mobileMenu) return;
-      mobileMenu.classList.add("translate-x-full");
-      document.body.classList.remove("menu-open");
-      const menuIcon = document.getElementById("menuIcon");
-      if (!menuIcon) return;
-      menuIcon.classList.remove("fa-xmark");
-      menuIcon.classList.add("fa-bars");
+      setMobileMenuOpen(false);
     });
+  });
+
+  window.addEventListener("resize", () => {
+    const mobileMenu = document.getElementById("mobileMenu");
+    if (window.innerWidth >= 1024 && mobileMenu && !mobileMenu.classList.contains("translate-x-full")) {
+      setMobileMenuOpen(false);
+    }
   });
 
   // Hover effect

@@ -2,6 +2,8 @@
 (function () {
   const canvas = document.getElementById('packetGameCanvas');
   if (!canvas) return;
+  const gameSection = document.getElementById('packet-game');
+  if (gameSection && gameSection.style.display === 'none') return;
   const ctx = canvas.getContext('2d');
 
   // UI elements
@@ -47,6 +49,10 @@
   let particles = [];
   let bgStars = [];
   let frameCount = 0;
+  let elapsedTime = 0;
+  let obstacleSpawnTimer = 0;
+  let boostSpawnTimer = 0;
+  let lastTimestamp = 0;
   let shakeAmount = 0;
   let keys = {};
 
@@ -72,6 +78,10 @@
     score = 0;
     speedMultiplier = 1;
     frameCount = 0;
+    elapsedTime = 0;
+    obstacleSpawnTimer = 0;
+    boostSpawnTimer = 0;
+    lastTimestamp = 0;
     shakeAmount = 0;
     player = { x: 80, y: H / 2, vy: 0, trail: [] };
     obstacles = [];
@@ -82,17 +92,24 @@
   }
 
   function startGame() {
+    if (running) return;
+    cancelAnimationFrame(animFrame);
     resetGame();
     running = true;
     overlay.style.display = 'none';
     hud.style.opacity = '1';
-    gameLoop();
+    animFrame = requestAnimationFrame(gameLoop);
   }
 
   function endGame() {
     running = false;
     cancelAnimationFrame(animFrame);
+    animFrame = null;
     hud.style.opacity = '0';
+
+    // Remove stale share button from previous runs.
+    const existingWA = overScreen.querySelector('.whatsapp-share-btn');
+    if (existingWA) existingWA.remove();
 
     // Update scores
     const isNewHigh = score > bestScore;
@@ -110,10 +127,6 @@
 
     // Add WhatsApp button if new high score
     if (isNewHigh && score > 0) {
-      // Remove existing WhatsApp button if any
-      const existingWA = overScreen.querySelector('.whatsapp-share-btn');
-      if (existingWA) existingWA.remove();
-
       const waBtn = document.createElement('button');
       waBtn.className = 'whatsapp-share-btn bg-gradient-to-r from-green-600 to-green-500 text-white px-6 py-2.5 rounded-lg font-bold hover:scale-105 transition-all duration-200 shadow-lg shadow-green-600/30 flex items-center gap-2 mx-auto mt-4';
       waBtn.innerHTML = '<i class="fa-brands fa-whatsapp text-lg"></i>Share High Score!';
@@ -210,9 +223,10 @@
   }
 
   // Update
-  function update() {
-    frameCount++;
-    score = Math.floor(frameCount / 3);
+  function update(dtScale, dtSeconds) {
+    frameCount += dtScale;
+    elapsedTime += dtSeconds;
+    score = Math.floor(elapsedTime * 20);
 
     // Player movement
     const moveSpeed = 5;
@@ -224,23 +238,32 @@
       player.vy *= 0.85;
     }
 
-    player.y += player.vy;
+    player.y += player.vy * dtScale;
 
     // Trail
     player.trail.push({ x: player.x, y: player.y, alpha: 1 });
     if (player.trail.length > 15) player.trail.shift();
 
     // Spawn obstacles
-    const spawnRate = Math.max(60 - Math.floor(speedMultiplier * 10), 30);
-    if (frameCount % spawnRate === 0) spawnObstacle();
+    const spawnRateFrames = Math.max(60 - Math.floor(speedMultiplier * 10), 30);
+    const spawnIntervalSec = spawnRateFrames / 60;
+    obstacleSpawnTimer += dtSeconds;
+    while (obstacleSpawnTimer >= spawnIntervalSec) {
+      spawnObstacle();
+      obstacleSpawnTimer -= spawnIntervalSec;
+    }
 
     // Spawn boosts
-    if (frameCount % 180 === 0) spawnBoost();
+    boostSpawnTimer += dtSeconds;
+    while (boostSpawnTimer >= 3) {
+      spawnBoost();
+      boostSpawnTimer -= 3;
+    }
 
     // Move obstacles
     const baseSpeed = 3 * speedMultiplier;
     obstacles.forEach(obs => {
-      obs.x -= baseSpeed;
+      obs.x -= baseSpeed * dtScale;
       if (!obs.passed && obs.x + obs.w < player.x) {
         obs.passed = true;
       }
@@ -249,24 +272,24 @@
 
     // Move boosts
     boosts.forEach(b => {
-      b.x -= baseSpeed;
-      b.pulse += 0.1;
+      b.x -= baseSpeed * dtScale;
+      b.pulse += 0.1 * dtScale;
     });
     boosts = boosts.filter(b => b.x > -20);
 
     // Update particles
     particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.life -= p.decay;
-      p.vx *= 0.96;
-      p.vy *= 0.96;
+      p.x += p.vx * dtScale;
+      p.y += p.vy * dtScale;
+      p.life -= p.decay * dtScale;
+      p.vx *= Math.pow(0.96, dtScale);
+      p.vy *= Math.pow(0.96, dtScale);
     });
     particles = particles.filter(p => p.life > 0);
 
     // Update stars
     bgStars.forEach(s => {
-      s.x -= s.speed * speedMultiplier;
+      s.x -= s.speed * speedMultiplier * dtScale;
       if (s.x < 0) {
         s.x = W;
         s.y = Math.random() * H;
@@ -275,11 +298,11 @@
 
     // Speed decay
     if (speedMultiplier > 1) {
-      speedMultiplier = Math.max(1, speedMultiplier - 0.002);
+      speedMultiplier = Math.max(1, speedMultiplier - 0.002 * dtScale);
     }
 
     // Shake decay
-    if (shakeAmount > 0) shakeAmount *= 0.9;
+    if (shakeAmount > 0) shakeAmount *= Math.pow(0.9, dtScale);
 
     // Check collisions
     checkBoosts();
@@ -461,9 +484,14 @@
     ctx.closePath();
   }
 
-  function gameLoop() {
+  function gameLoop(timestamp) {
     if (!running) return;
-    update();
+    if (!lastTimestamp) lastTimestamp = timestamp;
+    const deltaMs = Math.min(50, timestamp - lastTimestamp);
+    lastTimestamp = timestamp;
+    const dtScale = deltaMs / (1000 / 60);
+    const dtSeconds = deltaMs / 1000;
+    update(dtScale, dtSeconds);
     draw();
     animFrame = requestAnimationFrame(gameLoop);
   }
@@ -488,6 +516,7 @@
   // Controls
   document.addEventListener('keydown', e => {
     if (['ArrowUp', 'ArrowDown', 'w', 'W', 's', 'S'].includes(e.key)) {
+      if (!running) return;
       e.preventDefault();
       keys[e.key] = true;
     }
@@ -534,6 +563,14 @@
     keys['ArrowDown'] = false;
   });
 
+  window.addEventListener('blur', () => {
+    keys = {};
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) keys = {};
+  });
+
   // Buttons
   startBtn.addEventListener('click', startGame);
   retryBtn.addEventListener('click', startGame);
@@ -548,3 +585,4 @@
     }
   });
 })();
+

@@ -38,6 +38,27 @@ input, textarea, select, button, a {
     transform: translate(-50%, -50%);
 }
 
+/* Default pointer stays hidden so the custom cursor is used. */
+*:not(.Cursor):not(.Cursor *) {
+    cursor: none !important;
+}
+
+input, textarea, select, button, a {
+    cursor: none !important;
+}
+
+.Cursor {
+    display: block !important;
+}
+
+body.custom-cursor-enabled * {
+    cursor: none !important;
+}
+
+body.custom-cursor-enabled .Cursor {
+    display: block !important;
+}
+
 /* Orange cursor on white sections */
 .cursor-on-orange .Cursor span {
     background-color: #ea580c;
@@ -557,7 +578,7 @@ body.loader-lock {
     }
 
     body.dark-theme .top-bar {
-      background-color: #000000 !important;
+      background-color: #ea580c !important;
       border-bottom-color: #333333 !important;
     }
 

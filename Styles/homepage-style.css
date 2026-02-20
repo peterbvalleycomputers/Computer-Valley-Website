@@ -52,6 +52,27 @@ input, textarea, select, button, a {
     transform: translateZ(0);
 }
 
+/* Default pointer stays hidden so the custom cursor is used. */
+*:not(.Cursor):not(.Cursor *) {
+    cursor: none !important;
+}
+
+input, textarea, select, button, a {
+    cursor: none !important;
+}
+
+.Cursor {
+    display: block !important;
+}
+
+body.custom-cursor-enabled * {
+    cursor: none !important;
+}
+
+body.custom-cursor-enabled .Cursor {
+    display: block !important;
+}
+
 body.loader-lock {
     overflow: hidden;
 }
@@ -937,7 +958,7 @@ body.dark-theme .nav-scrolled {
 
 /* Top utility bar dark theme */
 body.dark-theme .top-bar {
-    background-color: #000000 !important;
+    background-color: #ea580c !important;
     border-bottom-color: #333333 !important;
 }
 

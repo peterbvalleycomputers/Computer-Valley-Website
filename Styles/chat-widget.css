@@ -333,7 +333,7 @@
 
     .wa-chat-popup {
         width: calc(100vw - 20px);
-        right: -8px;
+        right: 0;
         bottom: 64px;
     }
 

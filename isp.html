@@ -257,16 +257,13 @@
         <a href="index.html" class="hover:text-orange-600 transition">Home</a>
         <a href="index.html#services" class="hover:text-orange-600 transition">Services</a>
         <a href="index.html#testimonials" class="hover:text-orange-600 transition">Success Stories</a>
-        <div class="relative group">
-          <button type="button"
-            class="hover:text-orange-600 transition inline-flex items-center gap-2 focus:outline-none focus:text-orange-600"
-            aria-haspopup="true" aria-expanded="false">
-            Contact Us
+        <div class="relative group inline-flex items-center gap-2">
+          <a href="contact.html" class="hover:text-orange-600 transition">Contact Us</a>
+          <button type="button" class="hover:text-orange-600 transition inline-flex items-center focus:outline-none focus:text-orange-600" aria-label="Open FAQ menu" aria-haspopup="true" aria-expanded="false">
             <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180"></i>
           </button>
           <div
             class="absolute left-0 top-full mt-3 w-52 bg-neutral-900 border border-orange-500/20 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50 overflow-hidden">
-            <a href="contact.html" class="block px-4 py-3 text-white hover:bg-orange-500/10 hover:text-orange-400 transition">Contact Us</a>
             <a href="faq.html" class="block px-4 py-3 text-white hover:bg-orange-500/10 hover:text-orange-400 transition">FAQ</a>
           </div>
         </div>
@@ -276,7 +273,7 @@
         </a>
       </div>
       <!-- Mobile Menu Button -->
-      <button id="menuToggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu"
+      <button id="menuToggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu" aria-expanded="false"
         class="block lg:hidden text-2xl z-50 relative focus:outline-none">
         <i id="menuIcon" class="fa-solid fa-bars text-white transition-all duration-300"></i>
       </button>
@@ -292,16 +289,17 @@
       class="hover:text-orange-500 transition transform hover:scale-110">Services</a>
     <a href="index.html#testimonials" onclick="toggleMobileMenu()"
       class="hover:text-orange-500 transition transform hover:scale-110">Success Stories</a>
-    <details class="w-full max-w-xs text-center">
-      <summary class="list-none hover:text-orange-500 transition transform hover:scale-110 inline-flex items-center gap-2 justify-center">
-        Contact Us
-        <i class="fa-solid fa-chevron-down text-sm"></i>
-      </summary>
-      <div class="mt-4 flex flex-col items-center gap-4 text-xl">
-        <a href="contact.html" onclick="toggleMobileMenu()" class="hover:text-orange-500 transition transform hover:scale-110">Contact Us</a>
-        <a href="faq.html" onclick="toggleMobileMenu()" class="hover:text-orange-500 transition transform hover:scale-110">FAQ</a>
-      </div>
-    </details>
+    <div class="flex items-center justify-center gap-3 w-full max-w-xs">
+      <a href="contact.html" onclick="toggleMobileMenu()" class="hover:text-orange-500 transition transform hover:scale-110">Contact Us</a>
+      <details>
+        <summary class="list-none hover:text-orange-500 transition transform hover:scale-110 inline-flex items-center justify-center">
+          <i class="fa-solid fa-chevron-down text-sm"></i>
+        </summary>
+        <div class="mt-4 flex flex-col items-center gap-4 text-xl">
+          <a href="faq.html" onclick="toggleMobileMenu()" class="hover:text-orange-500 transition transform hover:scale-110">FAQ</a>
+        </div>
+      </details>
+    </div>
     <a href="#contact" onclick="toggleMobileMenu()"
       class="text-orange-500 hover:text-orange-400 transition transform hover:scale-110">Get Connected</a>
   </div>
