@@ -45,7 +45,7 @@ input, textarea, select, button, a {
     width: 26px;
     height: 26px;
     border-radius: 20px;
-    background-color: white;
+    background-color: #ea580c;
     transform-origin: center center;
     will-change: transform;
     backface-visibility: hidden;

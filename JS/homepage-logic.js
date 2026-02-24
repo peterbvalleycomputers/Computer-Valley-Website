@@ -40,7 +40,14 @@ document.addEventListener("DOMContentLoaded", () => {
     easing: "ease-out-cubic",
   });
 
-  document.body.classList.add('custom-cursor-enabled');
+  const supportsCustomCursor = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (supportsCustomCursor) {
+    document.body.classList.add('custom-cursor-enabled');
+  } else {
+    document.body.classList.remove('custom-cursor-enabled');
+    const touchCursor = document.getElementById("cursor");
+    if (touchCursor) touchCursor.remove();
+  }
 
   // Morphing Cursor Implementation with gooey effect
   const cursor = document.getElementById("cursor");
@@ -677,7 +684,7 @@ document.addEventListener("DOMContentLoaded", () => {
       'Calibrating the bandwidth thrusters…',
       'Spinning up the fibre optics…',
       'Whispering sweet nothings to the router…',
-      'Loading awesomeness at 99.9% uptime…',
+      'Loading awesomeness at 99% uptime…',
     ];
 
     const picked = jokes[Math.floor(Math.random() * jokes.length)];
@@ -707,3 +714,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+

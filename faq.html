@@ -408,7 +408,7 @@
         <div class="wa-chat-avatar"><i class="fa-brands fa-whatsapp"></i></div>
         <div class="wa-chat-header-info">
           <div class="wa-chat-header-name">Valley Computers Support</div>
-          <div class="wa-chat-header-status"><span class="wa-online-dot"></span> Typically replies within minutes</div>
+          <div class="wa-chat-header-status"><span class="wa-online-dot"></span> Typically replies same day</div>
         </div>
         <button class="wa-chat-close" id="waChatClose" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button>
       </div>
@@ -590,7 +590,14 @@
     });
 
     document.body.classList.add('dark-theme');
-    document.body.classList.add('custom-cursor-enabled');
+    const supportsCustomCursor = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (supportsCustomCursor) {
+      document.body.classList.add('custom-cursor-enabled');
+    } else {
+      document.body.classList.remove('custom-cursor-enabled');
+      const touchCursor = document.getElementById('cursor');
+      if (touchCursor) touchCursor.remove();
+    }
   </script>
   <script>
     (function() {
@@ -658,3 +665,4 @@
 </body>
 
 </html>
+

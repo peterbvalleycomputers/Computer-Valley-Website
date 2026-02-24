@@ -11,7 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add('loader-lock');
   }
   const nav = document.getElementById("mainNav");
-  document.body.classList.add('custom-cursor-enabled');
+  const supportsCustomCursor = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (supportsCustomCursor) {
+    document.body.classList.add('custom-cursor-enabled');
+  } else {
+    document.body.classList.remove('custom-cursor-enabled');
+    const touchCursor = document.getElementById("cursor");
+    if (touchCursor) touchCursor.remove();
+  }
 
   // Morphing Cursor Implementation (same as homepage)
   const cursor = document.getElementById("cursor");
@@ -445,3 +452,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+

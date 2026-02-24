@@ -33,7 +33,7 @@ input, textarea, select, button, a {
     width: 26px;
     height: 26px;
     border-radius: 20px;
-    background-color: white;
+    background-color: #ea580c;
     transform-origin: center center;
     transform: translate(-50%, -50%);
 }
@@ -66,7 +66,7 @@ body.custom-cursor-enabled .Cursor {
 
 /* Black theme cursor colors */
 body.dark-theme .Cursor span {
-    background-color: white;
+    background-color: #ea580c;
 }
 
 body.dark-theme.cursor-on-orange .Cursor span {
