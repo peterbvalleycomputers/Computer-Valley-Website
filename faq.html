@@ -76,14 +76,14 @@
     <div class="top-bar bg-orange-600 text-white text-xs border-b border-orange-500/20 relative z-20 transition-all duration-300">
       <div class="max-w-7xl mx-auto px-6 h-10 flex justify-between items-center">
         <div class="hidden md:flex items-center space-x-6">
-          <span class="flex items-center">
+          <a href="https://maps.google.com/?q=6%20Church%20Rd%2C%20Riebeek-Kasteel%2C%207307" target="_blank" rel="noopener noreferrer" class="flex items-center hover:opacity-80 transition">
             <i class="fa-solid fa-location-dot mr-2"></i>
             Riebeek Kasteel, Western Cape
-          </span>
-          <span class="flex items-center">
+          </a>
+          <a href="contact.html" class="flex items-center hover:opacity-80 transition">
             <i class="fa-regular fa-envelope mr-2"></i>
-            <a href="mailto:info@valley-computers.co.za" class="hover:opacity-80 transition">info@valley-computers.co.za</a>
-          </span>
+            info@valley-computers.co.za
+          </a>
         </div>
         <div class="flex items-center justify-between w-full md:w-auto space-x-0 md:space-x-6">
           <a href="tel:+27799381260" class="flex items-center hover:opacity-80 transition font-semibold">
@@ -109,7 +109,6 @@
         <a href="index.html" class="hover:text-orange-600 transition">Home</a>
         <a href="index.html#services" class="hover:text-orange-600 transition">Services</a>
         <a href="isp.html" class="hover:text-orange-600 transition">ISP</a>
-        <a href="index.html#testimonials" class="hover:text-orange-600 transition">Success Stories</a>
         <div class="relative group inline-flex items-center gap-2">
           <a href="contact.html" class="hover:text-orange-600 transition text-orange-600">Contact Us</a>
           <button type="button" class="hover:text-orange-600 transition inline-flex items-center focus:outline-none text-orange-600" aria-label="Open FAQ menu" aria-haspopup="true" aria-expanded="false">
@@ -120,13 +119,11 @@
             <a href="faq.html" class="block px-4 py-3 text-orange-600 bg-orange-50">FAQ</a>
           </div>
         </div>
-        <a href="isp.html#contact"
-          class="bg-orange-600 text-white px-8 py-3 rounded-full hover:bg-orange-700 transition shadow-lg shadow-orange-600/20 hover:shadow-orange-600/40 transform hover:-translate-y-1">Partner With Us</a>
       </div>
 
       <button id="menuToggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu" aria-expanded="false"
         class="block lg:hidden text-2xl z-50 relative focus:outline-none">
-        <i id="menuIcon" class="fa-solid fa-bars text-white transition-all duration-300"></i>
+        <i id="menuIcon" class="fa-solid fa-bars transition-all duration-300"></i>
       </button>
     </div>
   </nav>
@@ -136,7 +133,6 @@
     <a href="index.html" onclick="toggleMobileMenu()" class="hover:text-orange-500 transition transform hover:scale-110">Home</a>
     <a href="index.html#services" onclick="toggleMobileMenu()" class="hover:text-orange-500 transition transform hover:scale-110">Services</a>
     <a href="isp.html" onclick="toggleMobileMenu()" class="hover:text-orange-500 transition transform hover:scale-110">ISP</a>
-    <a href="index.html#testimonials" onclick="toggleMobileMenu()" class="hover:text-orange-500 transition transform hover:scale-110">Success Stories</a>
     <div class="flex items-center justify-center gap-3 w-full max-w-xs">
       <a href="contact.html" onclick="toggleMobileMenu()" class="text-orange-500 transition transform hover:scale-110">Contact Us</a>
       <details>
@@ -148,7 +144,6 @@
         </div>
       </details>
     </div>
-    <a href="isp.html#contact" onclick="toggleMobileMenu()" class="text-orange-500 hover:text-orange-400 transition transform hover:scale-110">Partner With Us</a>
   </div>
 
   <section class="orange-section relative pt-40 pb-24 bg-black overflow-hidden">
@@ -190,7 +185,7 @@
             <span class="font-bold text-white">2. Which areas do you cover?</span>
             <i class="faq-icon fa-solid fa-plus text-orange-400 transition-transform duration-300"></i>
           </summary>
-          <p class="text-slate-300 mt-4">Our core coverage is Riebeek Kasteel, nearby valley areas, and surrounding regions. Contact us for a quick coverage check.</p>
+          <p class="text-slate-300 mt-4">Our core coverage includes Riebeek Kasteel, the surrounding valley areas, and the greater Swartland region.</p>
         </details>
         <details class="faq-item px-4 py-5 md:px-6">
           <summary class="flex items-center justify-between gap-6 text-left">
@@ -211,14 +206,14 @@
             <span class="font-bold text-white">5. How long does installation take?</span>
             <i class="faq-icon fa-solid fa-plus text-orange-400 transition-transform duration-300"></i>
           </summary>
-          <p class="text-slate-300 mt-4">Typical installations are completed within a few working days after approval, depending on area readiness and schedule availability.</p>
+          <p class="text-slate-300 mt-4">Typical installations are completed within a few working days after approval, often same day, depending on area readiness and schedule availability.</p>
         </details>
         <details class="faq-item px-4 py-5 md:px-6">
           <summary class="flex items-center justify-between gap-6 text-left">
             <span class="font-bold text-white">6. Do you offer uncapped internet?</span>
             <i class="faq-icon fa-solid fa-plus text-orange-400 transition-transform duration-300"></i>
           </summary>
-          <p class="text-slate-300 mt-4">Yes, we offer uncapped packages. Plan options vary by medium (fibre or wireless) and location.</p>
+          <p class="text-slate-300 mt-4">Yes, we offer uncapped packages.</p>
         </details>
         <details class="faq-item px-4 py-5 md:px-6">
           <summary class="flex items-center justify-between gap-6 text-left">
@@ -665,4 +660,3 @@
 </body>
 
 </html>
-

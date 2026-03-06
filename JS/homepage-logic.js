@@ -49,13 +49,30 @@ document.addEventListener("DOMContentLoaded", () => {
     if (touchCursor) touchCursor.remove();
   }
 
-  // Morphing Cursor Implementation with gooey effect
+  // Morphing Cursor Implementation with adaptive performance mode
   const cursor = document.getElementById("cursor");
   const customCursorEnabled = document.body.classList.contains('custom-cursor-enabled');
   if (!customCursorEnabled) {
     if (cursor) cursor.remove();
   } else {
-  const amount = 12;
+  const cpuThreads = navigator.hardwareConcurrency || 4;
+  const deviceMemory = navigator.deviceMemory || 4;
+  // Full cursor mode only on clearly high-end devices.
+  const isLiteCursorMode = !(cpuThreads >= 10 && deviceMemory >= 8);
+  document.body.classList.toggle('cursor-lite', isLiteCursorMode);
+  const gooBlurNode = document.querySelector('#goo feGaussianBlur');
+  const gooMatrixNode = document.querySelector('#goo feColorMatrix');
+  if (gooBlurNode && gooMatrixNode) {
+    if (isLiteCursorMode) {
+      gooBlurNode.setAttribute('stdDeviation', '4.5');
+      gooMatrixNode.setAttribute('values', '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 28 -12');
+    } else {
+      gooBlurNode.setAttribute('stdDeviation', '6');
+      gooMatrixNode.setAttribute('values', '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15');
+    }
+  }
+
+  const amount = isLiteCursorMode ? 7 : 10;
   const sineDots = Math.floor(amount * 0.3);
   const width = 26;
   const idleTimeout = 150;
@@ -144,6 +161,16 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const render = timestamp => {
+    const frameBudget = isLiteCursorMode ? 16 : 12;
+    // Use adaptive frame budget: smoother on high-end, still bounded on lite mode.
+    if (timestamp && lastFrame && timestamp - lastFrame < frameBudget) {
+      requestAnimationFrame(render);
+      return;
+    }
+    if (document.hidden) {
+      requestAnimationFrame(render);
+      return;
+    }
     positionCursor();
     lastFrame = timestamp;
     requestAnimationFrame(render);
@@ -410,7 +437,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Coverage Checker functionality
-  const coverageForm = document.querySelector('form');
+  const coverageForm = document.getElementById('coverageForm');
   const coverageResult = document.getElementById('coverage-result');
   
   if (coverageForm) {
@@ -464,6 +491,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Newsletter signup (mailto fallback for static hosting)
+  const newsletterForm = document.getElementById('newsletterForm');
+  const newsletterEmail = document.getElementById('newsletterEmail');
+  const newsletterMessage = document.getElementById('newsletterMessage');
+
+  if (newsletterForm && newsletterEmail) {
+    newsletterForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = newsletterEmail.value.trim();
+
+      if (!email || !newsletterEmail.checkValidity()) {
+        if (newsletterMessage) {
+          newsletterMessage.textContent = 'Please enter a valid email address.';
+          newsletterMessage.classList.remove('text-green-400');
+          newsletterMessage.classList.add('text-red-400');
+        }
+        newsletterEmail.focus();
+        return;
+      }
+
+      if (newsletterMessage) {
+        newsletterMessage.textContent = 'Thanks! Opening your email app to confirm signup.';
+        newsletterMessage.classList.remove('text-red-400');
+        newsletterMessage.classList.add('text-green-400');
+      }
+
+      const subject = encodeURIComponent('Mailing List Signup');
+      const body = encodeURIComponent('Please add this email to the Riebeek Valley Computers mailing list:\n\n' + email);
+      window.location.href = 'mailto:info@valley-computers.co.za?subject=' + subject + '&body=' + body;
+      newsletterForm.reset();
+    });
+  }
+
   // Tilt.js init for service cards
   if (typeof VanillaTilt !== 'undefined') {
     VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
@@ -499,6 +559,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const y = e.clientY - rect.top;
 
         heroGlow.style.transform = `translate3d(${x - 300}px,${y - 300}px,0)`;
+
+        if (document.body.classList.contains('cursor-lite')) {
+          heroRAF = false;
+          return;
+        }
 
         const cx = (x / rect.width - 0.5) * 2;
         const cy = (y / rect.height - 0.5) * 2;

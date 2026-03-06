@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | Riebeek Valley Computers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles/homepage-style.css">
+  <style>
+    body.no-custom-cursor *, body.no-custom-cursor *::before, body.no-custom-cursor *::after { cursor: auto !important; }
+  </style>
+  <script src="./js/auth-client.js" defer></script>
+  <script src="./js/admin-page.js" defer></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 dark-theme no-custom-cursor">
+  <nav class="fixed w-full z-50 transition-all duration-300" id="mainNav">
+    <div class="top-bar bg-orange-600 text-white text-xs border-b border-orange-500/20 relative z-20 transition-all duration-300">
+      <div class="max-w-7xl mx-auto px-6 h-10 flex justify-between items-center">
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="https://maps.google.com/?q=6%20Church%20Rd%2C%20Riebeek-Kasteel%2C%207307" target="_blank" rel="noopener noreferrer" class="flex items-center hover:opacity-80 transition">
+            <i class="fa-solid fa-location-dot mr-2"></i>
+            Riebeek Kasteel, Western Cape
+          </a>
+          <a href="contact.html" class="flex items-center hover:opacity-80 transition">
+            <i class="fa-regular fa-envelope mr-2"></i>
+            info@valley-computers.co.za
+          </a>
+        </div>
+        <div class="flex items-center justify-between w-full md:w-auto space-x-0 md:space-x-6">
+          <a href="tel:+27799381260" class="flex items-center hover:opacity-80 transition font-semibold">
+            <i class="fa-solid fa-phone mr-2"></i>
+            <span class="hidden sm:inline">Call Us:</span>
+            <span class="ml-2">079 938 1260</span>
+          </a>
+          <div class="w-px h-3 bg-orange-500 mx-3 md:hidden"></div>
+          <a href="https://wa.me/27799381260" class="flex items-center hover:opacity-80 transition font-semibold">
+            <i class="fa-brands fa-whatsapp mr-2 text-lg"></i>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center py-6 transition-all duration-300" id="innerNav">
+      <a href="index.html" class="text-3xl font-extrabold tracking-tighter cursor-pointer z-50 relative logo-container">
+        <span class="logo-rv">VALLEY</span><span class="logo-text text-black">COMPUTERS</span>
+      </a>
+      <div class="hidden lg:flex space-x-10 items-center font-semibold text-slate-700" id="navLinks">
+        <a href="index.html" class="hover:text-orange-600 transition">Home</a>
+        <a href="index.html#services" class="hover:text-orange-600 transition">Services</a>
+        <a href="isp.html" class="hover:text-orange-600 transition">ISP</a>
+        <a href="contact.html" class="hover:text-orange-600 transition">Contact Us</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-5xl mx-auto px-4 py-8 pt-44">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+      <h1 class="text-3xl font-bold"><span class="text-orange-500">RVC</span> Admin Panel</h1>
+      <div class="flex items-center gap-3">
+        <a href="/" class="px-4 py-2 rounded-lg border border-slate-600 hover:bg-slate-800">Website</a>
+        <button id="adminLogout" class="px-4 py-2 rounded-lg bg-orange-600 text-white hover:bg-orange-500">Logout</button>
+      </div>
+    </div>
+
+    <p id="adminStatus" class="mb-6 text-sm text-slate-300"></p>
+
+    <section class="bg-slate-900 rounded-xl border border-slate-700 p-5 mb-6">
+      <h2 class="text-xl font-semibold mb-3">User Stats</h2>
+      <ul id="adminStats" class="space-y-1 text-slate-300"></ul>
+    </section>
+
+    <section class="bg-slate-900 rounded-xl border border-slate-700 p-5">
+      <h2 class="text-xl font-semibold mb-3">Users</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-slate-700 text-left">
+              <th class="py-2 px-3">Name</th>
+              <th class="py-2 px-3">Email</th>
+              <th class="py-2 px-3">Role</th>
+              <th class="py-2 px-3">Created</th>
+            </tr>
+          </thead>
+          <tbody id="adminUsers"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script>
+    const nav = document.getElementById("mainNav");
+    window.addEventListener("scroll", () => {
+      if (!nav) return;
+      if (window.scrollY > 50) nav.classList.add("nav-scrolled");
+      else nav.classList.remove("nav-scrolled");
+    }, { passive: true });
+  </script>
+</body>
+</html>

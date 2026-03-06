@@ -13,6 +13,15 @@ svg#cursorFilter {
 
 html {
     scroll-behavior: smooth;
+    -ms-overflow-style: none; /* IE/old Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none; /* Chrome/Safari/Opera */
 }
 
 * {
@@ -37,6 +46,13 @@ input, textarea, select, button, a {
     will-change: transform;
     mix-blend-mode: difference;
     filter: url("#goo");
+}
+
+/* Lower-cost cursor rendering for animation-heavy pages/devices */
+body.cursor-lite .Cursor {
+    mix-blend-mode: difference;
+    filter: url("#goo");
+    opacity: 0.92;
 }
 
 .Cursor span {
