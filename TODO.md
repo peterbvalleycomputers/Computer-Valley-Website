@@ -1,5 +1,3 @@
-# MERN Migration TODO
-
 - [x] Analyze existing project structure and backend capabilities
 - [x] Scaffold React client in `client/`
 - [x] Add React dependencies (react-router-dom)
@@ -10,3 +8,7 @@
 - [x] Update server CORS and static behavior for React client compatibility
 - [x] Build client to ensure compile success
 - [x] Summarize migration and run instructions
+
+
+
+
