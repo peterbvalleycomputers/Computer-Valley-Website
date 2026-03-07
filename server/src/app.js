@@ -40,10 +40,11 @@ export function createApp() {
   app.use("/api/auth", authRoutes);
   app.use("/api/admin", adminRoutes);
 
-  app.use(express.static(projectRoot));
+  const clientDistPath = path.join(projectRoot, "client", "dist");
+  app.use(express.static(clientDistPath));
 
   app.get("*", (_, res) => {
-    res.sendFile(path.join(projectRoot, "index.html"));
+    res.sendFile(path.join(clientDistPath, "index.html"));
   });
 
   return app;
